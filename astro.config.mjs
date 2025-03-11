@@ -9,7 +9,9 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   integrations: [vue()],
 
+  server: { port: 8080 },
+
   vite: {
-    plugins: [tailwindcss()]
-  }
+    plugins: [tailwindcss()],
+  },
 });
