@@ -1,0 +1,10 @@
+---
+description: Styling pages and components
+globs: *.astro, *.vue, *.scss, *.css
+alwaysApply: false
+---
+
+# Your rule content
+
+- Always use Tailwind classes for styling HTML elements; avoid using CSS, SCSS or style attributes unless absolutely necessary.
+- When necessary to include style tags, use scss where possible.

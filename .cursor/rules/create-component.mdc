@@ -1,0 +1,7 @@
+---
+description: Create new component, refactor component, update component
+globs: *.astro, *.vue
+alwaysApply: false
+---
+- Static components should be created in .astro files
+- Dynamic components should be created in .vue files

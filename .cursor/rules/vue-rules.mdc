@@ -1,0 +1,8 @@
+---
+description: 
+globs: *.vue
+alwaysApply: false
+---
+- Use Vue composition API instead of Options API in Vue files and Pinia stores
+- Vue SFCs should have the following format: script then template then, if needed, style.
+

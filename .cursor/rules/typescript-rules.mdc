@@ -1,0 +1,8 @@
+---
+description: Rules for TypeScript
+globs: *.ts, *.tsx, *.d.ts, *.astro, *.vue
+alwaysApply: false
+---
+- Use types instead of interfaces
+- Add types to .d.ts files
+
