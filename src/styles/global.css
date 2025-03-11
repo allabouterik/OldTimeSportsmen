@@ -1,1 +1,112 @@
 @import "tailwindcss";
+
+@theme {  
+  /* Breakpoints */
+  --breakpoint-sm: initial;
+  --breakpoint-md: initial;
+  --breakpoint-lg: initial;
+  --breakpoint-xl: 1366px;
+  --breakpoint-2xl: 1920px;
+
+  /* Colors */
+  --color-*: initial;
+  --color-brown-dark: #4d3c2a;
+  --color-cream: #ebe7e1;
+  --color-cream-light: #ebe0c0;
+  --color-gold: #e3c570;
+  --color-green-gray: #929b8a;
+  --color-green-olive: #53513f;
+
+  --color-black: #000;
+  --color-white: #fff;
+  --color-transparent: transparent;
+
+  /* Fonts */
+  --font-adobe-caslon: 'Adobe Caslon Pro', 'Caslon', 'serif';
+  --font-bembo: 'Bembo', 'Bembo Std', 'Georgia', 'serif';
+  --font-francois-one: 'Francois One', 'system-ui', 'sans-serif';
+  --font-garage-gothic: 'Garage Gothic', 'Oswald', 'sans-serif';
+  --font-poppins: 'Poppins', 'system-ui', 'sans-serif';
+  --font-sans: 'system-ui', 'sans-serif';
+
+  /* Font Sizes */
+  --text-13px: 0.8125rem; /* 13px */
+  --text-14px: 0.875rem; /* 14px */
+  --text-15px: 0.9375rem; /* 15px */
+  --text-16px: 1rem; /* 16px */
+  --text-20px: 1.25rem; /* 20px */
+  --text-22px: 1.375rem; /* 22px */
+  --text-32px: 2rem; /* 32px */  
+  --text-34px: 2.125rem; /* 34px */
+  --text-48px: 3rem; /* 48px */
+  --text-52px: 3.25rem; /* 52px */
+
+  /* Line Heights */
+  --line-height-bembo: 1.129;
+  --line-height-bembo-book: 1.2;
+  --line-height-bembo-ipad: 1.2;
+  --line-height-bembo-mobile: 1.129;
+  --line-height-caslon: 1.2;
+  --line-height-francois-book: 1.396;
+  --line-height-francois-gallery: 1.396;
+  --line-height-francois-mobile: 1.267;
+  --line-height-tight-custom: 1.058;
+
+  /* Padding */
+  --padding-20-32: 20px 32px;
+  --padding-32-20-24: 32px 20px 24px;
+
+  /* Gap */
+  --gap-10px: 0.625rem; /* 10px */
+  --gap-24px: 1.5rem; /* 24px */
+
+  /* Letter Spacing */
+  --letter-spacing-wide: 0.02em; /* 2% */
+  --letter-spacing-wider: 0.03em; /* 3% */
+
+  /* Border Width */
+  --border-width-sm: 1px;
+  --border-width-md: 2px;
+  --border-width-lg: 4px;
+
+  /* Box Shadow */
+  --shadow-md: 4px 0px 6px 0px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 4px 4px 6px 4px rgba(0, 0, 0, 0.25);
+  --shadow-inset: inset 0px 2px 8px 4px rgba(0, 0, 0, 0.17);
+  --shadow-menu: 4px 4px 6px 2px rgba(0, 0, 0, 0.15);
+  --shadow-text: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+
+  /* Transition */
+  --transition-duration-fast: 0.1s;
+  --transition-duration-medium: 0.2s;
+  --transition-duration-slow: 0.3s;
+}
+
+@font-face {
+  font-family: 'Garage Gothic';
+  src: 
+    local('Garage Gothic'),
+    local('GarageGothic'),
+    local('GarageGothic-Regular'),
+    url('/fonts/garage-gothic/garage-gothic-regular.woff2') format('woff2'),
+    url('/fonts/garage-gothic/garage-gothic-regular.woff') format('woff'),
+    url('/fonts/garage-gothic/garage-gothic-regular.ttf') format('truetype');
+		/* font-weight: 500; */
+		font-style: normal;
+		font-weight: normal;
+		font-display: swap;
+}
+
+@font-face {
+  font-family: 'Garage Gothic';
+  src: 
+    local('Garage Gothic Bold'),
+    local('GarageGothicBold'),
+    local('GarageGothic-Bold'),
+    url('/fonts/garage-gothic/garage-gothic-bold.woff2') format('woff2'),
+    url('/fonts/garage-gothic/garage-gothic-bold.woff') format('woff'),
+    url('/fonts/garage-gothic/garage-gothic-bold.ttf') format('truetype');
+		font-style: normal;
+		font-weight: bold;
+		font-display: swap;
+}
