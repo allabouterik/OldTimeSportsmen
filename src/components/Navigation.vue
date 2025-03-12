@@ -3,9 +3,7 @@
 <template>
   <nav class="relative">
     <!-- Top Navigation Bar -->
-    <div
-      class="flex justify-between items-center bg-[#E5DFD0] border-b-2 border-"
-    >
+    <div class="flex justify-between items-center border-b-2 border-">
       <!-- Home Menu Item -->
       <div class="flex items-center px-8 py-2">
         <a
