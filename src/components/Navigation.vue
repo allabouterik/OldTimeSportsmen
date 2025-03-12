@@ -1,27 +1,39 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+import houseWithSmokeImage from '@/assets/images/house-with-smoke.png';
+import houseWithoutSmokeImage from '@/assets/images/house-without-smoke.png';
+import homeSweetHomeImage from '@/assets/images/home-sweet-home.png';
+
+const isHouseWithSmoke = ref(false);
+</script>
 
 <template>
   <nav class="relative">
     <!-- Top Navigation Bar -->
-    <div class="flex justify-between items-center border-b-2 border-">
+    <div class="flex justify-between items-center border-b-2">
       <!-- Home Menu Item -->
-      <div class="flex items-center px-8 py-2">
-        <a
-          href="/"
-          class="flex items-center"
-        >
-          <img
-            src="/images/house-icon.png"
-            alt="Home Icon"
-            class="h-8 mr-3"
-          />
-          <img
-            src="/images/home-sweet-home.png"
-            alt="Home Sweet Home"
-            class="h-6"
-          />
-        </a>
-      </div>
+      <!-- <div class="flex items-center px-8 py-2 hover:cursor-pointer"> -->
+      <a
+        href="/"
+        class="flex h-[85px] items-center px-8 hover:cursor-pointer"
+        @mouseenter="isHouseWithSmoke = true"
+        @mouseleave="isHouseWithSmoke = false"
+      >
+        <img
+          :src="
+            isHouseWithSmoke
+              ? houseWithSmokeImage.src
+              : houseWithoutSmokeImage.src
+          "
+          alt="Home Icon"
+          class="w-[115px] self-end mr-3"
+        />
+        <img
+          :src="homeSweetHomeImage.src"
+          alt="Home Sweet Home"
+          class="h-[34px] self-end mb-4"
+        />
+      </a>
 
       <!-- Main Navigation Items -->
       <div class="flex">
