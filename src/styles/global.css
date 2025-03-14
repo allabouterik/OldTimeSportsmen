@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {  
+@theme {
   /* Breakpoints */
   --breakpoint-sm: initial;
   --breakpoint-md: initial;
@@ -82,31 +82,43 @@
   --transition-duration-slow: 0.3s;
 }
 
+/* Fonts */
 @font-face {
   font-family: 'Garage Gothic';
-  src: 
+  src:
     local('Garage Gothic'),
     local('GarageGothic'),
     local('GarageGothic-Regular'),
     url('/fonts/garage-gothic/garage-gothic-regular.woff2') format('woff2'),
     url('/fonts/garage-gothic/garage-gothic-regular.woff') format('woff'),
     url('/fonts/garage-gothic/garage-gothic-regular.ttf') format('truetype');
-		/* font-weight: 500; */
-		font-style: normal;
-		font-weight: normal;
-		font-display: swap;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Garage Gothic';
-  src: 
+  src:
     local('Garage Gothic Bold'),
     local('GarageGothicBold'),
     local('GarageGothic-Bold'),
     url('/fonts/garage-gothic/garage-gothic-bold.woff2') format('woff2'),
     url('/fonts/garage-gothic/garage-gothic-bold.woff') format('woff'),
     url('/fonts/garage-gothic/garage-gothic-bold.ttf') format('truetype');
-		font-style: normal;
-		font-weight: bold;
-		font-display: swap;
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Francois One';
+  src:
+    local('Francois One'),
+    local('FrancoisOne'),
+    local('FrancoisOne-Regular'),
+    url('/fonts/francois_one/FrancoisOne-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
 }
