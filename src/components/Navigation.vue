@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import houseWithSmokeImage from '@/assets/images/house-with-smoke.png';
 import houseWithoutSmokeImage from '@/assets/images/house-without-smoke.png';
-import homeSweetHomeImage from '@/assets/images/home-sweet-home.png';
 import DesktopNavSubMenu from '@/components/DesktopNavSubMenu.vue';
 
 const isHouseWithSmoke = ref(false);
@@ -127,7 +126,7 @@ const activeLevel3NavItem = ref<number | null>(null);
       <!-- Home Menu Item -->
       <a
         href="/"
-        class="flex h-[85px] items-center ml-8 px-8 py-1 hover:cursor-pointer"
+        class="flex h-[85px] items-center ml-8 px-8 py-1 hover:cursor-pointer text-black hover:text-gold"
         @mouseenter="isHouseWithSmoke = true"
         @mouseleave="isHouseWithSmoke = false"
       >
@@ -140,11 +139,10 @@ const activeLevel3NavItem = ref<number | null>(null);
           alt="Home Icon"
           class="w-[115px] self-end mr-1"
         />
-        <img
-          :src="homeSweetHomeImage.src"
-          alt="Home Sweet Home"
-          class="h-[34px] self-end mb-3"
-        />
+        <span
+          class="inline-block font-garage-gothic text-5xl leading-none font-medium mt-5 text-shadow"
+          >HOME SWEET HOME</span
+        >
       </a>
 
       <!-- Main Navigation Items -->
