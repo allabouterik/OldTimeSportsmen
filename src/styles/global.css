@@ -74,12 +74,20 @@
   --shadow-lg: 4px 4px 6px 4px rgba(0, 0, 0, 0.25);
   --shadow-inset: inset 0px 2px 8px 4px rgba(0, 0, 0, 0.17);
   --shadow-menu: 4px 4px 6px 2px rgba(0, 0, 0, 0.15);
-  --shadow-text: 0px 2px 4px 0px rgba(0, 0, 0, 0.15);
+
+  /* Text Shadow */
+  --shadow-text: 0px 2px 4px rgba(0, 0, 0, 0.15);
+
 
   /* Transition */
   --transition-duration-fast: 0.1s;
   --transition-duration-medium: 0.2s;
   --transition-duration-slow: 0.3s;
+}
+
+/* Utilities */
+@utility text-shadow {
+  text-shadow: var(--shadow-text);
 }
 
 /* Fonts */

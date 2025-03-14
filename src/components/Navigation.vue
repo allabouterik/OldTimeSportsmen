@@ -3,18 +3,81 @@ import { ref } from 'vue';
 import houseWithSmokeImage from '@/assets/images/house-with-smoke.png';
 import houseWithoutSmokeImage from '@/assets/images/house-without-smoke.png';
 import homeSweetHomeImage from '@/assets/images/home-sweet-home.png';
+import DesktopNavSubMenu from '@/components/DesktopNavSubMenu.vue';
 
 const isHouseWithSmoke = ref(false);
 
-const navItems = [
+export type NavItem = {
+  label: string;
+  href?: string;
+  bgColor?: string;
+  subNavItems?: NavItem[];
+};
+
+const navItems: NavItem[] = [
   {
     label: 'POSTAL GALLERY',
     href: '/gallery',
     bgColor: 'bg-green-olive',
-    secondaryNavItems: [
+    subNavItems: [
       {
         label: 'HUNTING',
         href: '/hunting',
+        subNavItems: [
+          {
+            label: 'BIG GAME',
+            subNavItems: [
+              {
+                label: 'DEER',
+                href: '/hunting/big-game/deer',
+              },
+              {
+                label: 'BEAR',
+                href: '/hunting/big-game/bear',
+              },
+              {
+                label: 'SHEEP,GOATS, ETC',
+                href: '/hunting/big-game/sheep-goats-etc',
+              },
+              {
+                label: 'CATS',
+                href: '/hunting/big-game/cats',
+              },
+              {
+                label: 'WOLVES,COYOTES',
+                href: '/hunting/big-game/wolves-coyotes',
+              },
+              {
+                label: 'ALLIGATORS',
+                href: '/hunting/big-game/alligators',
+              },
+            ],
+          },
+          {
+            label: 'SMALL GAME',
+            href: '/hunting/small-game',
+          },
+          {
+            label: 'BIRDS',
+            href: '/birds',
+          },
+          {
+            label: "HUNTIN' GALS",
+            href: '/huntin-gals',
+          },
+          {
+            label: 'PORTRAITS',
+            href: '/portraits',
+          },
+          {
+            label: 'YOUNG HUNTERS',
+            href: '/young-hunters',
+          },
+          {
+            label: "HUNTIN' DOGS",
+            href: '/huntin-dogs',
+          },
+        ],
       },
       {
         label: 'FISHING',
@@ -52,7 +115,9 @@ const activePrimaryNavItemIndex = ref(
   )
 );
 
-const activeSecondaryNavItem = ref(null);
+const activeLevel2NavItem = ref<number | null>(null);
+const activeLevel3NavItem = ref<number | null>(null);
+// const activeLevel4NavItem = ref<number | null>(null);
 </script>
 
 <template>
@@ -114,26 +179,58 @@ const activeSecondaryNavItem = ref(null);
       </div>
     </div>
 
-    <!-- Secondary Navigation Bar with Categories -->
+    <!-- Level 2 Navigation Bar with Categories -->
     <div
       v-if="
         activePrimaryNavItemIndex !== null &&
-        navItems[activePrimaryNavItemIndex].secondaryNavItems
+        navItems[activePrimaryNavItemIndex].subNavItems
       "
-      class="relative bg-green-olive py-4 px-[20px] flex justify-center gap-36 border-t-4 border-gold z-40"
+      class="relative bg-green-olive py-4 px-[20px] flex justify-center gap-36 border-t-4 border-gold z-40 shadow-menu"
     >
-      <a
-        v-for="(item, index) in navItems[activePrimaryNavItemIndex]
-          .secondaryNavItems"
-        :key="item.href"
-        :href="item.href"
-        class="font-garage-gothic text-[52px] leading-none text-green-gray font-medium tracking-wider hover:text-cream transition-colors"
-        >{{ item.label }}</a
+      <button
+        v-for="(item, index) in navItems[activePrimaryNavItemIndex].subNavItems"
+        :key="item.label"
+        class="font-garage-gothic text-[52px] leading-none font-medium tracking-wider transition-colors"
+        :class="{
+          'text-green-gray hover:text-cream': activeLevel2NavItem !== index,
+          'text-gold': activeLevel2NavItem === index,
+        }"
+        @click="activeLevel2NavItem = index"
       >
+        {{ item.label }}
+      </button>
     </div>
     <div
       v-else
       class="relative bg-green-olive flex border-t-4 border-gold z-50"
     ></div>
+
+    <!-- Level 3 Navigation Items -->
+    <DesktopNavSubMenu
+      v-if="
+        activeLevel2NavItem !== null &&
+        navItems[activePrimaryNavItemIndex]?.subNavItems?.[activeLevel2NavItem]
+          ?.subNavItems
+      "
+      :items="
+        navItems[activePrimaryNavItemIndex]?.subNavItems?.[activeLevel2NavItem]
+          ?.subNavItems ?? []
+      "
+      @activeItemIndex="activeLevel3NavItem = $event"
+    />
+
+    <!-- Level 4 Navigation Items -->
+    <DesktopNavSubMenu
+      v-if="
+        activeLevel2NavItem !== null &&
+        activeLevel3NavItem !== null &&
+        navItems[activePrimaryNavItemIndex]?.subNavItems?.[activeLevel2NavItem]
+          ?.subNavItems?.[activeLevel3NavItem]?.subNavItems
+      "
+      :items="
+        navItems[activePrimaryNavItemIndex]?.subNavItems?.[activeLevel2NavItem]
+          ?.subNavItems?.[activeLevel3NavItem]?.subNavItems ?? []
+      "
+    />
   </nav>
 </template>
