@@ -4,11 +4,13 @@ import headerImageDesktop from '@/assets/images/old-time-logo-desktop.png';
 </script>
 
 <template>
-  <header class="bg-[url(../assets/images/header-background.png)] pt-14">
+  <header
+    class="bg-[url(../assets/images/header-background.png)] bg-[size:100%_280px] bg-no-repeat pt-14"
+  >
     <img
       :src="headerImageDesktop.src"
       alt="Header Image"
-      class="w-[1259px] h-[68px] mx-auto mb-14"
+      class="h-[54px] 2xl:h-[68px] mx-auto mb-14"
     />
     <Navigation />
   </header>
