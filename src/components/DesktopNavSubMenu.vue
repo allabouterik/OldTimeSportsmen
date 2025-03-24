@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { NavItem } from '@/components/NavigationDesktop.vue';
+import type { NavItem } from '@/components/Header.vue';
 
 const props = defineProps<{
   items: NavItem[];
@@ -25,14 +25,16 @@ const activeLinkItemIndex = ref(
 </script>
 
 <template>
-  <div class="relative py-4 px-[20px] flex justify-around z-40 shadow-menu">
+  <div
+    class="relative py-4 px-[20px] flex flex-wrap justify-around z-40 shadow-menu gap-y-4"
+  >
     <template
       v-for="(item, index) in items"
       :key="item.label"
     >
       <a
         v-if="item.href"
-        class="font-francois-one text-[22px] leading-none font-normal tracking-wider transition-colors text-shadow"
+        class="min-w-1/7 text-center font-francois-one text-[22px] leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
         :class="{
           'text-black hover:text-brown-dark': activeLinkItemIndex !== index,
           'text-gold': activeLinkItemIndex === index,
@@ -44,7 +46,7 @@ const activeLinkItemIndex = ref(
 
       <button
         v-else
-        class="font-francois-one text-[22px] leading-none font-normal tracking-wider transition-colors text-shadow"
+        class="font-francois-one text-[22px] leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
         @click="onButtonClick(index)"
         :class="{
           'text-black hover:text-brown-dark': activeItemIndex !== index,

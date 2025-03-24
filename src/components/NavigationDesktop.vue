@@ -74,7 +74,7 @@ const activeLevel3NavItem = ref<number | null>(null);
             ]"
           >
             <h2
-              class="text-48px leading-none text-cream font-garage-gothic font-medium tracking-wider"
+              class="text-48px leading-none text-cream font-garage-gothic font-medium tracking-wider uppercase"
               :class="{ 'text-gold': item.href === currentRoute }"
             >
               {{ item.label }}
@@ -95,12 +95,15 @@ const activeLevel3NavItem = ref<number | null>(null);
       <button
         v-for="(item, index) in navItems[activePrimaryNavItemIndex].subNavItems"
         :key="item.label"
-        class="font-garage-gothic text-[52px] leading-none font-medium tracking-wider transition-colors"
+        class="font-garage-gothic text-[52px] leading-none font-medium tracking-wider uppercase transition-colors"
         :class="{
           'text-green-gray hover:text-cream': activeLevel2NavItem !== index,
           'text-gold': activeLevel2NavItem === index,
         }"
-        @click="activeLevel2NavItem = index"
+        @click="
+          activeLevel2NavItem = index;
+          activeLevel3NavItem = null;
+        "
       >
         {{ item.label }}
       </button>
@@ -112,6 +115,7 @@ const activeLevel3NavItem = ref<number | null>(null);
 
     <!-- Level 3 Navigation Items -->
     <DesktopNavSubMenu
+      :key="`level2-index${activeLevel2NavItem}-level-3-subnav`"
       v-if="
         activeLevel2NavItem !== null &&
         navItems[activePrimaryNavItemIndex]?.subNavItems?.[activeLevel2NavItem]
@@ -126,6 +130,7 @@ const activeLevel3NavItem = ref<number | null>(null);
 
     <!-- Level 4 Navigation Items -->
     <DesktopNavSubMenu
+      key="level-4-subnav"
       v-if="
         activeLevel2NavItem !== null &&
         activeLevel3NavItem !== null &&
