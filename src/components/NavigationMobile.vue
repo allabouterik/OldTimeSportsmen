@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import houseWithSmokeImage from '@/assets/images/house-with-smoke.png';
-import houseWithoutSmokeImage from '@/assets/images/house-without-smoke.png';
+import { ref } from 'vue';
+import { Icon } from '@iconify/vue';
 import type { NavItem } from './Header.vue';
+import closeIcon from '@/assets/icons/close.svg';
 
 const props = defineProps<{
   navItems: NavItem[];
@@ -21,7 +21,6 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void;
 }>();
 
-const isHouseWithSmoke = ref(false);
 const currentRoute = ref(window.location.pathname);
 const expandedSections = ref<Set<string>>(new Set());
 
@@ -43,22 +42,33 @@ const closeMenu = () => {
 </script>
 
 <template>
-  <nav
+  <div
     :class="[
-      'fixed top-0 left-0 h-screen w-full max-w-sm bg-green-olive transform transition-transform duration-300 ease-in-out z-50',
+      'xl:hidden fixed top-0 left-0 h-screen w-full max-w-sm bg-green-olive transform transition-transform duration-300 ease-in-out z-50',
       modelValue ? 'translate-x-0' : '-translate-x-full',
     ]"
   >
-    <div class="h-full overflow-y-auto py-4">
-      <!-- Navigation items -->
-      <div class="space-y-7">
-        <!-- Main nav items -->
-        <div
+    <!-- Close Button -->
+    <button
+      class="fixed top-3 left-3 w-5 h-5"
+      @click="closeMenu"
+    >
+      <img
+        :src="closeIcon.src"
+        alt="Close"
+      />
+    </button>
+
+    <!-- Navigation -->
+    <div class="h-full overflow-y-auto py-16">
+      <!-- Main Navigation Items -->
+      <nav class="space-y-7">
+        <template
           v-for="item in navItems"
           :key="item.label"
           class=""
         >
-          <!-- Items with subnav -->
+          <!-- Main Navigation Items with Subnav -->
           <div
             v-if="item.subNavItems"
             @click="toggleSection(item.label)"
@@ -68,18 +78,18 @@ const closeMenu = () => {
               v-if="item.icon"
               :src="`/src/assets/icons/${item.icon}.svg`"
               alt="Icon"
-              class="inline-block w-6 h-6 justify-self-end mr-2 mb-1"
+              class="inline-block w-6 h-6 justify-self-end mr-3 mb-1"
             />
             <div>
               <span
-                class="font-garage-gothic font-medium text-34px leading-none tracking-wider text-black"
+                class="font-garage-gothic font-medium text-34px leading-none tracking-wider uppercase text-black"
                 >{{ item.label }}</span
               >
               <div class="w-full h-[3px] bg-gold"></div>
             </div>
           </div>
 
-          <!-- Page Links -->
+          <!-- Main Navigation Page Links -->
           <a
             v-else
             :href="item.href"
@@ -89,81 +99,121 @@ const closeMenu = () => {
               v-if="item.icon"
               :src="`/src/assets/icons/${item.icon}.svg`"
               alt="Icon"
-              class="inline-block w-6 h-6 justify-self-end mr-2 mb-1"
+              class="inline-block w-6 h-6 justify-self-end mr-3 mb-1"
             />
             <div>
               <span
-                class="font-garage-gothic font-medium text-34px leading-none tracking-wider text-black"
+                class="font-garage-gothic font-medium text-34px leading-none tracking-wider uppercase text-black"
                 >{{ item.label }}</span
               >
               <div class="w-full h-[3px] bg-gold"></div>
             </div>
           </a>
 
-          <!-- Subnav items, e.g. "HUNTING" -->
+          <!-- Level 2 Subnav items, e.g. "HUNTING" -->
           <div
             v-if="item.subNavItems && isExpanded(item.label)"
             class="mt-4 space-y-4"
           >
             <template
-              v-for="subItem in item.subNavItems"
-              :key="subItem.label"
+              v-for="Lvl2Item in item.subNavItems"
+              :key="Lvl2Item.label"
             >
               <div
-                v-if="subItem.subNavItems"
-                class="grid grid-cols-[auto_minmax(auto,253px)]"
+                v-if="Lvl2Item.subNavItems"
+                class="grid grid-cols-[auto_minmax(auto,230px)]"
               >
-                <div class="justify-self-end text-green-gray mt-2 mr-2">
-                  {{ isExpanded(subItem.label) ? '▼' : '▶' }}
-                </div>
+                <Icon
+                  icon="fa-solid:angle-right"
+                  class="text-green-gray justify-self-end mt-4 mr-3 transition-transform duration-300 ease-in-out"
+                  :class="{ 'rotate-90': isExpanded(Lvl2Item.label) }"
+                />
                 <div class="space-y-2">
                   <div
-                    @click="toggleSection(subItem.label)"
+                    @click="toggleSection(Lvl2Item.label)"
                     class="flex items-center gap-2 cursor-pointer"
                   >
                     <span
-                      class="font-garage-gothic font-medium tracking-wider text-32px text-green-gray hover:text-gray-700"
-                      >{{ subItem.label }}</span
+                      class="font-garage-gothic font-medium tracking-wider text-32px uppercase text-green-gray hover:text-gray-700"
+                      >{{ Lvl2Item.label }}</span
                     >
                   </div>
 
-                  <!-- Second level items, e.g. "BIG GAME" -->
+                  <!-- Level 3 Subnav items, e.g. "BIG GAME" -->
                   <div
-                    v-if="isExpanded(subItem.label)"
-                    class="ml-4 space-y-2"
+                    v-if="isExpanded(Lvl2Item.label)"
+                    class="space-y-2"
                   >
                     <template
-                      v-for="secondItem in subItem.subNavItems"
-                      :key="secondItem.label"
+                      v-for="Lvl3Item in Lvl2Item.subNavItems"
+                      :key="Lvl3Item.label"
                     >
+                      <div
+                        v-if="Lvl3Item.subNavItems"
+                        class="grid grid-cols-[auto_minmax(auto,230px)]"
+                      >
+                        <Icon
+                          icon="fa-solid:angle-right"
+                          class="text-white justify-self-end mt-1 mr-3 transition-transform duration-300 ease-in-out"
+                          :class="{ 'rotate-90': isExpanded(Lvl3Item.label) }"
+                        />
+                        <div class="space-y-2">
+                          <div
+                            @click="toggleSection(Lvl3Item.label)"
+                            class="flex items-center gap-2 cursor-pointer"
+                          >
+                            <span
+                              class="font-poppins font-normal text-16px uppercase text-white hover:text-gray-700"
+                              >{{ Lvl3Item.label }}</span
+                            >
+                          </div>
+
+                          <!-- Level 4 Page Links, e.g. "DEER" -->
+                          <div
+                            v-if="isExpanded(Lvl3Item.label)"
+                            class="ml-4 space-y-2"
+                          >
+                            <a
+                              v-for="Lvl4Item in Lvl3Item.subNavItems"
+                              :key="Lvl4Item.label"
+                              :href="Lvl4Item.href"
+                              class="block font-poppins font-normal text-16px text-cream-light hover:text-gray-700"
+                              >{{ Lvl4Item.label }}</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Level 3 Page Links -->
                       <a
-                        :href="secondItem.href"
-                        class="block font-poppins font-normal text-16px text-white hover:text-gray-700"
-                        >{{ secondItem.label }}</a
+                        v-else
+                        :href="Lvl3Item.href"
+                        class="block font-poppins font-normal text-16px uppercase text-white hover:text-gray-700 ml-5"
+                        >{{ Lvl3Item.label }}</a
                       >
                     </template>
                   </div>
                 </div>
               </div>
 
-              <!-- Page Links -->
+              <!-- Level 2 Page Links -->
               <a
                 v-else
-                :href="subItem.href"
-                class="grid grid-cols-[auto_minmax(auto,253px)] items-center text-green-gray hover:text-gray-700"
+                :href="Lvl2Item.href"
+                class="grid grid-cols-[auto_minmax(auto,230px)] items-center text-green-gray hover:text-gray-700"
               >
                 <div></div>
                 <span
-                  class="font-garage-gothic font-medium tracking-wider text-32px"
-                  >{{ subItem.label }}</span
+                  class="font-garage-gothic font-medium tracking-wider text-32px uppercase"
+                  >{{ Lvl2Item.label }}</span
                 >
               </a>
             </template>
           </div>
-        </div>
-      </div>
+        </template>
+      </nav>
     </div>
-  </nav>
+  </div>
 
   <!-- Overlay -->
   <div
