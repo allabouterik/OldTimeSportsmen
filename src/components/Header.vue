@@ -17,92 +17,217 @@ export type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    label: 'POSTAL GALLERY',
+    label: 'Postal Gallery',
     href: '/gallery',
     bgColor: 'bg-green-olive',
     icon: 'gallery',
     subNavItems: [
       {
-        label: 'HUNTING',
+        label: 'Hunting',
         href: '/hunting',
         subNavItems: [
           {
-            label: 'BIG GAME',
+            label: 'Big Game',
             subNavItems: [
               {
-                label: 'DEER',
+                label: 'Deer',
                 href: '/hunting/big-game/deer',
               },
               {
-                label: 'BEAR',
+                label: 'Bear',
                 href: '/hunting/big-game/bear',
               },
               {
-                label: 'SHEEP,GOATS, ETC',
+                label: 'Moose, Sheep, etc.',
                 href: '/hunting/big-game/sheep-goats-etc',
               },
               {
-                label: 'CATS',
+                label: 'Cats',
                 href: '/hunting/big-game/cats',
               },
               {
-                label: 'WOLVES,COYOTES',
+                label: 'Wolves, Coyotes',
                 href: '/hunting/big-game/wolves-coyotes',
               },
               {
-                label: 'ALLIGATORS',
+                label: 'Alligators',
                 href: '/hunting/big-game/alligators',
               },
             ],
           },
           {
-            label: 'SMALL GAME',
-            href: '/hunting/small-game',
+            label: 'Small Game',
+            subNavItems: [
+              {
+                label: 'Rabbits',
+                href: '/hunting/small-game/rabbits',
+              },
+              {
+                label: 'Rabbit Round-Ups',
+                href: '/hunting/small-game/rabbit-round-ups',
+              },
+              {
+                label: 'Squirrels, Skunks, etc.',
+                href: '/hunting/small-game/squirrels-skunks-etc',
+              },
+              {
+                label: 'Frogs, Snakes, etc.',
+                href: '/hunting/small-game/frogs-snakes-etc',
+              },
+              {
+                label: 'Foxes',
+                href: '/hunting/small-game/foxes',
+              },
+            ],
           },
           {
-            label: 'BIRDS',
-            href: '/birds',
+            label: 'Birds',
+            subNavItems: [
+              {
+                label: 'Ducks',
+                href: '/hunting/birds/ducks',
+              },
+              {
+                label: 'Geese',
+                href: '/hunting/birds/geese',
+              },
+              {
+                label: 'Upland Game Birds',
+                href: '/hunting/birds/upland-game-birds',
+              },
+              {
+                label: 'Other Birds',
+                href: '/hunting/birds/other-birds',
+              },
+            ],
           },
           {
-            label: "HUNTIN' GALS",
+            label: "Huntin' Gals",
             href: '/huntin-gals',
           },
           {
-            label: 'PORTRAITS',
+            label: 'Portraits',
             href: '/portraits',
           },
           {
-            label: 'YOUNG HUNTERS',
+            label: 'Young Hunters',
             href: '/young-hunters',
           },
           {
-            label: "HUNTIN' DOGS",
+            label: "Huntin' Dogs",
             href: '/huntin-dogs',
           },
         ],
       },
       {
-        label: 'FISHING',
-        href: '/fishing',
+        label: 'Fishing',
+        subNavItems: [
+          {
+            label: 'Bass',
+            href: '/fish  ing/bass',
+          },
+          {
+            label: 'Carp',
+            href: '/fishing/carp',
+          },
+          {
+            label: 'Catfish',
+            href: '/fishing/catfish',
+          },
+          {
+            label: 'Florida Studio',
+            href: '/fishing/florida-studio',
+          },
+          {
+            label: 'Giant Sea Bass',
+            href: '/fishing/giant-sea-bass',
+          },
+          {
+            label: 'Halibut',
+            href: '/fishing/halibut',
+          },
+          {
+            label: 'Other Fish',
+            href: '/fishing/other-fish',
+          },
+          {
+            label: 'Pike, Muskie',
+            href: '/fishing/pike-muskie',
+          },
+          {
+            label: 'Stringers',
+            href: '/fishing/stringers',
+          },
+          {
+            label: 'Sturgeon',
+            href: '/fishing/sturgeon',
+          },
+          {
+            label: 'Tarpon  ',
+            href: '/fishing/tarpon',
+          },
+          {
+            label: 'Trout, Salmon',
+            href: '/fishing/trout-salmon',
+          },
+          {
+            label: 'Women Fishing',
+            href: '/fishing/women-fishing',
+          },
+          {
+            label: 'Young Fishermen',
+            href: '/fishing/young-fishermen',
+          },
+        ],
       },
       {
-        label: 'CAMP & CABIN',
-        href: '/camp-cabin',
+        label: 'Camp & Cabin',
+        subNavItems: [
+          {
+            label: 'Camp & Cabin',
+            href: '/camp-cabin',
+          },
+          {
+            label: 'Hunting Groups',
+            href: '/camp-cabin/hunting-groups',
+          },
+          {
+            label: 'Fishing Groups',
+            href: '/camp-cabin/fishing-groups',
+          },
+          {
+            label: 'Scenic',
+            href: '/camp-cabin/scenic',
+          },
+        ],
       },
       {
-        label: 'TALL TALES',
-        href: '/tall-tales',
+        label: 'Tall Tales',
+        subNavItems: [
+          {
+            label: 'Tall Tales Hunting',
+            href: '/tall-tales/hunting',
+          },
+          {
+            label: 'Tall Tales Fishing',
+            href: '/tall-tales/fishing',
+          },
+          {
+            label: 'Fakes',
+            href: '/tall-tales/fakes',
+          },
+        ],
       },
     ],
   },
   {
-    label: 'THE BOOK',
+    label: 'The Book',
     href: '/book',
     bgColor: 'bg-black',
     icon: 'book',
   },
   {
-    label: 'CONTACT & CREDITS',
+    label: 'Contact & Credits',
     href: '/contact',
     bgColor: 'bg-brown-dark',
     icon: 'envelope',
@@ -127,7 +252,7 @@ const toggleMenu = () => {
     >
       <img
         :src="menuBurgerIcon.src"
-        alt="Burger Icon"
+        alt="Menu Icon"
       />
     </button>
 
@@ -142,7 +267,6 @@ const toggleMenu = () => {
       class="xl:hidden h-[27px] mx-auto"
     />
     <NavigationMobile
-      class="xl:hidden"
       :navItems="navItems"
       v-model="isMenuOpen"
     />
