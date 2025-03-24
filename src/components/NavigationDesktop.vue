@@ -3,111 +3,18 @@ import { ref } from 'vue';
 import houseWithSmokeImage from '@/assets/images/house-with-smoke.png';
 import houseWithoutSmokeImage from '@/assets/images/house-without-smoke.png';
 import DesktopNavSubMenu from '@/components/DesktopNavSubMenu.vue';
+import type { NavItem } from './Header.vue';
 
 const isHouseWithSmoke = ref(false);
 
-export type NavItem = {
-  label: string;
-  href?: string;
-  bgColor?: string;
-  subNavItems?: NavItem[];
-};
-
-const navItems: NavItem[] = [
-  {
-    label: 'POSTAL GALLERY',
-    href: '/gallery',
-    bgColor: 'bg-green-olive',
-    subNavItems: [
-      {
-        label: 'HUNTING',
-        href: '/hunting',
-        subNavItems: [
-          {
-            label: 'BIG GAME',
-            subNavItems: [
-              {
-                label: 'DEER',
-                href: '/hunting/big-game/deer',
-              },
-              {
-                label: 'BEAR',
-                href: '/hunting/big-game/bear',
-              },
-              {
-                label: 'SHEEP,GOATS, ETC',
-                href: '/hunting/big-game/sheep-goats-etc',
-              },
-              {
-                label: 'CATS',
-                href: '/hunting/big-game/cats',
-              },
-              {
-                label: 'WOLVES,COYOTES',
-                href: '/hunting/big-game/wolves-coyotes',
-              },
-              {
-                label: 'ALLIGATORS',
-                href: '/hunting/big-game/alligators',
-              },
-            ],
-          },
-          {
-            label: 'SMALL GAME',
-            href: '/hunting/small-game',
-          },
-          {
-            label: 'BIRDS',
-            href: '/birds',
-          },
-          {
-            label: "HUNTIN' GALS",
-            href: '/huntin-gals',
-          },
-          {
-            label: 'PORTRAITS',
-            href: '/portraits',
-          },
-          {
-            label: 'YOUNG HUNTERS',
-            href: '/young-hunters',
-          },
-          {
-            label: "HUNTIN' DOGS",
-            href: '/huntin-dogs',
-          },
-        ],
-      },
-      {
-        label: 'FISHING',
-        href: '/fishing',
-      },
-      {
-        label: 'CAMP & CABIN',
-        href: '/camp-cabin',
-      },
-      {
-        label: 'TALL TALES',
-        href: '/tall-tales',
-      },
-    ],
-  },
-  {
-    label: 'THE BOOK',
-    href: '/book',
-    bgColor: 'bg-black',
-  },
-  {
-    label: 'CONTACT & CREDITS',
-    href: '/contact',
-    bgColor: 'bg-brown-dark',
-  },
-];
+const props = defineProps<{
+  navItems: NavItem[];
+}>();
 
 const currentRoute = ref(window.location.pathname);
 
 const activePrimaryNavItemIndex = ref(
-  navItems.findIndex(
+  props.navItems.findIndex(
     (item) =>
       item.href === currentRoute.value ||
       (item.href === '/gallery' && currentRoute.value === '/')

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { NavItem } from '@/components/Navigation.vue';
+import type { NavItem } from '@/components/NavigationDesktop.vue';
 
 const props = defineProps<{
   items: NavItem[];
