@@ -1,35 +1,12 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import HomePageContent from '@/components/homePageContent.vue';
 
-export const prerender = false; // disable prerendering for now
+export const prerender = true; // disable prerendering for now
 ---
 
 <Layout>
   <div class='container mx-auto px-4 py-8'>
-    <h1 class='text-4xl font-garage-gothic text-brown-dark mb-4'>
-      Welcome to Oldtime Sportsmen
-    </h1>
-    <p class='text-lg mb-6'>
-      Explore the nostalgia of vintage hunting, fishing, and outdoor activities
-      from a bygone era.
-    </p>
-
-    <div class='grid grid-cols-1 md:grid-cols-2 gap-8'>
-      <div class='bg-cream p-6 rounded-lg shadow-md border border-gold'>
-        <h2 class='text-2xl font-garage-gothic text-brown-dark mb-2'>
-          Featured Collections
-        </h2>
-        <p>
-          Browse our collection of vintage postcards, stories, and memorabilia.
-        </p>
-      </div>
-
-      <div class='bg-cream p-6 rounded-lg shadow-md border border-gold'>
-        <h2 class='text-2xl font-garage-gothic text-brown-dark mb-2'>
-          Latest Additions
-        </h2>
-        <p>Check out the newest items in our gallery and stories section.</p>
-      </div>
-    </div>
+    <HomePageContent client:only='vue' />
   </div>
 </Layout>
