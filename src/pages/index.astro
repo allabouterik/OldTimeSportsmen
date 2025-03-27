@@ -1,12 +1,114 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import HomePageContent from '@/components/homePageContent.vue';
+import FlipPostcard from '@/components/FlipPostcard.vue';
+import ShootToTop from '@/components/ShootToTop.vue';
+import SlideshowZoom from '@/components/SlideshowZoom.vue';
+import * as homeContent from '@/content/home.md';
 
-export const prerender = true; // disable prerendering for now
+const { frontmatter: content } = homeContent;
+
+const footerBgImg = `url('${content.footerImg}')`;
+
+export const prerender = true;
 ---
 
 <Layout>
   <div class='container mx-auto px-4 py-8'>
-    <HomePageContent client:only='vue' />
+    <div class=''>
+      <p class='font-francois-one font-normal leading-5 text-15px text-center'>
+        This gallery of historical photos takes us back a century ago, when
+        these wonderful images were captured on photo picture postcards. These
+        vintage postals each bear witness to memorable moments in the lives of
+        these early 20th century American outdoorsmen and women.
+      </p>
+    </div>
+
+    <SlideshowZoom
+      client:only='vue'
+      slides={content.people}
+      maxHeightInPx={270}
+    />
+
+    <h1
+      class='font-francois-one font-normal text-center text-lg uppercase mt-4'
+    >
+      {content.postcardHistory.title}
+    </h1>
+
+    <div class='font-bembo font-normal text-14px text-justify mt-4'>
+      <Fragment set:html={content.postcardHistory.textPt1} />
+    </div>
+
+    <div class='mt-8'>
+      <FlipPostcard
+        client:only='vue'
+        imgFront={content.postcardHistory.postcards[0].imgFront}
+        imgBack={content.postcardHistory.postcards[0].imgBack}
+        caption={content.postcardHistory.postcards[0].caption}
+        seeTheBack={true}
+        width={292}
+        height={180}
+      />
+    </div>
+
+    <div class='font-bembo font-normal text-14px text-justify mt-4'>
+      <Fragment set:html={content.postcardHistory.textPt2} />
+    </div>
+
+    <div class='flex flex-row gap-4 mt-8'>
+      <div>
+        <img
+          src={content.postcardHistory.images[0].img}
+          alt={content.postcardHistory.images[0].altText}
+          width={149}
+        />
+      </div>
+      <div class='mt-2'>
+        <img
+          src={content.postcardHistory.images[1].img}
+          alt={content.postcardHistory.images[1].altText}
+          width={156}
+        />
+      </div>
+    </div>
+
+    <h2
+      class='font-francois-one font-normal text-center text-lg uppercase mt-4'
+    >
+      {content.about.title}
+    </h2>
+
+    <div class='font-bembo font-normal text-14px text-justify mt-4'>
+      <Fragment set:html={content.about.text} />
+    </div>
+
+    <div class='mt-8'>
+      <ShootToTop
+        client:only='vue'
+        staticImg={true}
+      />
+    </div>
   </div>
+
+  <footer></footer>
 </Layout>
+
+<style define:vars={{ footerBgImg }}>
+  footer {
+    position: relative;
+    text-align: center;
+    padding: 0 0 120px 0;
+  }
+  footer:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: var(--footerBgImg) no-repeat center;
+    background-size: cover;
+    width: 100%;
+    height: 204px;
+    z-index: -1;
+  }
+</style>
