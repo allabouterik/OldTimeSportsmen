@@ -1,111 +1,113 @@
-<script>
-export default {
-  name: 'FlipPostcard',
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import seeTheBackImg from '@/assets/images/see-the-back.png';
 
-  props: {
-    imgFront: {
-      type: String,
-    },
-    imgBack: {
-      type: String,
-    },
-    imgBackLarge: {
-      type: String,
-    },
-    caption: {
-      type: String,
-    },
-    width: {
-      type: Number,
-    },
-    height: {
-      type: Number,
-    },
-    seeTheBack: {
-      type: Boolean,
-      default: false,
-    },
-    backText: {
-      type: String,
-    },
-    backTextIsHTML: {
-      type: Boolean,
-      default: false,
-    },
-  },
+type PostcardImageItem = {
+  img: string;
+  caption?: string;
+  HTMLcaption?: string;
+};
 
-  data() {
-    return {
-      postcardIndex: null,
-      postcardImage: null,
-    };
+const props = defineProps({
+  imgFront: {
+    type: String,
   },
+  imgBack: {
+    type: String,
+  },
+  imgBackLarge: {
+    type: String,
+    required: false,
+  },
+  caption: {
+    type: String,
+    required: false,
+  },
+  width: {
+    type: Number,
+  },
+  height: {
+    type: Number,
+  },
+  seeTheBack: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
+  backText: {
+    type: String,
+    required: false,
+  },
+  backTextIsHTML: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
+});
 
-  computed: {
-    dimStyles() {
-      return {
-        width: this.width + 'px',
-        height: this.height + 'px',
-        cursor: this.imgBackLarge ? 'pointer' : 'auto',
-      };
-    },
-  },
+const postcardIndex = ref<number | null>(null);
+const postcardImage = ref<PostcardImageItem[] | null>(null);
 
-  methods: {
-    lightBoxOpen() {
-      if (this.backTextIsHTML) {
-        this.postcardImage = [
-          {
-            img: this.imgBackLarge,
-            HTMLcaption: this.backText,
-          },
-        ];
-      } else {
-        this.postcardImage = [
-          {
-            img: this.imgBackLarge,
-            caption: this.backText,
-          },
-        ];
-      }
-      if (this.imgBackLarge) this.postcardIndex = 0;
-    },
-  },
+const dimStyles = computed(() => ({
+  width: props.width + 'px',
+  height: props.height + 'px',
+  cursor: props.imgBackLarge ? 'pointer' : 'auto',
+}));
+
+const lightBoxOpen = () => {
+  if (!props.imgBackLarge || !props.backText) return;
+
+  if (props.backTextIsHTML) {
+    postcardImage.value = [
+      {
+        img: props.imgBackLarge,
+        HTMLcaption: props.backText,
+      },
+    ];
+  } else {
+    postcardImage.value = [
+      {
+        img: props.imgBackLarge,
+        caption: props.backText,
+      },
+    ];
+  }
+  postcardIndex.value = 0;
 };
 </script>
 
 <template>
-  <div
-    class="flip-card"
-    :style="dimStyles"
-    @click="lightBoxOpen()"
-  >
-    <img
-      v-if="seeTheBack"
-      src="../assets/images/see-the-back.png"
-      alt="See the back"
-      class="flip-card-seeTheBack"
+  <div class="flex flex-col items-center">
+    <div
+      class="flip-card"
+      :style="dimStyles"
       @click="lightBoxOpen()"
-    />
-    <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <img
-          :src="imgFront"
-          :alt="caption"
-          :style="dimStyles"
-        />
+    >
+      <img
+        v-if="seeTheBack"
+        :src="seeTheBackImg.src"
+        alt="See the back"
+        class="flip-card-seeTheBack"
+        @click="lightBoxOpen()"
+      />
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img
+            :src="imgFront"
+            :alt="caption"
+            :style="dimStyles"
+          />
+        </div>
+        <div class="flip-card-back">
+          <img
+            :src="imgBack"
+            :alt="caption"
+            :style="dimStyles"
+          />
+        </div>
       </div>
-      <div class="flip-card-back">
-        <img
-          :src="imgBack"
-          :alt="caption"
-          :style="dimStyles"
-        />
-      </div>
-    </div>
-    <p class="caption">{{ caption }}</p>
 
-    <ImageLightBox
+      <!-- <ImageLightBox
       :images="postcardImage"
       :index="postcardIndex"
       :disable-scroll="true"
@@ -114,26 +116,16 @@ export default {
         postcardImage = null;
       "
       :centreTitle="false"
-    />
+    /> -->
+    </div>
+
+    <p class="font-bembo font-normal italic text-14px text-center mt-2">
+      {{ caption }}
+    </p>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css?family=Crimson+Text:600,600i&display=swap');
-
-.caption {
-  font-family: 'Crimson Text', serif;
-  font-feature-settings: 'liga';
-  font-style: italic;
-  font-weight: 600;
-  font-size: 1.125rem;
-  line-height: 1.375rem;
-  letter-spacing: 1px;
-  text-align: left;
-  margin: 0px;
-  padding: 12px 0;
-}
-
 // From: https://www.w3schools.com/howto/howto_css_flip_card.asp
 .flip-card {
   position: relative;
@@ -141,8 +133,10 @@ export default {
 }
 .flip-card-seeTheBack {
   position: absolute;
-  top: -45px;
-  right: -45px;
+  top: 0%;
+  right: 0%;
+  transform: translate(40%, -50%);
+  width: 63px;
 }
 
 /* This container is needed to position the front and back side */
