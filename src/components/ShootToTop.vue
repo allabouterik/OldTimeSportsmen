@@ -1,52 +1,74 @@
-<script>
-export default {
-  name: 'BackToTop',
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue';
+import riflesImg from '@/assets/images/shoot-to-top-rifles.png';
 
-  props: {
-    staticImg: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  staticImg: {
+    type: Boolean,
+    default: false,
   },
+});
 
-  data() {
-    return {
-      scrollPosY: 0.0,
-    };
-  },
+const onClickScrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+};
 
-  computed: {
-    addBtnToDOM() {
-      return this.scrollPosY >= 799;
-    },
-  },
-
-  mounted() {
-    const myScrollFunc = function () {
-      this.scrollPosY = window.scrollY;
-      let btnElement = document.getElementById('scrollToTopBtn');
-      if (btnElement !== null) {
-        if (this.scrollPosY >= 800) {
-          btnElement.className = 'show';
-        } else {
-          btnElement.className = 'hide';
-        }
-      }
-    }.bind(this);
+// For the dynamic button (not static image)
+onMounted(() => {
+  if (!props.staticImg) {
     window.addEventListener('scroll', myScrollFunc);
-  },
+  }
+});
+
+const scrollPosY = ref(0);
+
+const addBtnToDOM = computed(() => {
+  return scrollPosY.value >= 799;
+});
+
+const myScrollFunc = () => {
+  scrollPosY.value = window.scrollY;
+  const btnElement = document.getElementById('scrollToTopBtn');
+  if (btnElement !== null) {
+    if (scrollPosY.value >= 800) {
+      btnElement.classList.add('show');
+    } else {
+      btnElement.classList.remove('hide');
+    }
+  }
 };
 </script>
 
 <template>
   <div v-if="staticImg">
     <div
-      v-scroll-to="{ el: 'body', duration: 1500, easing: 'ease' }"
       id="backToTopStaticDiv"
+      class="flex flex-col"
+      @click="onClickScrollToTop"
     >
+      <span
+        class="font-francois-one font-normal text-15px text-center uppercase"
+      >
+        Shoot to the Top
+      </span>
+      <!-- <img
+        immediate
+        alt="back to top"
+        :src="riflesImg.src"
+        class="hideOnHover"
+      />
+      <img
+        immediate
+        alt="back to top"
+        :src="riflesImg.src"
+        class="showOnHover"
+      /> -->
       <img
         alt="back to top"
-        src="../assets/images/back-to-top-1line-black.png"
+        :src="riflesImg.src"
       />
     </div>
   </div>
@@ -56,40 +78,25 @@ export default {
     id="backToTopContainer"
   >
     <button
-      v-scroll-to="{ el: 'body', duration: 1500, easing: 'ease' }"
       id="scrollToTopBtn"
-      class="hide"
+      class="hide flex flex-col"
+      @click="onClickScrollToTop"
     >
+      <span
+        class="font-francois-one font-normal text-15px text-center uppercase"
+      >
+        Shoot to the Top
+      </span>
       <img
         immediate
         alt="back to top"
-        src="../assets/images/back-to-top-1line-white-150px.png"
-        class="hideOnHover"
-      />
-      <img
-        immediate
-        alt="back to top"
-        src="../assets/images/back-to-top-1line-yellow-150px.png"
-        class="showOnHover"
+        :src="riflesImg.src"
       />
     </button>
   </div>
 </template>
 
 <style scoped lang="scss">
-@font-face {
-  font-family: NeueHaasGroteskText Pro55;
-  src: url('../assets/fonts/nhaasgrotesktxpro-55rg.eot'); /* IE9 Compat Modes */
-  src: url('../assets/fonts/nhaasgrotesktxpro-55rg.eot?#iefix')
-      format('embedded-opentype'),
-    /* IE6-IE8 */ url('../assets/fonts/nhaasgrotesktxpro-55rg.woff')
-      format('woff'),
-    /* Pretty Modern Browsers */
-      url('../assets/fonts/nhaasgrotesktxpro-55rg.svg#NHaasGroteskTXPro-55Rg')
-      format('svg'); /* Legacy iOS */
-  font-weight: normal;
-}
-
 #backToTopStaticDiv {
   cursor: pointer;
   img {
@@ -161,10 +168,6 @@ export default {
     padding: 10.5px;
     border-radius: 4px;
   }
-  #arrow {
-    width: 15px;
-    height: 15px;
-  }
 }
 
 /* Small devices (landscape phones, 576px and up) */
@@ -173,10 +176,6 @@ export default {
     font-size: 12px;
     padding: 12.75px;
     border-radius: 4.5px;
-  }
-  #arrow {
-    width: 17.5px;
-    height: 17.5px;
   }
 }
 </style>
