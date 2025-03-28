@@ -23,6 +23,16 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  captionAlign: {
+    type: String,
+    required: false,
+    default: 'center',
+  },
+  captionContainWithinCard: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
   width: {
     type: Number,
   },
@@ -43,6 +53,10 @@ const props = defineProps({
     default: false,
     required: false,
   },
+  classAppend: {
+    type: String,
+    required: false,
+  },
 });
 
 const postcardIndex = ref<number | null>(null);
@@ -53,6 +67,25 @@ const dimStyles = computed(() => ({
   height: props.height + 'px',
   cursor: props.imgBackLarge ? 'pointer' : 'auto',
 }));
+
+const captionStyles = computed(() => {
+  if (props.captionContainWithinCard) {
+    return {
+      width: props.width + 'px',
+      textAlign: props.captionAlign,
+    };
+  } else {
+    return {
+      textAlign: props.captionAlign,
+      alignSelf:
+        props.captionAlign === 'left'
+          ? 'flex-start'
+          : props.captionAlign === 'right'
+          ? 'flex-end'
+          : 'center',
+    };
+  }
+});
 
 const lightBoxOpen = () => {
   if (!props.imgBackLarge || !props.backText) return;
@@ -77,7 +110,10 @@ const lightBoxOpen = () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center">
+  <div
+    class="flex flex-col items-center"
+    :class="classAppend"
+  >
     <div
       class="flip-card"
       :style="dimStyles"
@@ -107,6 +143,14 @@ const lightBoxOpen = () => {
         </div>
       </div>
 
+      <!-- <div
+        v-if="captionContainWithinCard"
+        class="font-bembo font-normal italic text-14px pt-2"
+        :style="{ textAlign: captionAlign }"
+      >
+        {{ caption }}
+      </div> -->
+
       <!-- <ImageLightBox
       :images="postcardImage"
       :index="postcardIndex"
@@ -119,7 +163,10 @@ const lightBoxOpen = () => {
     /> -->
     </div>
 
-    <p class="font-bembo font-normal italic text-14px text-center mt-2">
+    <p
+      class="font-bembo font-normal italic text-14px lg:text-16px pt-2"
+      :style="captionStyles"
+    >
       {{ caption }}
     </p>
   </div>
