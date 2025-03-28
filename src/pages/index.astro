@@ -15,16 +15,40 @@ export const prerender = true;
 <Layout>
   <div class='container mx-auto flex flex-row justify-center gap-4 p-4 pb-8'>
     <!-- Left Column -->
-    <div class='hidden lg:block w-[195px] max-w-[195px] shrink-0 lg:mt-8'>
+    <div
+      class='hidden lg:block w-[195px] max-w-[195px] 2xl:w-[520px] 2xl:max-w-[520px] shrink-0 lg:mt-8'
+    >
       <SlideshowZoom
         client:only='vue'
         slides={content.people}
         maxHeightInPx={270}
+        class='2xl:hidden'
       />
+      <SlideshowZoom
+        client:only='vue'
+        slides={content.people}
+        maxHeightInPx={370}
+        class='hidden 2xl:block'
+      />
+
+      <div class='hidden 2xl:flex flex-col items-end gap-12 mt-[700px] mr-12'>
+        <img
+          src={content.postcardHistory.images[0].img}
+          alt={content.postcardHistory.images[0].altText}
+          width={149}
+          class='lg:w-[210px]'
+        />
+        <img
+          src={content.postcardHistory.images[1].img}
+          alt={content.postcardHistory.images[1].altText}
+          width={156}
+          class='lg:w-[220px]'
+        />
+      </div>
     </div>
 
     <!-- Centre Column -->
-    <div class='w-full lg:w-[626px] xl:max-w-[751px] shrink-0'>
+    <div class='w-full lg:w-[626px] 2xl:max-w-[720px] shrink-0'>
       <div
         class='bg-cream-lighter rounded-lg shadow-text-box mb-4 p-4 lg:py-8 lg:px-12'
       >
@@ -88,7 +112,7 @@ export const prerender = true;
         <Fragment set:html={content.postcardHistory.textPt2} />
       </div>
 
-      <div class='flex flex-row justify-around gap-4 mt-8'>
+      <div class='flex 2xl:hidden flex-row justify-around gap-4 mt-8'>
         <div>
           <img
             src={content.postcardHistory.images[0].img}
@@ -108,7 +132,7 @@ export const prerender = true;
       </div>
 
       <h2
-        class='font-francois-one font-normal text-center text-lg lg:text-3xl uppercase mt-4'
+        class='font-francois-one font-normal text-center text-lg lg:text-3xl uppercase mt-4 2xl:mt-10'
       >
         {content.about.title}
       </h2>
@@ -119,7 +143,7 @@ export const prerender = true;
         <Fragment set:html={content.about.text} />
       </div>
 
-      <div class='hidden lg:flex flex-col gap-12 mt-12'>
+      <div class='hidden lg:flex 2xl:hidden flex-col gap-12 mt-12'>
         {
           content.postcardHistory.postcards.slice(1).map((postcard: any) => (
             <FlipPostcard
@@ -146,8 +170,27 @@ export const prerender = true;
     </div>
 
     <!-- Right Column -->
-    <div class='hidden lg:block w-[195px] max-w-[195px] shrink-0'></div>
-    <!-- <div class='hidden lg:block lg:w-auto mr-auto'></div> -->
+    <div
+      class='hidden lg:block w-[195px] max-w-[195px] 2xl:w-[520px] 2xl:max-w-[520px] shrink-0'
+    >
+      <div class='hidden 2xl:flex flex-col gap-12 mt-12'>
+        {
+          content.postcardHistory.postcards.slice(1).map((postcard: any) => (
+            <FlipPostcard
+              client:only='vue'
+              imgFront={postcard.imgFront}
+              imgBack={postcard.imgBack}
+              caption={postcard.caption}
+              captionAlign='left'
+              captionContainWithinCard={true}
+              seeTheBack={true}
+              width={385}
+              height={249}
+            />
+          ))
+        }
+      </div>
+    </div>
   </div>
 
   <footer></footer>
