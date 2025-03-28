@@ -13,81 +13,141 @@ export const prerender = true;
 ---
 
 <Layout>
-  <div class='container mx-auto p-4 pb-8'>
-    <div class='bg-cream-lighter rounded-lg shadow-text-box p-4 mb-4'>
-      <p class='font-francois-one font-normal leading-5 text-15px text-center'>
-        This gallery of historical photos takes us back a century ago, when
-        these wonderful images were captured on photo picture postcards. These
-        vintage postals each bear witness to memorable moments in the lives of
-        these early 20th century American outdoorsmen and women.
-      </p>
-    </div>
-
-    <SlideshowZoom
-      client:only='vue'
-      slides={content.people}
-      maxHeightInPx={270}
-    />
-
-    <h1
-      class='font-francois-one font-normal text-center text-lg uppercase mt-4'
-    >
-      {content.postcardHistory.title}
-    </h1>
-
-    <div class='font-bembo font-normal text-14px text-justify mt-4'>
-      <Fragment set:html={content.postcardHistory.textPt1} />
-    </div>
-
-    <div class='mt-8'>
-      <FlipPostcard
+  <div class='container mx-auto flex flex-row justify-center gap-4 p-4 pb-8'>
+    <!-- Left Column -->
+    <div class='hidden lg:block w-[195px] max-w-[195px] shrink-0 lg:mt-8'>
+      <SlideshowZoom
         client:only='vue'
-        imgFront={content.postcardHistory.postcards[0].imgFront}
-        imgBack={content.postcardHistory.postcards[0].imgBack}
-        caption={content.postcardHistory.postcards[0].caption}
-        seeTheBack={true}
-        width={292}
-        height={180}
+        slides={content.people}
+        maxHeightInPx={270}
       />
     </div>
 
-    <div class='font-bembo font-normal text-14px text-justify mt-4'>
-      <Fragment set:html={content.postcardHistory.textPt2} />
-    </div>
-
-    <div class='flex flex-row gap-4 mt-8'>
-      <div>
-        <img
-          src={content.postcardHistory.images[0].img}
-          alt={content.postcardHistory.images[0].altText}
-          width={149}
-        />
+    <!-- Centre Column -->
+    <div class='w-full lg:w-[626px] xl:max-w-[751px] shrink-0'>
+      <div
+        class='bg-cream-lighter rounded-lg shadow-text-box mb-4 p-4 lg:py-8 lg:px-12'
+      >
+        <p
+          class='font-francois-one font-normal text-center leading-5 text-15px lg:text-3xl lg:leading-9'
+        >
+          This gallery of historical photos takes us back a century ago, when
+          these wonderful images were captured on photo picture postcards. These
+          vintage postals each bear witness to memorable moments in the lives of
+          these early 20th century American outdoorsmen and women.
+        </p>
       </div>
-      <div class='mt-2'>
-        <img
-          src={content.postcardHistory.images[1].img}
-          alt={content.postcardHistory.images[1].altText}
-          width={156}
-        />
-      </div>
-    </div>
 
-    <h2
-      class='font-francois-one font-normal text-center text-lg uppercase mt-4'
-    >
-      {content.about.title}
-    </h2>
-
-    <div class='font-bembo font-normal text-14px text-justify mt-4'>
-      <Fragment set:html={content.about.text} />
-    </div>
-
-    <div class='mt-8'>
-      <ShootToTop
+      <SlideshowZoom
         client:only='vue'
-        staticImg={true}
+        slides={content.people}
+        maxHeightInPx={270}
+        class='lg:hidden'
       />
+
+      <h1
+        class='font-francois-one font-normal text-center text-lg lg:text-3xl uppercase mt-4 lg:mt-12'
+      >
+        {content.postcardHistory.title}
+      </h1>
+
+      <div
+        class='font-bembo font-normal text-14px lg:text-xl text-justify mt-4'
+      >
+        <Fragment set:html={content.postcardHistory.textPt1} />
+      </div>
+
+      <div class='mt-8'>
+        <FlipPostcard
+          client:only='vue'
+          imgFront={content.postcardHistory.postcards[0].imgFront}
+          imgBack={content.postcardHistory.postcards[0].imgBack}
+          caption={content.postcardHistory.postcards[0].caption}
+          captionAlign='left'
+          captionContainWithinCard={true}
+          seeTheBack={true}
+          width={292}
+          height={180}
+          classAppend='lg:hidden'
+        />
+        <FlipPostcard
+          client:only='vue'
+          imgFront={content.postcardHistory.postcards[0].imgFront}
+          imgBack={content.postcardHistory.postcards[0].imgBack}
+          caption={content.postcardHistory.postcards[0].caption}
+          seeTheBack={true}
+          width={456}
+          height={281}
+          classAppend='hidden lg:flex'
+        />
+      </div>
+
+      <div
+        class='font-bembo font-normal text-14px lg:text-xl text-justify mt-4'
+      >
+        <Fragment set:html={content.postcardHistory.textPt2} />
+      </div>
+
+      <div class='flex flex-row justify-around gap-4 mt-8'>
+        <div>
+          <img
+            src={content.postcardHistory.images[0].img}
+            alt={content.postcardHistory.images[0].altText}
+            width={149}
+            class='lg:w-[210px]'
+          />
+        </div>
+        <div class='mt-2'>
+          <img
+            src={content.postcardHistory.images[1].img}
+            alt={content.postcardHistory.images[1].altText}
+            width={156}
+            class='lg:w-[220px]'
+          />
+        </div>
+      </div>
+
+      <h2
+        class='font-francois-one font-normal text-center text-lg lg:text-3xl uppercase mt-4'
+      >
+        {content.about.title}
+      </h2>
+
+      <div
+        class='font-bembo font-normal text-14px lg:text-xl text-justify mt-4'
+      >
+        <Fragment set:html={content.about.text} />
+      </div>
+
+      <div class='hidden lg:flex flex-col gap-12 mt-12'>
+        {
+          content.postcardHistory.postcards.slice(1).map((postcard: any) => (
+            <FlipPostcard
+              client:only='vue'
+              imgFront={postcard.imgFront}
+              imgBack={postcard.imgBack}
+              caption={postcard.caption}
+              captionAlign='left'
+              captionContainWithinCard={true}
+              seeTheBack={true}
+              width={456}
+              height={281}
+            />
+          ))
+        }
+      </div>
+
+      <div class='mt-8'>
+        <ShootToTop
+          client:only='vue'
+          staticImg={true}
+        />
+      </div>
     </div>
+
+    <!-- Right Column -->
+    <div class='hidden lg:block w-[195px] max-w-[195px] shrink-0'></div>
+    <!-- <div class='hidden lg:block lg:w-auto mr-auto'></div> -->
   </div>
 
   <footer></footer>

@@ -75,6 +75,7 @@
   --shadow-lg: 4px 4px 6px 4px rgba(0, 0, 0, 0.25);
   --shadow-inset: inset 0px 2px 8px 4px rgba(0, 0, 0, 0.17);
   --shadow-menu: 4px 4px 6px 2px rgba(0, 0, 0, 0.15);
+  --shadow-text-box: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
 
   /* Text Shadow */
   --shadow-text: 0px 2px 4px rgba(0, 0, 0, 0.15);
