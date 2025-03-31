@@ -141,7 +141,7 @@ const createKeyFrames = () => {
     <transition-group
       tag="div"
       enter-active-class="SlideshowZoom__enterActive"
-      enter-class="SlideshowZoom__enter"
+      enter-from-class="SlideshowZoom__enterFrom"
       leave-active-class="SlideshowZoom__leaveActive"
       leave-to-class="SlideshowZoom__leaveTo"
       class="SlideshowZoom__slides"
@@ -178,6 +178,7 @@ const createKeyFrames = () => {
     overflow: hidden;
     animation-duration: 8s;
     animation-fill-mode: forwards; // The element will retain the style values that is set by the last keyframe
+    opacity: 1; // Ensure full opacity for active images
   }
 
   &__enterActive,
