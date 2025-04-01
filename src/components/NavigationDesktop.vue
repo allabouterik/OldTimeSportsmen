@@ -1,11 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import houseWithSmokeImage from '@/assets/images/house-with-smoke.png';
 import houseWithoutSmokeImage from '@/assets/images/house-without-smoke.png';
 import DesktopNavSubMenu from '@/components/DesktopNavSubMenu.vue';
 import type { NavItem } from './Header.vue';
 
 const isHouseWithSmoke = ref(false);
+
+const isMacWebkit = computed(() => {
+  const isChromiumOrFirefox =
+    navigator.userAgent.indexOf('Chrome') > -1 ||
+    navigator.userAgent.indexOf('Chromium') > -1 ||
+    navigator.userAgent.indexOf('Firefox') > -1;
+
+  const isMacPlatform =
+    // Modern API
+    (navigator as any).userAgentData?.platform === 'macOS' ||
+    // Fallback for browsers that don't support userAgentData
+    /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
+
+  return isMacPlatform && isChromiumOrFirefox;
+});
 
 const props = defineProps<{
   navItems: NavItem[];
@@ -47,7 +62,8 @@ const activeLevel3NavItem = ref<number | null>(null);
           class="w-[115px] self-end mr-1"
         />
         <span
-          class="inline-block font-garage-gothic text-5xl leading-none font-medium mt-5 text-shadow"
+          class="inline-block font-garage-gothic text-5xl leading-[0.8] font-medium mt-5 text-shadow"
+          :class="[{ 'translate-y-4': isMacWebkit }]"
           >HOME SWEET HOME</span
         >
       </a>
@@ -57,7 +73,7 @@ const activeLevel3NavItem = ref<number | null>(null);
         <div
           v-for="(item, index) in navItems"
           :key="item.href"
-          class="min-w-[280px] text-center"
+          class="min-w-[280px]"
           :class="{
             'z-50': index === 0,
             'z-30': index === 1,
@@ -67,15 +83,18 @@ const activeLevel3NavItem = ref<number | null>(null);
         >
           <a
             :href="item.href"
-            class="block absolute -bottom-1 min-w-[280px] border-t-4 border-x-4 border-gold pt-4 pb-3 px-8 rounded-t-xl"
+            class="flex items-center justify-center absolute -bottom-1 min-w-[280px] min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl px-8"
             :class="[
               item.bgColor,
               { 'border-b-green-olive': index === activePrimaryNavItemIndex },
             ]"
           >
             <h2
-              class="text-48px leading-none text-cream font-garage-gothic font-medium tracking-wider uppercase"
-              :class="{ 'text-gold': item.href === currentRoute }"
+              class="text-48px text-cream font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
+              :class="[
+                { 'text-gold': item.href === currentRoute },
+                { 'translate-y-4': isMacWebkit },
+              ]"
             >
               {{ item.label }}
             </h2>
@@ -90,16 +109,19 @@ const activeLevel3NavItem = ref<number | null>(null);
         activePrimaryNavItemIndex !== null &&
         navItems[activePrimaryNavItemIndex].subNavItems
       "
-      class="relative bg-green-olive py-4 px-[20px] flex justify-center gap-36 border-t-4 border-gold z-40 shadow-menu"
+      class="flex items-center justify-center gap-36 relative min-h-[74px] bg-green-olive border-t-4 border-gold z-40 shadow-menu py-4 px-[20px]"
     >
       <button
         v-for="(item, index) in navItems[activePrimaryNavItemIndex].subNavItems"
         :key="item.label"
         class="font-garage-gothic text-[52px] leading-none font-medium tracking-wider uppercase transition-colors"
-        :class="{
-          'text-green-gray hover:text-cream': activeLevel2NavItem !== index,
-          'text-gold': activeLevel2NavItem === index,
-        }"
+        :class="[
+          {
+            'text-green-gray hover:text-cream': activeLevel2NavItem !== index,
+            'text-gold': activeLevel2NavItem === index,
+            'translate-y-4': isMacWebkit,
+          },
+        ]"
         @click="
           activeLevel2NavItem = index;
           activeLevel3NavItem = null;
@@ -110,7 +132,7 @@ const activeLevel3NavItem = ref<number | null>(null);
     </div>
     <div
       v-else
-      class="relative bg-green-olive flex border-t-4 border-gold z-50"
+      class="flex relative bg-green-olive border-t-4 border-gold z-50"
     ></div>
 
     <!-- Level 3 Navigation Items -->
