@@ -48,7 +48,7 @@ const activeLevel3NavItem = ref<number | null>(null);
       <!-- Home Menu Item -->
       <a
         href="/"
-        class="flex h-[85px] items-center ml-8 px-8 py-1 hover:cursor-pointer text-black hover:text-gold"
+        class="flex h-[85px] items-center ml-8 px-8 py-1 hover:cursor-pointer"
         @mouseenter="isHouseWithSmoke = true"
         @mouseleave="isHouseWithSmoke = false"
       >
@@ -62,7 +62,7 @@ const activeLevel3NavItem = ref<number | null>(null);
           class="w-[115px] self-end mr-1"
         />
         <span
-          class="inline-block font-garage-gothic text-5xl leading-[0.8] font-medium mt-5 text-shadow"
+          class="inline-block font-garage-gothic text-5xl text-black hover:text-green-olive leading-[0.8] font-medium mt-5 text-shadow"
           :class="[{ 'translate-y-4': isMacWebkit }]"
           >HOME SWEET HOME</span
         >
@@ -90,8 +90,9 @@ const activeLevel3NavItem = ref<number | null>(null);
             ]"
           >
             <h2
-              class="text-48px text-cream font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
+              class="text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
               :class="[
+                { 'text-cream hover:text-gold': item.href !== currentRoute },
                 { 'text-gold': item.href === currentRoute },
                 { 'translate-y-4': isMacWebkit },
               ]"
@@ -117,7 +118,7 @@ const activeLevel3NavItem = ref<number | null>(null);
         class="font-garage-gothic text-[52px] leading-none font-medium tracking-wider uppercase transition-colors"
         :class="[
           {
-            'text-green-gray hover:text-cream': activeLevel2NavItem !== index,
+            'text-green-gray hover:text-gold': activeLevel2NavItem !== index,
             'text-gold': activeLevel2NavItem === index,
             'translate-y-4': isMacWebkit,
           },

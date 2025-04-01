@@ -36,7 +36,7 @@ const activeLinkItemIndex = ref(
         v-if="item.href"
         class="min-w-1/7 text-center font-francois-one text-[22px] leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
         :class="{
-          'text-black hover:text-brown-dark': activeLinkItemIndex !== index,
+          'text-black hover:text-gold': activeLinkItemIndex !== index,
           'text-gold': activeLinkItemIndex === index,
         }"
         :href="item.href"
@@ -49,7 +49,7 @@ const activeLinkItemIndex = ref(
         class="font-francois-one text-[22px] leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
         @click="onButtonClick(index)"
         :class="{
-          'text-black hover:text-brown-dark': activeItemIndex !== index,
+          'text-black hover:text-gold': activeItemIndex !== index,
           'text-gold': activeItemIndex === index,
         }"
       >
