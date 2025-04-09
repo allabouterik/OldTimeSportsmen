@@ -18,7 +18,7 @@ const props = defineProps<{
 
 const homeItem: NavItem = {
   label: 'HOME',
-  href: '/',
+  slug: '',
   icon: 'home',
 };
 
@@ -33,8 +33,8 @@ const currentRoute = ref(window.location.pathname);
 const activePrimaryNavItemIndex = ref(
   navItems.findIndex(
     (item) =>
-      item.href === currentRoute.value ||
-      (item.href === '/gallery' && currentRoute.value === '/')
+      item.slug === currentRoute.value ||
+      (item.slug === '/gallery' && currentRoute.value === '/')
   )
 );
 
@@ -98,7 +98,7 @@ const getIconDimensions = (icon: string | undefined) => {
   >
     <!-- Close Button -->
     <button
-      class="fixed top-3 left-3 w-5 h-5"
+      class="fixed top-3 left-3 w-5 h-5 m-2 focus-visible:outline-cream focus-visible:outline-2 outline-offset-2 rounded-md"
       @click="closeMenu"
     >
       <IconBase
@@ -114,49 +114,53 @@ const getIconDimensions = (icon: string | undefined) => {
     <!-- Navigation -->
     <div class="h-full overflow-y-auto py-16">
       <!-- Main Navigation Items -->
-      <nav class="space-y-9">
+      <nav class="space-y-5">
         <template
-          v-for="(item, primaryNavItemIndex) in navItems"
-          :key="item.label"
+          v-for="(Lvl1Item, Lvl1ItemIndex) in navItems"
+          :key="Lvl1Item.label"
           class=""
         >
           <!-- Main Navigation Items with Subnav -->
           <div
-            v-if="item.subNavItems"
-            @click="toggleSection(item.label)"
-            class="grid grid-cols-[auto_minmax(auto,253px)] items-center cursor-pointer"
+            v-if="Lvl1Item.subNavItems"
+            @click="toggleSection(Lvl1Item.label)"
+            @keydown.enter="toggleSection(Lvl1Item.label)"
+            class="grid grid-cols-[auto_minmax(auto,253px)] items-center cursor-pointer min-h-10 p-2 focus-visible:outline-cream focus-visible:outline-2 outline-offset-2"
+            tabindex="0"
           >
             <IconBase
-              :width="getIconDimensions(item.icon).width"
-              :height="getIconDimensions(item.icon).height"
-              :iconName="item.icon || ''"
+              :width="getIconDimensions(Lvl1Item.icon).width"
+              :height="getIconDimensions(Lvl1Item.icon).height"
+              :iconName="Lvl1Item.icon || ''"
               class="inline-block w-6 h-6 self-baseline justify-self-end mr-3 mt-1"
             >
-              <component :is="getIconComponent(item.icon)" />
+              <component :is="getIconComponent(Lvl1Item.icon)" />
             </IconBase>
             <div>
               <span
                 class="font-garage-gothic font-medium text-34px leading-none tracking-wider uppercase text-black"
                 :class="{
-                  'text-gold':
-                    activePrimaryNavItemIndex === primaryNavItemIndex,
+                  'text-gold': activePrimaryNavItemIndex === Lvl1ItemIndex,
                 }"
-                >{{ item.label }}</span
+                >{{ Lvl1Item.label }}</span
               >
               <div class="w-full h-[3px] bg-gold"></div>
 
               <!-- Level 2 Subnav items -->
               <div
-                v-if="item.subNavItems && isExpanded(item.label)"
-                class="mt-4 space-y-4 -translate-x-6"
+                v-if="Lvl1Item.subNavItems && isExpanded(Lvl1Item.label)"
+                class="mt-4 space-y-2 -translate-x-6"
               >
                 <template
-                  v-for="Lvl2Item in item.subNavItems"
+                  v-for="Lvl2Item in Lvl1Item.subNavItems"
                   :key="Lvl2Item.label"
                 >
                   <div
                     v-if="Lvl2Item.subNavItems"
-                    class="grid grid-cols-[auto_minmax(auto,230px)]"
+                    @click.stop="toggleSection(Lvl2Item.label)"
+                    @keydown.enter.stop="toggleSection(Lvl2Item.label)"
+                    class="grid grid-cols-[auto_minmax(auto,230px)] -ml-2 p-2 focus-visible:outline-cream focus-visible:outline-2 outline-offset-2 rounded-md"
+                    tabindex="0"
                   >
                     <Icon
                       icon="fa-solid:angle-right"
@@ -164,10 +168,7 @@ const getIconDimensions = (icon: string | undefined) => {
                       :class="{ 'rotate-90': isExpanded(Lvl2Item.label) }"
                     />
                     <div class="space-y-2">
-                      <div
-                        @click.stop="toggleSection(Lvl2Item.label)"
-                        class="flex items-center gap-2 cursor-pointer"
-                      >
+                      <div class="flex items-center gap-2 cursor-pointer">
                         <span
                           class="font-garage-gothic font-medium tracking-wider text-32px uppercase text-green-gray hover:text-gray-700"
                           >{{ Lvl2Item.label }}</span
@@ -177,7 +178,7 @@ const getIconDimensions = (icon: string | undefined) => {
                       <!-- Level 3 Subnav items -->
                       <div
                         v-if="isExpanded(Lvl2Item.label)"
-                        class="space-y-4"
+                        class="space-y-2"
                       >
                         <template
                           v-for="Lvl3Item in Lvl2Item.subNavItems"
@@ -185,7 +186,10 @@ const getIconDimensions = (icon: string | undefined) => {
                         >
                           <div
                             v-if="Lvl3Item.subNavItems"
-                            class="grid grid-cols-[auto_minmax(auto,230px)]"
+                            @click.stop="toggleSection(Lvl3Item.label)"
+                            @keydown.enter.stop="toggleSection(Lvl3Item.label)"
+                            class="grid grid-cols-[auto_minmax(auto,230px)] p-2 -mx-2 focus-visible:outline-cream focus-visible:outline-2 outline-offset-2 rounded-md"
+                            tabindex="0"
                           >
                             <Icon
                               icon="fa-solid:angle-right"
@@ -196,7 +200,6 @@ const getIconDimensions = (icon: string | undefined) => {
                             />
                             <div class="space-y-2">
                               <div
-                                @click.stop="toggleSection(Lvl3Item.label)"
                                 class="flex items-center gap-2 cursor-pointer"
                               >
                                 <span
@@ -213,8 +216,8 @@ const getIconDimensions = (icon: string | undefined) => {
                                 <a
                                   v-for="Lvl4Item in Lvl3Item.subNavItems"
                                   :key="Lvl4Item.label"
-                                  :href="Lvl4Item.href"
-                                  class="block font-poppins font-normal text-16px text-cream-light hover:text-gray-700"
+                                  :href="`/${Lvl1Item.slug}/${Lvl2Item.slug}/${Lvl3Item.slug}/${Lvl4Item.slug}`"
+                                  class="block font-poppins font-normal text-16px pl-2 text-cream-light hover:text-gray-700 focus-visible:outline-cream focus-visible:outline-2 outline-offset-2 rounded-md"
                                   >{{ Lvl4Item.label }}</a
                                 >
                               </div>
@@ -224,8 +227,8 @@ const getIconDimensions = (icon: string | undefined) => {
                           <!-- Level 3 Page Links -->
                           <a
                             v-else
-                            :href="Lvl3Item.href"
-                            class="block font-poppins font-normal text-16px uppercase text-white hover:text-gray-700 ml-5"
+                            :href="`/${Lvl1Item.slug}/${Lvl2Item.slug}/${Lvl3Item.slug}`"
+                            class="block font-poppins font-normal text-16px uppercase text-white hover:text-gray-700 ml-3 p-2 focus-visible:outline-cream focus-visible:outline-2 outline-offset-2 rounded-md"
                             >{{ Lvl3Item.label }}</a
                           >
                         </template>
@@ -236,7 +239,7 @@ const getIconDimensions = (icon: string | undefined) => {
                   <!-- Level 2 Page Links -->
                   <a
                     v-else
-                    :href="Lvl2Item.href"
+                    :href="`/${Lvl1Item.slug}/${Lvl2Item.slug}`"
                     class="grid grid-cols-[auto_minmax(auto,230px)] items-center text-green-gray hover:text-gray-700"
                   >
                     <div></div>
@@ -253,27 +256,29 @@ const getIconDimensions = (icon: string | undefined) => {
           <!-- Main Navigation Page Links -->
           <a
             v-else
-            :href="item.href"
-            class="grid grid-cols-[auto_minmax(auto,253px)] items-center"
+            :href="`/${Lvl1Item.slug}`"
+            class="grid grid-cols-[auto_minmax(auto,253px)] items-center p-2 focus-visible:outline-cream focus-visible:outline-2 outline-offset-2"
             :class="[
-              activePrimaryNavItemIndex === primaryNavItemIndex
+              activePrimaryNavItemIndex === Lvl1ItemIndex
                 ? 'text-gold'
                 : 'text-black',
             ]"
           >
             <IconBase
-              :width="getIconDimensions(item.icon).width"
-              :height="getIconDimensions(item.icon).height"
-              :iconName="item.icon || ''"
-              :fillColor="item.icon === 'home' ? 'currentColor' : 'transparent'"
+              :width="getIconDimensions(Lvl1Item.icon).width"
+              :height="getIconDimensions(Lvl1Item.icon).height"
+              :iconName="Lvl1Item.icon || ''"
+              :fillColor="
+                Lvl1Item.icon === 'home' ? 'currentColor' : 'transparent'
+              "
               class="inline-block w-6 h-6 self-baseline justify-self-end mr-3 mt-1"
             >
-              <component :is="getIconComponent(item.icon)" />
+              <component :is="getIconComponent(Lvl1Item.icon)" />
             </IconBase>
             <div>
               <span
                 class="font-garage-gothic font-medium text-34px leading-none tracking-wider uppercase"
-                >{{ item.label }}</span
+                >{{ Lvl1Item.label }}</span
               >
               <div class="w-full h-[3px] bg-gold"></div>
             </div>
@@ -286,7 +291,7 @@ const getIconDimensions = (icon: string | undefined) => {
   <!-- Overlay -->
   <div
     v-if="modelValue"
-    class="fixed inset-0 bg-black bg-opacity-50 z-40"
+    class="fixed inset-0 bg-black/50 z-40"
     @click="closeMenu"
   ></div>
 </template>
