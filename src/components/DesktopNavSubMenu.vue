@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import type { NavItem } from '@/components/Header.vue';
 
 const props = defineProps<{
   items: NavItem[];
+  parentSlug?: string;
 }>();
 
 const activeItemIndex = ref<number | null>(null);
@@ -19,8 +20,10 @@ const onButtonClick = (index: number) => {
 
 const currentRoute = ref(window.location.pathname);
 
-const activeLinkItemIndex = ref(
-  props.items.findIndex((item) => item.href && item.href === currentRoute.value)
+const currentRouteItemIndex = computed(() =>
+  props.items.findIndex((item) =>
+    currentRoute.value.includes(`/${props.parentSlug}/${item.slug}`)
+  )
 );
 </script>
 
@@ -33,13 +36,15 @@ const activeLinkItemIndex = ref(
       :key="item.label"
     >
       <a
-        v-if="item.href"
+        v-if="!item.subNavItems"
         class="min-w-1/7 text-center font-francois-one text-[22px] leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
         :class="{
-          'text-black hover:text-gold': activeLinkItemIndex !== index,
-          'text-gold': activeLinkItemIndex === index,
+          'text-black hover:text-gold':
+            index !== currentRouteItemIndex && index !== activeItemIndex,
+          'text-gold':
+            index === currentRouteItemIndex || index === activeItemIndex,
         }"
-        :href="item.href"
+        :href="parentSlug ? `/${parentSlug}/${item.slug}` : `/${item.slug}`"
       >
         {{ item.label }}
       </a>
@@ -49,8 +54,10 @@ const activeLinkItemIndex = ref(
         class="font-francois-one text-[22px] leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
         @click="onButtonClick(index)"
         :class="{
-          'text-black hover:text-gold': activeItemIndex !== index,
-          'text-gold': activeItemIndex === index,
+          'text-black hover:text-gold':
+            index !== currentRouteItemIndex && index !== activeItemIndex,
+          'text-gold':
+            index === currentRouteItemIndex || index === activeItemIndex,
         }"
       >
         {{ item.label }}

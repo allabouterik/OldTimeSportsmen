@@ -28,17 +28,70 @@ const props = defineProps<{
 
 const currentRoute = ref(window.location.pathname);
 
-const activePrimaryNavItemIndex = ref(
-  props.navItems.findIndex(
-    (item) =>
-      item.href === currentRoute.value ||
-      (item.href === '/gallery' && currentRoute.value === '/')
-  )
-);
+const currentRouteLvl1 = computed(() => {
+  return currentRoute.value.split('/')[1];
+});
 
-const activeLevel2NavItem = ref<number | null>(null);
-const activeLevel3NavItem = ref<number | null>(null);
-// const activeLevel4NavItem = ref<number | null>(null);
+const currentRouteLvl2 = computed(() => {
+  return currentRoute.value.split('/')[2];
+});
+
+const currentRouteLvl3 = computed(() => {
+  return currentRoute.value.split('/')[3];
+});
+
+const currentRouteLvl4 = computed(() => {
+  return currentRoute.value.split('/')[4];
+});
+
+const currentLvl1NavItemIndex = computed(() => {
+  return props.navItems.findIndex(
+    (item: NavItem) =>
+      item.slug === currentRouteLvl1.value ||
+      (item.slug === 'gallery' && currentRouteLvl1.value === '/')
+  );
+});
+
+const activeLvl1NavItemIndex = ref(currentLvl1NavItemIndex.value);
+
+const activeLvl1NavItem = computed(() => {
+  return props.navItems[activeLvl1NavItemIndex.value];
+});
+
+// Level 2 Navigation Items
+const currentLvl2NavItemIndex = computed(() => {
+  return activeLvl1NavItem.value?.subNavItems?.findIndex(
+    (item: NavItem) => item.slug === currentRouteLvl2.value
+  );
+});
+
+const activeLvl2NavItemIndex = ref(currentLvl2NavItemIndex.value);
+
+const activeLvl2NavItem = computed(() => {
+  return activeLvl1NavItem.value?.subNavItems?.[activeLvl2NavItemIndex.value];
+});
+
+// Level 3 Navigation Items
+const currentLvl3NavItemIndex = computed(() => {
+  return activeLvl2NavItem.value?.subNavItems?.findIndex(
+    (item: NavItem) => item.slug === currentRouteLvl3.value
+  );
+});
+
+const activeLvl3NavItemIndex = ref(currentLvl3NavItemIndex.value);
+
+const activeLvl3NavItem = computed(() => {
+  return activeLvl2NavItem.value?.subNavItems?.[activeLvl3NavItemIndex.value];
+});
+
+// Level 4 Navigation Items
+const currentLvl4NavItemIndex = computed(() => {
+  return activeLvl3NavItem.value?.subNavItems?.findIndex(
+    (item: NavItem) => item.slug === currentRouteLvl4.value
+  );
+});
+
+const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
 </script>
 
 <template>
@@ -72,7 +125,7 @@ const activeLevel3NavItem = ref<number | null>(null);
       <div class="flex">
         <div
           v-for="(item, index) in navItems"
-          :key="item.href"
+          :key="item.label"
           class="min-w-[280px]"
           :class="{
             'z-50': index === 0,
@@ -81,24 +134,53 @@ const activeLevel3NavItem = ref<number | null>(null);
             '-ml-4': index > 0,
           }"
         >
-          <a
-            :href="item.href"
+          <button
+            v-if="item.subNavItems"
             class="flex items-center justify-center absolute -bottom-1 min-w-[280px] min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl px-8"
             :class="[
               item.bgColor,
-              { 'border-b-green-olive': index === activePrimaryNavItemIndex },
+              { 'border-b-green-olive': index === activeLvl1NavItemIndex },
             ]"
+            @click="
+              activeLvl1NavItemIndex = index;
+              activeLvl2NavItemIndex = -1;
+              activeLvl3NavItemIndex = -1;
+              activeLvl4NavItemIndex = -1;
+            "
           >
-            <h2
+            <span
               class="text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
               :class="[
-                { 'text-cream hover:text-gold': item.href !== currentRoute },
-                { 'text-gold': item.href === currentRoute },
+                { 'text-cream hover:text-gold': item.slug !== currentRoute },
+                {
+                  'text-gold': activeLvl1NavItemIndex === index,
+                },
                 { 'translate-y-4': isMacWebkit },
               ]"
             >
               {{ item.label }}
-            </h2>
+            </span>
+          </button>
+
+          <a
+            v-else
+            :href="`/${item.slug}`"
+            class="flex items-center justify-center absolute -bottom-1 min-w-[280px] min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl px-8"
+            :class="[
+              item.bgColor,
+              { 'border-b-green-olive': index === activeLvl1NavItemIndex },
+            ]"
+          >
+            <span
+              class="text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
+              :class="[
+                { 'text-cream hover:text-gold': item.slug !== currentRoute },
+                { 'text-gold': item.slug === currentRouteLvl1 },
+                { 'translate-y-4': isMacWebkit },
+              ]"
+            >
+              {{ item.label }}
+            </span>
           </a>
         </div>
       </div>
@@ -106,26 +188,24 @@ const activeLevel3NavItem = ref<number | null>(null);
 
     <!-- Level 2 Navigation Bar with Categories -->
     <div
-      v-if="
-        activePrimaryNavItemIndex !== null &&
-        navItems[activePrimaryNavItemIndex].subNavItems
-      "
+      v-if="activeLvl1NavItemIndex !== null && activeLvl1NavItem?.subNavItems"
       class="flex items-center justify-center gap-36 relative min-h-[74px] bg-green-olive border-t-4 border-gold z-40 shadow-menu py-4 px-[20px]"
     >
       <button
-        v-for="(item, index) in navItems[activePrimaryNavItemIndex].subNavItems"
+        v-for="(item, index) in activeLvl1NavItem?.subNavItems"
         :key="item.label"
         class="font-garage-gothic text-[52px] leading-none font-medium tracking-wider uppercase transition-colors"
         :class="[
           {
-            'text-green-gray hover:text-gold': activeLevel2NavItem !== index,
-            'text-gold': activeLevel2NavItem === index,
+            'text-green-gray hover:text-gold': activeLvl2NavItemIndex !== index,
+            'text-gold': activeLvl2NavItemIndex === index,
             'translate-y-4': isMacWebkit,
           },
         ]"
         @click="
-          activeLevel2NavItem = index;
-          activeLevel3NavItem = null;
+          activeLvl2NavItemIndex = index;
+          activeLvl3NavItemIndex = -1;
+          activeLvl4NavItemIndex = -1;
         "
       >
         {{ item.label }}
@@ -138,32 +218,19 @@ const activeLevel3NavItem = ref<number | null>(null);
 
     <!-- Level 3 Navigation Items -->
     <DesktopNavSubMenu
-      :key="`level2-index${activeLevel2NavItem}-level-3-subnav`"
-      v-if="
-        activeLevel2NavItem !== null &&
-        navItems[activePrimaryNavItemIndex]?.subNavItems?.[activeLevel2NavItem]
-          ?.subNavItems
-      "
-      :items="
-        navItems[activePrimaryNavItemIndex]?.subNavItems?.[activeLevel2NavItem]
-          ?.subNavItems ?? []
-      "
-      @activeItemIndex="activeLevel3NavItem = $event"
+      :key="`level2-index${activeLvl2NavItemIndex}-level-3-subnav`"
+      v-if="activeLvl2NavItem?.subNavItems"
+      :items="activeLvl2NavItem?.subNavItems"
+      :parentSlug="`${activeLvl1NavItem?.slug}/${activeLvl2NavItem?.slug}`"
+      @activeItemIndex="activeLvl3NavItemIndex = $event"
     />
 
     <!-- Level 4 Navigation Items -->
     <DesktopNavSubMenu
       key="level-4-subnav"
-      v-if="
-        activeLevel2NavItem !== null &&
-        activeLevel3NavItem !== null &&
-        navItems[activePrimaryNavItemIndex]?.subNavItems?.[activeLevel2NavItem]
-          ?.subNavItems?.[activeLevel3NavItem]?.subNavItems
-      "
-      :items="
-        navItems[activePrimaryNavItemIndex]?.subNavItems?.[activeLevel2NavItem]
-          ?.subNavItems?.[activeLevel3NavItem]?.subNavItems ?? []
-      "
+      v-if="activeLvl3NavItem?.subNavItems"
+      :items="activeLvl3NavItem?.subNavItems"
+      :parentSlug="`${activeLvl1NavItem?.slug}/${activeLvl2NavItem?.slug}/${activeLvl3NavItem?.slug}`"
     />
   </nav>
 </template>

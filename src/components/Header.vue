@@ -9,7 +9,7 @@ import { ref } from 'vue';
 
 export type NavItem = {
   label: string;
-  href?: string;
+  slug?: string;
   bgColor?: string;
   icon?: string;
   subNavItems?: NavItem[];
@@ -18,203 +18,209 @@ export type NavItem = {
 const navItems: NavItem[] = [
   {
     label: 'Postal Gallery',
-    href: '/gallery',
+    slug: 'gallery',
     bgColor: 'bg-green-olive',
     icon: 'gallery',
     subNavItems: [
       {
         label: 'Hunting',
-        href: '/hunting',
+        slug: 'hunting',
         subNavItems: [
           {
             label: 'Big Game',
+            slug: 'big-game',
             subNavItems: [
               {
                 label: 'Deer',
-                href: '/hunting/big-game/deer',
+                slug: 'deer',
               },
               {
                 label: 'Bear',
-                href: '/hunting/big-game/bear',
+                slug: 'bear',
               },
               {
                 label: 'Moose, Sheep, etc.',
-                href: '/hunting/big-game/sheep-goats-etc',
+                slug: 'sheep-goats-etc',
               },
               {
                 label: 'Cats',
-                href: '/hunting/big-game/cats',
+                slug: 'cats',
               },
               {
                 label: 'Wolves, Coyotes',
-                href: '/hunting/big-game/wolves-coyotes',
+                slug: 'wolves-coyotes',
               },
               {
                 label: 'Alligators',
-                href: '/hunting/big-game/alligators',
+                slug: 'alligators',
               },
             ],
           },
           {
             label: 'Small Game',
+            slug: 'small-game',
             subNavItems: [
               {
                 label: 'Rabbits',
-                href: '/hunting/small-game/rabbits',
+                slug: 'rabbits',
               },
               {
                 label: 'Rabbit Round-Ups',
-                href: '/hunting/small-game/rabbit-round-ups',
+                slug: 'rabbit-round-ups',
               },
               {
                 label: 'Squirrels, Skunks, etc.',
-                href: '/hunting/small-game/squirrels-skunks-etc',
+                slug: 'squirrels-skunks-etc',
               },
               {
                 label: 'Frogs, Snakes, etc.',
-                href: '/hunting/small-game/frogs-snakes-etc',
+                slug: 'frogs-snakes-etc',
               },
               {
                 label: 'Foxes',
-                href: '/hunting/small-game/foxes',
+                slug: 'foxes',
               },
             ],
           },
           {
             label: 'Birds',
+            slug: 'birds',
             subNavItems: [
               {
                 label: 'Ducks',
-                href: '/hunting/birds/ducks',
+                slug: 'ducks',
               },
               {
                 label: 'Geese',
-                href: '/hunting/birds/geese',
+                slug: 'geese',
               },
               {
                 label: 'Upland Game Birds',
-                href: '/hunting/birds/upland-game-birds',
+                slug: 'upland-game-birds',
               },
               {
                 label: 'Other Birds',
-                href: '/hunting/birds/other-birds',
+                slug: 'other-birds',
               },
             ],
           },
           {
             label: "Huntin' Gals",
-            href: '/huntin-gals',
+            slug: 'huntin-gals',
           },
           {
             label: 'Portraits',
-            href: '/portraits',
+            slug: 'portraits',
           },
           {
             label: 'Young Hunters',
-            href: '/young-hunters',
+            slug: 'young-hunters',
           },
           {
             label: "Huntin' Dogs",
-            href: '/huntin-dogs',
+            slug: 'huntin-dogs',
           },
         ],
       },
       {
         label: 'Fishing',
+        slug: 'fishing',
         subNavItems: [
           {
             label: 'Bass',
-            href: '/fish  ing/bass',
+            slug: 'bass',
           },
           {
             label: 'Carp',
-            href: '/fishing/carp',
+            slug: 'carp',
           },
           {
             label: 'Catfish',
-            href: '/fishing/catfish',
+            slug: 'catfish',
           },
           {
             label: 'Florida Studio',
-            href: '/fishing/florida-studio',
+            slug: 'florida-studio',
           },
           {
             label: 'Giant Sea Bass',
-            href: '/fishing/giant-sea-bass',
+            slug: 'giant-sea-bass',
           },
           {
             label: 'Halibut',
-            href: '/fishing/halibut',
+            slug: 'halibut',
           },
           {
             label: 'Other Fish',
-            href: '/fishing/other-fish',
+            slug: 'other-fish',
           },
           {
             label: 'Pike, Muskie',
-            href: '/fishing/pike-muskie',
+            slug: 'pike-muskie',
           },
           {
             label: 'Stringers',
-            href: '/fishing/stringers',
+            slug: 'stringers',
           },
           {
             label: 'Sturgeon',
-            href: '/fishing/sturgeon',
+            slug: 'sturgeon',
           },
           {
             label: 'Tarpon  ',
-            href: '/fishing/tarpon',
+            slug: 'tarpon',
           },
           {
             label: 'Trout, Salmon',
-            href: '/fishing/trout-salmon',
+            slug: 'trout-salmon',
           },
           {
             label: 'Women Fishing',
-            href: '/fishing/women-fishing',
+            slug: 'women-fishing',
           },
           {
             label: 'Young Fishermen',
-            href: '/fishing/young-fishermen',
+            slug: 'young-fishermen',
           },
         ],
       },
       {
         label: 'Camp & Cabin',
+        slug: 'camp-cabin',
         subNavItems: [
           {
             label: 'Camp & Cabin',
-            href: '/camp-cabin',
+            slug: 'camp-cabin',
           },
           {
             label: 'Hunting Groups',
-            href: '/camp-cabin/hunting-groups',
+            slug: 'hunting-groups',
           },
           {
             label: 'Fishing Groups',
-            href: '/camp-cabin/fishing-groups',
+            slug: 'fishing-groups',
           },
           {
             label: 'Scenic',
-            href: '/camp-cabin/scenic',
+            slug: 'scenic',
           },
         ],
       },
       {
         label: 'Tall Tales',
+        slug: 'tall-tales',
         subNavItems: [
           {
             label: 'Tall Tales Hunting',
-            href: '/tall-tales/hunting',
+            slug: 'hunting',
           },
           {
             label: 'Tall Tales Fishing',
-            href: '/tall-tales/fishing',
+            slug: 'fishing',
           },
           {
             label: 'Fakes',
-            href: '/tall-tales/fakes',
+            slug: 'fakes',
           },
         ],
       },
@@ -222,13 +228,13 @@ const navItems: NavItem[] = [
   },
   {
     label: 'The Book',
-    href: '/book',
+    slug: 'book',
     bgColor: 'bg-black',
     icon: 'book',
   },
   {
     label: 'Contact & Credits',
-    href: '/contact',
+    slug: 'contact',
     bgColor: 'bg-brown-dark',
     icon: 'envelope',
   },
