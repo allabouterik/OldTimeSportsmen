@@ -34,10 +34,23 @@ const props = defineProps({
     required: false,
   },
   width: {
-    type: Number,
+    type: [Number, String],
+    required: false,
+    default: '100%',
   },
   height: {
     type: Number,
+    required: false,
+    default: 'auto',
+  },
+  aspectRatio: {
+    type: String,
+    required: false,
+  },
+  reverseBackDims: {
+    type: Boolean,
+    default: false,
+    required: false,
   },
   seeTheBack: {
     type: Boolean,
@@ -62,16 +75,25 @@ const props = defineProps({
 const postcardIndex = ref<number | null>(null);
 const postcardImage = ref<PostcardImageItem[] | null>(null);
 
-const dimStyles = computed(() => ({
-  width: props.width + 'px',
-  height: props.height + 'px',
+const dimStylesFront = computed(() => ({
+  width: typeof props.width === 'number' ? props.width + 'px' : props.width,
+  height: typeof props.height === 'number' ? props.height + 'px' : props.height,
+  aspectRatio: props.aspectRatio,
   cursor: props.imgBackLarge ? 'pointer' : 'auto',
+}));
+
+const dimStylesBack = computed(() => ({
+  width: props.reverseBackDims ? props.width : props.height,
+  height: props.reverseBackDims ? props.height : props.width,
+  aspectRatio: props.reverseBackDims
+    ? props.aspectRatio?.split('/').reverse().join('/')
+    : props.aspectRatio,
 }));
 
 const captionStyles = computed(() => {
   if (props.captionContainWithinCard) {
     return {
-      width: props.width + 'px',
+      width: typeof props.width === 'number' ? props.width + 'px' : props.width,
       textAlign: props.captionAlign,
     };
   } else {
@@ -116,7 +138,7 @@ const lightBoxOpen = () => {
   >
     <div
       class="flip-card"
-      :style="dimStyles"
+      :style="dimStylesFront"
       @click="lightBoxOpen()"
     >
       <img
@@ -131,14 +153,14 @@ const lightBoxOpen = () => {
           <img
             :src="imgFront"
             :alt="caption"
-            :style="dimStyles"
+            :style="dimStylesFront"
           />
         </div>
         <div class="flip-card-back">
           <img
             :src="imgBack"
             :alt="caption"
-            :style="dimStyles"
+            :style="dimStylesBack"
           />
         </div>
       </div>
@@ -219,7 +241,7 @@ const lightBoxOpen = () => {
 
 /* Style the back side */
 .flip-card-back {
-  background-color: dodgerblue;
+  background-color: #000;
   color: white;
   transform: rotateY(180deg);
 }
