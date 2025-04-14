@@ -1,6 +1,7 @@
 ---
-import FlipPostcard from '@/components/FlipPostcard.vue';
 import Layout from '@/layouts/Layout.astro';
+import Gallery from '@/components/Gallery.vue';
+import type { CloudinaryListResponse } from '@/types/CloudinaryTypes';
 
 export const prerender = true;
 
@@ -51,22 +52,6 @@ export const getStaticPaths = async () => {
 
 const { gallery } = Astro.params;
 
-type CloudinaryImage = {
-  asset_id: string;
-  public_id: string;
-  version: number;
-  format: string;
-  width: number;
-  height: number;
-  type: string;
-  created_at: string;
-};
-
-type CloudinaryListResponse = {
-  resources: CloudinaryImage[];
-  updated_at: string;
-};
-
 const getImagesFromCloudinary = async (_gallery) => {
   const imagesJson = await fetch(
     `https://res.cloudinary.com/all-about-erik/image/list/big-game_deer.json`
@@ -86,58 +71,8 @@ const sortedImages = images.resources.sort((a, b) =>
 ---
 
 <Layout>
-  <div class='mx-auto px-4 lg:px-14 py-8'>
-    <div
-      class='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 lg:gap-14'
-    >
-      {
-        sortedImages.map((image, imageIndex) =>
-          sortedImages[imageIndex + 1]?.public_id?.endsWith('a') ? (
-            <div class='w-full'>
-              <FlipPostcard
-                client:only='vue'
-                imgFront={encodeURI(
-                  `https://res.cloudinary.com/all-about-erik/image/upload/v${image.version}/${image.public_id}.${image.format}`
-                )}
-                imgBack={encodeURI(
-                  `https://res.cloudinary.com/all-about-erik/image/upload/v${sortedImages[imageIndex + 1]?.version}/${sortedImages[imageIndex + 1]?.public_id}.${sortedImages[imageIndex + 1]?.format}`
-                )}
-                caption={image.public_id
-                  .split('/')
-                  .pop()
-                  ?.split('_')
-                  .slice(-2) // take the two last elements
-                  .join(' ')}
-                captionAlign='left'
-                captionContainWithinCard={true}
-                seeTheBack={true}
-                aspectRatio={`${image.width}/${image.height}`}
-                reverseBackDims={
-                  image.width === sortedImages[imageIndex + 1].height
-                }
-              />
-            </div>
-          ) : image.public_id.endsWith('a') ? undefined : (
-            <div class='w-full'>
-              <img
-                src={encodeURI(
-                  `https://res.cloudinary.com/all-about-erik/image/upload/v${image.version}/${image.public_id}.${image.format}`
-                )}
-                alt='Image'
-                class='w-full h-auto object-cover'
-              />
-              <p class='font-bembo font-normal italic text-14px lg:text-16px pt-2'>
-                {image.public_id
-                  .split('/')
-                  .pop()
-                  ?.split('_')
-                  .slice(-2) // take the two last elements
-                  .join(' ')}
-              </p>
-            </div>
-          )
-        )
-      }
-    </div>
-  </div>
+  <Gallery
+    client:only='vue'
+    images={sortedImages}
+  />
 </Layout>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import ImageLightBox from '@/components/ImageLightBox.vue';
 import seeTheBackImg from '@/assets/images/see-the-back.png';
 
 type PostcardImageItem = {
@@ -39,7 +40,7 @@ const props = defineProps({
     default: '100%',
   },
   height: {
-    type: Number,
+    type: [Number, String],
     required: false,
     default: 'auto',
   },
@@ -72,8 +73,8 @@ const props = defineProps({
   },
 });
 
-const postcardIndex = ref<number | null>(null);
-const postcardImage = ref<PostcardImageItem[] | null>(null);
+const postcardIndex = ref<number | undefined>(undefined);
+const postcardImage = ref<PostcardImageItem[] | undefined>(undefined);
 
 const dimStylesFront = computed(() => ({
   width: typeof props.width === 'number' ? props.width + 'px' : props.width,
@@ -109,20 +110,25 @@ const captionStyles = computed(() => {
   }
 });
 
+const includeLightBox = computed(() => {
+  return props.imgBackLarge && props.backText;
+});
+
 const lightBoxOpen = () => {
-  if (!props.imgBackLarge || !props.backText) return;
+  console.log('lightBoxOpen');
+  if (!includeLightBox.value) return;
 
   if (props.backTextIsHTML) {
     postcardImage.value = [
       {
-        img: props.imgBackLarge,
+        img: props.imgBackLarge || '',
         HTMLcaption: props.backText,
       },
     ];
   } else {
     postcardImage.value = [
       {
-        img: props.imgBackLarge,
+        img: props.imgBackLarge || '',
         caption: props.backText,
       },
     ];
@@ -173,16 +179,17 @@ const lightBoxOpen = () => {
         {{ caption }}
       </div> -->
 
-      <!-- <ImageLightBox
-      :images="postcardImage"
-      :index="postcardIndex"
-      :disable-scroll="true"
-      @close="
-        postcardIndex = null;
-        postcardImage = null;
-      "
-      :centreTitle="false"
-    /> -->
+      <ImageLightBox
+        v-if="includeLightBox"
+        :images="postcardImage"
+        :index="postcardIndex"
+        :disable-scroll="true"
+        @close="
+          postcardIndex = null;
+          postcardImage = null;
+        "
+        :centreTitle="false"
+      />
     </div>
 
     <p
