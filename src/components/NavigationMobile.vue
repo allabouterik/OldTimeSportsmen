@@ -217,7 +217,7 @@ const getIconDimensions = (icon: string | undefined) => {
                                   v-for="Lvl4Item in Lvl3Item.subNavItems"
                                   :key="Lvl4Item.label"
                                   :href="`/${Lvl1Item.slug}/${Lvl2Item.slug}/${Lvl3Item.slug}/${Lvl4Item.slug}`"
-                                  class="block font-poppins font-normal text-16px pl-2 text-cream-light hover:text-gray-700 focus-visible:outline-cream focus-visible:outline-2 outline-offset-2 rounded-md"
+                                  class="block font-poppins font-normal text-16px pl-2 text-gold-light hover:text-gray-700 focus-visible:outline-cream focus-visible:outline-2 outline-offset-2 rounded-md"
                                   >{{ Lvl4Item.label }}</a
                                 >
                               </div>
