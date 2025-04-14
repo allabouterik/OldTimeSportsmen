@@ -37,7 +37,7 @@ const props = defineProps({
   },
   background: {
     type: String,
-    default: 'rgba(0, 0, 0, 0.8)',
+    default: 'rgba(0, 0, 0, 1)',
   },
   interfaceColor: {
     type: String,
