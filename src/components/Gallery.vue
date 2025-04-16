@@ -17,26 +17,25 @@ const imagesForLightBox = computed(() =>
     img: encodeURI(
       `https://res.cloudinary.com/all-about-erik/image/upload/v${image.version}/${image.public_id}.${image.format}`
     ),
+    caption: image.public_id.split('/').pop()?.split('_').slice(-2).join(' '),
   }))
 );
 
 const lightboxImageIndex = ref<number | undefined>(undefined);
 
 const openLightBox = (index: number) => {
-  console.log('openLightBox', index);
   lightboxImageIndex.value = index;
 };
 
 const closeLightBox = () => {
-  console.log('closeLightBox');
   lightboxImageIndex.value = undefined;
 };
 </script>
 
 <template>
-  <div class="mx-auto px-4 lg:px-14 py-8">
+  <div class="mx-auto px-4 md:px-8 lg:px-14 py-8">
     <div
-      class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 lg:gap-14"
+      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-8 lg:gap-14"
     >
       <template
         v-for="(image, imageIndex) in images"
