@@ -45,7 +45,11 @@ const props = defineProps({
   },
   centreTitle: {
     type: Boolean,
-    default: true,
+    default: false,
+  },
+  windowPercentage: {
+    type: Number,
+    default: 0.8,
   },
 });
 
@@ -74,59 +78,72 @@ const formattedImages = computed(() =>
   )
 );
 
-const containerFactor = computed(() =>
-  formattedImages.value[currentIndex.value].hasOwnProperty('HTMLcaption')
-    ? 0.6
-    : 0.8
-);
-
 const imageContainerCss = computed(() => ({
-  width: containerFactor.value * windowWidth.value + 'px',
-  height: containerFactor.value * windowHeight.value + 'px',
+  width: props.windowPercentage * windowWidth.value + 'px',
+  height: actualImgHeight.value + 'px',
+  maxHeight: props.windowPercentage * windowHeight.value + 'px',
 }));
 
-const imageTitleCss = computed(() => {
-  let css = {};
-  if (props.centreTitle) {
-    css.textAlign = 'center';
-    css.marginTop = '20px';
+const containerWidth = computed(
+  () => props.windowPercentage * windowWidth.value
+);
+
+const containerHeight = computed(
+  () => props.windowPercentage * windowHeight.value
+);
+
+const containerAspectRatio = computed(
+  () => props.containerWidth / containerHeight.value
+);
+
+const imageAspectRatio = computed(() => {
+  if (
+    currentIndex.value >= 0 &&
+    formattedImages.value[currentIndex.value].hasOwnProperty('width') &&
+    formattedImages.value[currentIndex.value].width > 0 &&
+    formattedImages.value[currentIndex.value].hasOwnProperty('height') &&
+    formattedImages.value[currentIndex.value].height > 0
+  ) {
+    return (
+      formattedImages.value[currentIndex.value].width /
+      formattedImages.value[currentIndex.value].height
+    );
   } else {
-    let containerWidth = containerFactor.value * windowWidth.value;
-    let containerHeight = containerFactor.value * windowHeight.value;
-    const containerAspectRatio = containerWidth / containerHeight;
-    const imageAspectRatio = 1502.22 / 845.0;
-    const heightGoverns = containerAspectRatio >= imageAspectRatio;
-
-    const actualImgHeight = heightGoverns
-      ? containerHeight
-      : containerWidth / imageAspectRatio;
-    const actualImgWidth = heightGoverns
-      ? actualImgHeight * imageAspectRatio
-      : containerWidth;
-
-    css.position = 'absolute';
-    css.padding = 0;
-    css.bottom = (containerHeight - actualImgHeight) / 2 - 40 + 'px';
-    css.left = (containerWidth - actualImgWidth) / 2 + 'px';
+    return 1502.22 / 845.0;
   }
-  return css;
 });
+
+const heightGoverns = computed(
+  () => containerAspectRatio.value >= imageAspectRatio.value
+);
+
+const actualImgHeight = computed(() =>
+  heightGoverns.value
+    ? containerHeight.value
+    : containerWidth.value / imageAspectRatio.value
+);
 
 const htmlCaptionCss = computed(() => {
   let css = {};
   if (props.centreTitle) {
-    css.textAlign = 'center';
     css.marginTop = '20px';
   } else {
     if (isImageLoaded.value) {
       updateImageWidth();
       css.width = imageWidth.value + 'px';
     }
-    css.textAlign = 'left';
     css.margin = '40px auto 0 auto';
     css.maxWidth = '600px';
   }
   return css;
+});
+
+const imageTitleShown = computed(() => {
+  return (
+    (props.images[currentIndex.value].caption ||
+      props.images[currentIndex.value].title) &&
+    isImageLoaded.value
+  );
 });
 
 // Methods
@@ -333,7 +350,7 @@ onBeforeUnmount(() => {
                 <div
                   v-show="(image.caption || image.title) && isImageLoaded"
                   class="image-lightbox__text"
-                  :style="imageTitleCss"
+                  :class="{ 'text-left': !props.centreTitle }"
                 >
                   {{ image.caption || image.title }}
                 </div>
@@ -341,6 +358,7 @@ onBeforeUnmount(() => {
                 <div
                   v-show="image.HTMLcaption && isImageLoaded"
                   class="image-lightbox__HTMLtext"
+                  :class="{ 'text-left': !props.centreTitle }"
                   :style="htmlCaptionCss"
                   v-html="image.HTMLcaption"
                 />
@@ -362,6 +380,9 @@ onBeforeUnmount(() => {
             iconName="close"
             :strokeColor="iconHover === 'left' ? '#e3c570' : '#ebe0c0'"
             class="image-lightbox__prev"
+            :class="{
+              'image-lightbox__titleOffset': imageTitleShown,
+            }"
           >
             <IconChevronLeft />
           </IconBase>
@@ -380,6 +401,9 @@ onBeforeUnmount(() => {
             iconName="close"
             :strokeColor="iconHover === 'right' ? '#e3c570' : '#ebe0c0'"
             class="image-lightbox__next"
+            :class="{
+              'image-lightbox__titleOffset': imageTitleShown,
+            }"
           >
             <IconChevronRight />
           </IconBase>
@@ -422,6 +446,8 @@ onBeforeUnmount(() => {
 }
 
 .image-lightbox {
+  --title-padding-top: 1rem;
+
   &__modal {
     position: fixed;
     display: block;
@@ -499,7 +525,7 @@ onBeforeUnmount(() => {
     // transition: all  .5s ease .0s;
     line-height: 1.3125rem; /* 21px with 16px default size */
     white-space: normal;
-    // see imageTitleCss() in computed for further properties
+    padding-top: var(--title-padding-top);
   }
   &__HTMLtext {
     z-index: 1000;
@@ -518,6 +544,7 @@ onBeforeUnmount(() => {
     text-rendering: auto;
     line-height: 1.375rem; /* 22px with 16px default size */
     white-space: normal;
+    padding-top: var(--title-padding-top);
   }
 
   &__next,
@@ -542,6 +569,9 @@ onBeforeUnmount(() => {
     top: 50%;
     transform: translate(0, -50%);
     left: 8.5%;
+  }
+  &__titleOffset {
+    top: calc(50% - 0.5 * var(--title-padding-top));
   }
   &__close {
     top: 40px;
