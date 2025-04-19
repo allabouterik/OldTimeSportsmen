@@ -15,6 +15,7 @@ import {
   IconChevronRight,
   IconCloseGallery,
 } from '@/components/icons';
+import { useResponsive } from '@/composables/useResponsive';
 
 const keyMap = {
   LEFT: 37,
@@ -66,8 +67,9 @@ const touch = reactive({
   multitouch: false,
   flag: false,
 });
-const windowWidth = ref(0);
-const windowHeight = ref(0);
+const windowWidth = useResponsive().width;
+const windowHeight = useResponsive().height;
+
 const imageWidth = ref(0);
 const iconHover = ref('');
 
@@ -268,19 +270,12 @@ watch(
   }
 );
 
+watch(windowWidth, () => {
+  updateImageWidth();
+});
+
 // Lifecycle hooks
 onMounted(() => {
-  windowWidth.value = window.innerWidth;
-  windowHeight.value = window.innerHeight;
-
-  nextTick(() => {
-    window.addEventListener('resize', () => {
-      windowWidth.value = window.innerWidth;
-      windowHeight.value = window.innerHeight;
-      updateImageWidth();
-    });
-  });
-
   if (!document) return;
   bodyOverflowStyle.value = document.body.style.overflow;
   document.addEventListener('keydown', keyDownHandler, false);
