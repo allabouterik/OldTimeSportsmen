@@ -1,11 +1,12 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import BookPageContent from '@/components/BookPageContent.vue';
 
-export const prerender = false; // disable prerendering for now
+export const prerender = true;
 ---
 
 <Layout>
-  <div class='container mx-auto px-4 py-8'>
-    <h1 class='text-4xl font-garage-gothic text-brown-dark mb-4'>Book page</h1>
+  <div class='mx-auto'>
+    <BookPageContent client:only='vue' />
   </div>
 </Layout>
