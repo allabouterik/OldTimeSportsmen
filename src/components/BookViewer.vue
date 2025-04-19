@@ -210,10 +210,7 @@ function keyDownHandler(event) {
       @flip-left-end="onFlipLeftEnd"
       @flip-right-end="onFlipRightEnd"
     >
-      <span
-        class="page-num pb-4"
-        id="page-num-sm"
-      >
+      <span class="page-num block sm:hidden pb-4">
         Page {{ flipbook.page }} of {{ flipbook.numPages }}
       </span>
 
@@ -292,10 +289,7 @@ function keyDownHandler(event) {
           </Tooltip>
         </div>
 
-        <span
-          class="page-num"
-          id="page-num-lg"
-        >
+        <span class="page-num hidden sm:block">
           Page {{ flipbook.page }} of {{ flipbook.numPages }}
         </span>
 
@@ -477,13 +471,14 @@ function keyDownHandler(event) {
       bottom: 0;
     }
   }
+}
 
-  .page-num {
-    color: white;
-    font-size: 1rem;
-    margin-left: 30px;
-    margin-right: 20px;
-  }
+.page-num {
+  color: white;
+  font-size: 1rem;
+  margin-left: 30px;
+  margin-right: 20px;
+  text-align: center;
 }
 
 .flipbook .bounding-box {
@@ -505,20 +500,8 @@ function keyDownHandler(event) {
 
 /* Responsive breakpoints ref: https://getbootstrap.com/docs/4.3/layout/overview/ */
 @media only screen and (max-width: 991.98px) {
-  #page-num-lg {
-    display: none;
-  }
-  #page-num-sm {
-    display: block;
-    text-align: center;
-  }
   #flipbookContainer {
     padding-bottom: 86px; // to account for the action-bar
-  }
-}
-@media only screen and (min-width: 992px) {
-  #page-num-sm {
-    display: none;
   }
 }
 </style>

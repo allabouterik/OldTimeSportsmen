@@ -120,7 +120,7 @@ watch(windowWidth, () => {
 <template>
   <div id="mainCol">
     <section class="flex flex-col items-center justify-center bg-black p-7">
-      <h1 class="text-2xl font-francois-one tracking-wider text-white mb-4">
+      <h1 class="font-francois-one text-2xl text-white tracking-wider mb-4">
         Leaf through the pages!
       </h1>
 
@@ -139,8 +139,8 @@ watch(windowWidth, () => {
       </div>
     </section>
 
-    <section class="flex flex-col items-center justify-center p-7">
-      <p>
+    <section class="flex flex-col items-center justify-center p-5">
+      <p class="font-bembo text-16px text-justify">
         In the first years of the 20th century, newly mobile American travelers,
         hunters, and fisherman headed out by horseback, buggy, car, and boat.
         Their destination? The Great Outdoors! Whether in the photo studio or
@@ -153,7 +153,7 @@ watch(windowWidth, () => {
       </p>
     </section>
 
-    <section class="flex flex-col items-center justify-center bg-black p-7">
+    <section class="flex flex-col items-center justify-center bg-black p-5">
       <iframe
         :src="videoUrl + '?autoplay=0&color=505050&title=0&byline=0&portrait=0'"
         style="max-width: 100%"
@@ -166,20 +166,26 @@ watch(windowWidth, () => {
       >
       </iframe>
 
-      <h2 class="videoTitleText mb-3">
+      <h2
+        class="font-francois-one text-15px text-center text-white tracking-wide"
+      >
         Watch our entertaining book promo video!
       </h2>
     </section>
   </div>
 
   <section class="flex flex-col items-center justify-center p-7">
-    <p>
+    <p class="font-francois-one text-xl text-center text-black tracking-wide">
       To order copies of this remarkable book email
-      <a href="mailto:erik@allabouterik.com">erik@allabouterik.com</a>
+      <a
+        href="mailto:transtonemusic@aol.com"
+        class="text-brown-dark text-nowrap underline sm:no-underline sm:hover:underline"
+        >Erik Jacobsen</a
+      >
     </p>
   </section>
 
-  <div class="mt-8">
+  <div class="mt-4">
     <ShootToTop :staticImg="true" />
   </div>
 </template>
