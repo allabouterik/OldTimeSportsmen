@@ -5,7 +5,6 @@ import {
   computed,
   onMounted,
   onBeforeUnmount,
-  nextTick,
   useTemplateRef,
   watch,
 } from 'vue';

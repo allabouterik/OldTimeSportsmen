@@ -1,4 +1,5 @@
 <script>
+import { nextTick } from 'vue';
 import Matrix from './matrix.js';
 import spinner from './spinner.svg';
 
@@ -404,7 +405,10 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.onResize, { passive: true });
-    this.onResize();
+    nextTick(() => {
+      this.onResize();
+    });
+
     [this.zoom] = this.zooms_; // equivalent to this.zoom = this.zooms_[0]
     this.goToPage(this.startPage);
   },

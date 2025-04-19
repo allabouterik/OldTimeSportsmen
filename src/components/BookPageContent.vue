@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, computed, type PropType, onMounted } from 'vue';
+import { ref, computed, type PropType, onMounted, watch } from 'vue';
 import BookViewer from '@/components/BookViewer.vue';
 import ShootToTop from '@/components/ShootToTop.vue';
 import { useResponsive } from '@/composables/useResponsive';
 
 const videoUrl = 'https://player.vimeo.com/video/283168900';
+
 const bookImages = {
   width: 713,
   height: 535,
@@ -59,12 +60,13 @@ const bookVpHeight = computed(() => {
   if (bookImages === undefined) return;
   const pageWidth = bookImages.width;
   const pageHeight = bookImages.height;
+  let actualHeight;
 
   if (windowWidth.value > 1200) {
     // show double pages
     const twoPagesWidth = 2 * pageWidth;
     let actualWidth = Math.min(twoPagesWidth, mainColWidth.value);
-    var actualHeight = (actualWidth / twoPagesWidth) * pageHeight;
+    actualHeight = (actualWidth / twoPagesWidth) * pageHeight;
     bookShowSinglePage.value = false;
   } else {
     // show single pages
@@ -108,58 +110,67 @@ const updateMainColWidth = () => {
 onMounted(() => {
   updateMainColWidth();
 });
+
+watch(windowWidth, () => {
+  updateMainColWidth();
+  reloadBook();
+});
 </script>
 
 <template>
-  <section class="flex flex-col items-center justify-center bg-black p-7">
-    <h1 class="text-2xl font-francois-one tracking-wider text-white mb-4">
-      Leaf through the pages!
-    </h1>
+  <div id="mainCol">
+    <section class="flex flex-col items-center justify-center bg-black p-7">
+      <h1 class="text-2xl font-francois-one tracking-wider text-white mb-4">
+        Leaf through the pages!
+      </h1>
 
-    <BookViewer
-      v-if="bookImagesUrlsStdRes && bookImagesUrlsHiRes"
-      :pages="bookImagesUrlsStdRes"
-      :pagesHiRes="bookImagesUrlsHiRes"
-      :isFullscreen="isBookFullscreen"
-      :viewportHeight="bookVpHeight"
-      :showSinglePage="bookShowSinglePage"
-      :key="'bookViewer' + bookKey"
-      @toggleFullscreen="toggleFullscreen()"
-      @reload="reloadBook()"
-    />
-  </section>
+      <div class="w-full h-full">
+        <BookViewer
+          v-if="bookImagesUrlsStdRes && bookImagesUrlsHiRes"
+          :pages="bookImagesUrlsStdRes"
+          :pagesHiRes="bookImagesUrlsHiRes"
+          :isFullscreen="isBookFullscreen"
+          :viewportHeight="bookVpHeight"
+          :showSinglePage="bookShowSinglePage"
+          :key="'bookViewer' + bookKey"
+          @toggleFullscreen="toggleFullscreen()"
+          @reload="reloadBook()"
+        />
+      </div>
+    </section>
 
-  <section class="flex flex-col items-center justify-center p-7">
-    <p>
-      In the first years of the 20th century, newly mobile American travelers,
-      hunters, and fisherman headed out by horseback, buggy, car, and boat.
-      Their destination? The Great Outdoors! Whether in the photo studio or out
-      with their new “Brownie” cameras, successful hunters and fishers posed
-      proudly with their catches, sending their photographic postcards, then
-      called “postals,” back home through the US Mail. Separated by vast
-      distances, before the advent of the telephone, friends and family were
-      naturally excited to receive a note and photo sent from afar. In 1907 an
-      estimated 656 million cards were sent in the United States alone!
-    </p>
-  </section>
+    <section class="flex flex-col items-center justify-center p-7">
+      <p>
+        In the first years of the 20th century, newly mobile American travelers,
+        hunters, and fisherman headed out by horseback, buggy, car, and boat.
+        Their destination? The Great Outdoors! Whether in the photo studio or
+        out with their new “Brownie” cameras, successful hunters and fishers
+        posed proudly with their catches, sending their photographic postcards,
+        then called “postals,” back home through the US Mail. Separated by vast
+        distances, before the advent of the telephone, friends and family were
+        naturally excited to receive a note and photo sent from afar. In 1907 an
+        estimated 656 million cards were sent in the United States alone!
+      </p>
+    </section>
 
-  <section class="flex flex-col items-center justify-center bg-black p-7">
-    <iframe
-      :src="videoUrl + '?autoplay=0&color=505050&title=0&byline=0&portrait=0'"
-      style="max-width: 100%"
-      :style="videoFrameStyles"
-      frameborder="0"
-      webkitallowfullscreen
-      mozallowfullscreen
-      allowfullscreen
-      title="Book Promo Video"
-    >
-    </iframe>
+    <section class="flex flex-col items-center justify-center bg-black p-7">
+      <iframe
+        :src="videoUrl + '?autoplay=0&color=505050&title=0&byline=0&portrait=0'"
+        style="max-width: 100%"
+        :style="videoFrameStyles"
+        frameborder="0"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+        title="Book Promo Video"
+      >
+      </iframe>
 
-    <h2 class="videoTitleText mb-3">
-      Watch our entertaining book promo video!
-    </h2>
-  </section>
+      <h2 class="videoTitleText mb-3">
+        Watch our entertaining book promo video!
+      </h2>
+    </section>
+  </div>
 
   <section class="flex flex-col items-center justify-center p-7">
     <p>
