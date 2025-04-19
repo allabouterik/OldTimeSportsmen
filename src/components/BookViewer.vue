@@ -228,7 +228,7 @@ function keyDownHandler(event) {
             :offset="3"
           >
             <Icon
-              icon="material-symbols:first-page"
+              icon="mdi:first-page"
               class="btn"
               :class="{ disabled: !flipbook.canFlipLeft }"
               @click="flipToStart()"
@@ -246,7 +246,7 @@ function keyDownHandler(event) {
             :offset="3"
           >
             <Icon
-              icon="material-symbols:pause"
+              icon="mdi:pause"
               class="btn"
               @click="stopFlip = true"
               id="stop_icon_start"
@@ -264,7 +264,7 @@ function keyDownHandler(event) {
             :offset="3"
           >
             <Icon
-              icon="material-symbols:chevron-left"
+              icon="mdi:chevron-left"
               class="btn"
               :class="{ disabled: !flipbook.canFlipLeft }"
               @click="flipbook.flipLeft()"
@@ -283,7 +283,7 @@ function keyDownHandler(event) {
             :offset="3"
           >
             <Icon
-              icon="material-symbols:remove"
+              icon="mdi:minus"
               class="btn"
               :class="{ disabled: !flipbook.canZoomOut }"
               @click="flipbook.zoomOut"
@@ -309,7 +309,7 @@ function keyDownHandler(event) {
             :offset="3"
           >
             <Icon
-              icon="material-symbols:add"
+              icon="mdi:add"
               class="btn"
               :class="{ disabled: !flipbook.canZoomIn }"
               @click="flipbook.zoomIn"
@@ -328,7 +328,7 @@ function keyDownHandler(event) {
             :offset="3"
           >
             <Icon
-              icon="material-symbols:chevron-right"
+              icon="mdi:chevron-right"
               class="btn"
               :class="{ disabled: !flipbook.canFlipRight }"
               @click="flipbook.flipRight()"
@@ -348,7 +348,7 @@ function keyDownHandler(event) {
             :offset="3"
           >
             <Icon
-              icon="material-symbols:last-page"
+              icon="mdi:last-page"
               class="btn"
               :class="{ disabled: !flipbook.canFlipRight }"
               @click="flipToEnd()"
@@ -381,7 +381,7 @@ function keyDownHandler(event) {
             :offset="3"
           >
             <Icon
-              icon="material-symbols:fullscreen"
+              icon="mdi:fullscreen"
               class="btn"
               @click="toggleFullscreen"
               id="fullscreen_icon"
@@ -395,7 +395,7 @@ function keyDownHandler(event) {
             :offset="3"
           >
             <Icon
-              icon="material-symbols:fullscreen-exit"
+              icon="mdi:fullscreen-exit"
               class="btn"
               @click="toggleFullscreen"
               id="fullscreenExit_icon"
@@ -449,7 +449,9 @@ function keyDownHandler(event) {
 
   .btn {
     font-size: 30px;
-    color: #999;
+    background-color: #999;
+    color: #000;
+    border-radius: 100%;
     padding: 0;
     cursor: pointer;
 
@@ -468,11 +470,7 @@ function keyDownHandler(event) {
 
     &.disabled {
       pointer-events: none;
-      // color: #666;
-
-      .material-design-icon__svg {
-        background-color: #666;
-      }
+      background-color: #666;
     }
 
     svg {
