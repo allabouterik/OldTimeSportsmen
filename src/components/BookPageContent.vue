@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, type PropType, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, useTemplateRef, watch } from 'vue';
 import BookViewer from '@/components/BookViewer.vue';
 import ShootToTop from '@/components/ShootToTop.vue';
 import { useResponsive } from '@/composables/useResponsive';
+import bookSideTextImage from '@/assets/images/book-side-text.png';
 
 const videoUrl = 'https://player.vimeo.com/video/283168900';
 
@@ -54,26 +55,41 @@ const bookShowSinglePage = ref(false);
 const bookKey = ref(0);
 const mainColWidth = ref(900);
 
+const bookContainerRef = useTemplateRef('bookContainer');
+
 const windowWidth = useResponsive().width;
+
+const bookContainerWidth = computed(() => {
+  return (
+    bookContainerRef.value?.clientWidth ??
+    Math.min(bookImages.width, mainColWidth.value)
+  );
+});
 
 const bookVpHeight = computed(() => {
   if (bookImages === undefined) return;
   const pageWidth = bookImages.width;
   const pageHeight = bookImages.height;
-  let actualHeight;
 
-  if (windowWidth.value > 1200) {
-    // show double pages
-    const twoPagesWidth = 2 * pageWidth;
-    let actualWidth = Math.min(twoPagesWidth, mainColWidth.value);
-    actualHeight = (actualWidth / twoPagesWidth) * pageHeight;
-    bookShowSinglePage.value = false;
-  } else {
-    // show single pages
-    let actualWidth = Math.min(pageWidth, mainColWidth.value);
-    actualHeight = (actualWidth / pageWidth) * pageHeight;
-    bookShowSinglePage.value = true;
-  }
+  // let actualHeight;
+  // if (windowWidth.value > 1200) {
+  //   // show double pages
+  //   const twoPagesWidth = 2 * pageWidth;
+  //   let actualWidth = Math.min(twoPagesWidth, mainColWidth.value);
+  //   actualHeight = (actualWidth / twoPagesWidth) * pageHeight;
+  //   bookShowSinglePage.value = false;
+  // } else {
+  //   // show single pages
+  //   let actualWidth = Math.min(pageWidth, mainColWidth.value);
+  //   actualHeight = (actualWidth / pageWidth) * pageHeight;
+  //   bookShowSinglePage.value = true;
+  // }
+
+  // Just show single pages
+  const actualWidth = bookContainerWidth.value;
+  const actualHeight = (actualWidth / pageWidth) * pageHeight;
+  bookShowSinglePage.value = true;
+
   return actualHeight + 'px';
 });
 
@@ -119,23 +135,33 @@ watch(windowWidth, () => {
 
 <template>
   <div id="mainCol">
-    <section class="flex flex-col items-center justify-center bg-black p-7">
-      <h1 class="font-francois-one text-2xl text-white tracking-wider mb-4">
-        Leaf through the pages!
-      </h1>
-
-      <div class="w-full h-full">
-        <BookViewer
-          v-if="bookImagesUrlsStdRes && bookImagesUrlsHiRes"
-          :pages="bookImagesUrlsStdRes"
-          :pagesHiRes="bookImagesUrlsHiRes"
-          :isFullscreen="isBookFullscreen"
-          :viewportHeight="bookVpHeight"
-          :showSinglePage="bookShowSinglePage"
-          :key="'bookViewer' + bookKey"
-          @toggleFullscreen="toggleFullscreen()"
-          @reload="reloadBook()"
-        />
+    <section
+      class="flex flex-col items-center justify-center md:mt-8 p-7 md:pl-12 md:pt-10 md:pb-12 lg:pb-8 lg:pl-16 2xl:pl-24 2xl:pb-12 bg-cover bg-center bg-[url(../assets/images/book-reader-bg_mbl.png)] md:bg-[url(../assets/images/book-reader-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-reader-bg_desktop.png)]"
+    >
+      <div class="order-2 md:order-1 flex flex-row w-full h-full">
+        <div
+          ref="bookContainer"
+          class="w-full md:w-3/5 lg:w-1/2"
+        >
+          <BookViewer
+            v-if="bookImagesUrlsStdRes && bookImagesUrlsHiRes"
+            :pages="bookImagesUrlsStdRes"
+            :pagesHiRes="bookImagesUrlsHiRes"
+            :isFullscreen="isBookFullscreen"
+            :viewportHeight="bookVpHeight"
+            :showSinglePage="bookShowSinglePage"
+            :key="'bookViewer' + bookKey"
+            @toggleFullscreen="toggleFullscreen()"
+            @reload="reloadBook()"
+          />
+        </div>
+        <div class="hidden md:flex w-2/5 lg:w-1/2 p-10 lg:p-16">
+          <img
+            :src="bookSideTextImage.src"
+            class="object-contain"
+            alt="These authentic and charming images are enjoyable for general audiences and especially appealing to the 80 MILLION licenced hunters and fishermen in the United States."
+          />
+        </div>
       </div>
     </section>
 

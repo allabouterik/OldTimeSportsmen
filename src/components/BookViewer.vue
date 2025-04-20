@@ -195,6 +195,7 @@ function keyDownHandler(event) {
   <div
     id="flipbookContainer"
     :class="{ fullscreenContainer: isFullscreen }"
+    class="pb-24 sm:pb-12"
   >
     <Flipbook
       class="flipbook"
@@ -360,7 +361,8 @@ function keyDownHandler(event) {
             text="Stop"
             :offset="3"
           >
-            <StopIcon
+            <Icon
+              icon="mdi:pause"
               class="btn"
               @click="stopFlip = true"
               id="stop_icon_end"
@@ -402,10 +404,6 @@ function keyDownHandler(event) {
 </template>
 
 <style lang="scss">
-#flipbookContainer {
-  padding-bottom: 46px; // to account for the action-bar
-}
-
 .fullscreenContainer {
   position: fixed;
   display: block;
@@ -496,12 +494,5 @@ function keyDownHandler(event) {
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.8s ease-in;
-}
-
-/* Responsive breakpoints ref: https://getbootstrap.com/docs/4.3/layout/overview/ */
-@media only screen and (max-width: 991.98px) {
-  #flipbookContainer {
-    padding-bottom: 86px; // to account for the action-bar
-  }
 }
 </style>
