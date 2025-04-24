@@ -46,8 +46,8 @@ const closeLightBox = () => {
         :key="image.public_id"
       >
         <div
-          class="w-full"
           v-if="imagesLowDef[imageIndex + 1]?.public_id?.endsWith('a')"
+          class="w-full bg-black"
         >
           <FlipPostcard
             :imgFront="
@@ -81,7 +81,7 @@ const closeLightBox = () => {
 
         <div
           v-else-if="!image.public_id.endsWith('a')"
-          class="w-full"
+          class="w-full bg-black"
           @click="openLightBox(imageIndex)"
         >
           <img
@@ -91,7 +91,7 @@ const closeLightBox = () => {
               )
             "
             alt="Image"
-            class="w-full h-auto object-cover"
+            class="h-full object-cover m-auto"
           />
           <p class="font-bembo font-normal italic text-14px lg:text-16px pt-2">
             {{
