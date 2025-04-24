@@ -5,14 +5,18 @@ import ImageLightBox from '@/components/ImageLightBox.vue';
 import type { CloudinaryImage } from '@/types/CloudinaryTypes';
 
 const props = defineProps({
-  images: {
+  imagesLowDef: {
+    type: Array as PropType<CloudinaryImage[]>,
+    default: () => [],
+  },
+  imagesHighDef: {
     type: Array as PropType<CloudinaryImage[]>,
     default: () => [],
   },
 });
 
 const imagesForLightBox = computed(() =>
-  props.images.map((image) => ({
+  props.imagesHighDef.map((image) => ({
     ...image,
     img: encodeURI(
       `https://res.cloudinary.com/all-about-erik/image/upload/v${image.version}/${image.public_id}.${image.format}`
@@ -38,12 +42,12 @@ const closeLightBox = () => {
       class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-8 lg:gap-14"
     >
       <template
-        v-for="(image, imageIndex) in images"
+        v-for="(image, imageIndex) in imagesLowDef"
         :key="image.public_id"
       >
         <div
-          v-if="images[imageIndex + 1]?.public_id?.endsWith('a')"
           class="w-full"
+          v-if="imagesLowDef[imageIndex + 1]?.public_id?.endsWith('a')"
         >
           <FlipPostcard
             :imgFront="
@@ -54,9 +58,9 @@ const closeLightBox = () => {
             :imgBack="
               encodeURI(
                 `https://res.cloudinary.com/all-about-erik/image/upload/v${
-                  images[imageIndex + 1]?.version
-                }/${images[imageIndex + 1]?.public_id}.${
-                  images[imageIndex + 1]?.format
+                  imagesLowDef[imageIndex + 1]?.version
+                }/${imagesLowDef[imageIndex + 1]?.public_id}.${
+                  imagesLowDef[imageIndex + 1]?.format
                 }`
               )
             "
@@ -67,7 +71,9 @@ const closeLightBox = () => {
             :captionContainWithinCard="true"
             :seeTheBack="true"
             :aspectRatio="`${image.width}/${image.height}`"
-            :reverseBackDims="image.width === images[imageIndex + 1].height"
+            :reverseBackDims="
+              image.width === imagesLowDef[imageIndex + 1].height
+            "
             :disableFlip="true"
             @click="openLightBox(imageIndex + 1)"
           />

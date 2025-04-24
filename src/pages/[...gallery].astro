@@ -52,9 +52,11 @@ export const getStaticPaths = async () => {
 
 const { gallery } = Astro.params;
 
-const getImagesFromCloudinary = async (_gallery) => {
+const getImagesFromCloudinary = async (gallery: string, size: number) => {
+  const listName =
+    gallery.replace('gallery/', '').replaceAll('/', '_') + '_' + size;
   const imagesJson = await fetch(
-    `https://res.cloudinary.com/all-about-erik/image/list/big-game_deer.json`
+    `https://res.cloudinary.com/all-about-erik/image/list/${listName}.json`
   );
   if (!imagesJson.ok) {
     throw new Error('Failed to fetch images from Cloudinary');
@@ -63,9 +65,13 @@ const getImagesFromCloudinary = async (_gallery) => {
   return images;
 };
 
-const images = await getImagesFromCloudinary(gallery);
+const imagesLowDef = await getImagesFromCloudinary(gallery, 200);
+const imagesHighDef = await getImagesFromCloudinary(gallery, 750);
 
-const sortedImages = images.resources.sort((a, b) =>
+const sortedImagesLowDef = imagesLowDef.resources.sort((a, b) =>
+  a.public_id.localeCompare(b.public_id)
+);
+const sortedImagesHighDef = imagesHighDef.resources.sort((a, b) =>
   a.public_id.localeCompare(b.public_id)
 );
 ---
@@ -73,6 +79,7 @@ const sortedImages = images.resources.sort((a, b) =>
 <Layout>
   <Gallery
     client:only='vue'
-    images={sortedImages}
+    imagesLowDef={sortedImagesLowDef}
+    imagesHighDef={sortedImagesHighDef}
   />
 </Layout>
