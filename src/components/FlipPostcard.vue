@@ -71,6 +71,11 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  disableFlip: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
 });
 
 const postcardIndex = ref<number | undefined>(undefined);
@@ -115,7 +120,6 @@ const includeLightBox = computed(() => {
 });
 
 const lightBoxOpen = () => {
-  console.log('lightBoxOpen');
   if (!includeLightBox.value) return;
 
   if (props.backTextIsHTML) {
@@ -144,6 +148,7 @@ const lightBoxOpen = () => {
   >
     <div
       class="flip-card"
+      :class="{ 'flip-card__flip': !disableFlip }"
       :style="dimStylesFront"
       @click="lightBoxOpen()"
     >
@@ -162,7 +167,10 @@ const lightBoxOpen = () => {
             :style="dimStylesFront"
           />
         </div>
-        <div class="flip-card-back">
+        <div
+          v-if="!disableFlip"
+          class="flip-card-back"
+        >
           <img
             :src="imgBack"
             :alt="caption"
@@ -185,8 +193,8 @@ const lightBoxOpen = () => {
         :index="postcardIndex"
         :disable-scroll="true"
         @close="
-          postcardIndex = null;
-          postcardImage = null;
+          postcardIndex = undefined;
+          postcardImage = undefined;
         "
         :centreTitle="false"
       />
@@ -226,7 +234,7 @@ const lightBoxOpen = () => {
 }
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
+.flip-card__flip:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
 

@@ -68,6 +68,7 @@ const closeLightBox = () => {
             :seeTheBack="true"
             :aspectRatio="`${image.width}/${image.height}`"
             :reverseBackDims="image.width === images[imageIndex + 1].height"
+            :disableFlip="true"
             @click="openLightBox(imageIndex + 1)"
           />
         </div>
