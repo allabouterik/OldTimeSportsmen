@@ -73,7 +73,7 @@ export default {
     },
     loadingImage: {
       type: String,
-      default: spinner,
+      default: spinner.src,
     },
     clickToZoom: {
       type: Boolean,
