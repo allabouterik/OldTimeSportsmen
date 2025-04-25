@@ -136,8 +136,13 @@ watch(windowWidth, () => {
 <template>
   <div id="mainCol">
     <section
-      class="flex flex-col items-center justify-center md:mt-8 p-7 md:pl-12 md:pt-10 md:pb-12 lg:pb-8 lg:pl-16 2xl:pl-24 2xl:pb-12 bg-cover bg-center bg-[url(../assets/images/book-reader-bg_mbl.png)] md:bg-[url(../assets/images/book-reader-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-reader-bg_desktop.png)]"
+      class="flex flex-col items-center justify-center md:mt-8 p-7 md:pl-12 md:pt-10 md:pb-12 lg:pb-6 lg:pl-16 2xl:pl-24 2xl:pb-12 bg-cover bg-center bg-[url(../assets/images/book-reader-bg_mbl.png)] md:bg-[url(../assets/images/book-reader-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-reader-bg_desktop.png)]"
     >
+      <h2
+        class="order-1 md:order-2 font-francois-one text-22px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide py-2 lg:pt-0 lg:pb-6 xl:py-6 2xl:py-8"
+      >
+        Leaf through the pages!
+      </h2>
       <div class="order-2 md:order-1 flex flex-row w-full h-full">
         <div
           ref="bookContainer"
@@ -155,18 +160,22 @@ watch(windowWidth, () => {
             @reload="reloadBook()"
           />
         </div>
-        <div class="hidden md:flex w-2/5 lg:w-1/2 p-10 lg:p-16">
+        <div class="hidden md:flex w-2/5 lg:w-1/2 pl-10 lg:p-16">
           <img
             :src="bookSideTextImage.src"
-            class="object-contain"
+            class="object-contain w-full lg:max-w-[350px] xl:max-w-[400px] 2xl:max-w-[550px] m-auto"
             alt="These authentic and charming images are enjoyable for general audiences and especially appealing to the 80 MILLION licenced hunters and fishermen in the United States."
           />
         </div>
       </div>
     </section>
 
-    <section class="flex flex-col items-center justify-center p-5">
-      <p class="font-bembo text-16px text-justify">
+    <section
+      class="flex flex-col items-center justify-center p-5 md:pt-0 lg:p-6 xl:p-8 2xl:p-12"
+    >
+      <p
+        class="font-bembo text-16px lg:text-20px xl:text-24px 2xl:text-32px text-justify"
+      >
         In the first years of the 20th century, newly mobile American travelers,
         hunters, and fisherman headed out by horseback, buggy, car, and boat.
         Their destination? The Great Outdoors! Whether in the photo studio or
@@ -179,7 +188,9 @@ watch(windowWidth, () => {
       </p>
     </section>
 
-    <section class="flex flex-col items-center justify-center bg-black p-5">
+    <section
+      class="flex flex-col items-center justify-center p-5 lg:p-6 xl:p-8 2xl:p-12 bg-cover bg-center bg-[url(../assets/images/book-video-bg_mbl.png)] md:bg-[url(../assets/images/book-video-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-video-bg_desktop.png)]"
+    >
       <iframe
         :src="videoUrl + '?autoplay=0&color=505050&title=0&byline=0&portrait=0'"
         style="max-width: 100%"
@@ -193,7 +204,7 @@ watch(windowWidth, () => {
       </iframe>
 
       <h2
-        class="font-francois-one text-15px text-center text-white tracking-wide"
+        class="font-francois-one text-15px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide pt-2 lg:pt-4 xl:pt-6 2xl:pt-8 md:pb-6 lg:pb-0"
       >
         Watch our entertaining book promo video!
       </h2>
@@ -201,7 +212,9 @@ watch(windowWidth, () => {
   </div>
 
   <section class="flex flex-col items-center justify-center p-7">
-    <p class="font-francois-one text-xl text-center text-black tracking-wide">
+    <p
+      class="font-francois-one text-xl md:text-24px lg:text-26px 2xl:text-32px text-center text-black tracking-wide"
+    >
       To order copies of this remarkable book email
       <a
         href="mailto:transtonemusic@aol.com"
