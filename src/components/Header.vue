@@ -249,7 +249,7 @@ const toggleMenu = () => {
 
 <template>
   <header
-    class="bg-[url(../assets/images/header-background.png)] bg-[size:100%_280px] bg-no-repeat py-4 xl:pt-14 xl:pb-0"
+    class="bg-[url(../assets/images/header-background.png)] bg-[size:100%_280px] bg-no-repeat py-4 xl:pt-10 2xl:pt-14 xl:pb-0"
   >
     <!-- Mobile -->
     <button
@@ -281,7 +281,7 @@ const toggleMenu = () => {
     <img
       :src="headerImageDesktop.src"
       alt="Header Image"
-      class="hidden xl:block h-[54px] 2xl:h-[68px] mx-auto mb-14"
+      class="hidden xl:block xl:h-[54px] 2xl:h-[68px] mx-auto mb-10 2xl:mb-14"
     />
     <NavigationDesktop
       class="hidden xl:block"

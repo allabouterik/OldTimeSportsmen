@@ -101,7 +101,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
       <!-- Home Menu Item -->
       <a
         href="/"
-        class="flex h-[85px] items-center ml-8 px-8 py-1 hover:cursor-pointer"
+        class="flex h-[64px] 2xl:h-[85px] items-center ml-8 px-8 2xl:py-1 hover:cursor-pointer"
         @mouseenter="isHouseWithSmoke = true"
         @mouseleave="isHouseWithSmoke = false"
       >
@@ -112,10 +112,10 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
               : houseWithoutSmokeImage.src
           "
           alt="Home Icon"
-          class="w-[115px] self-end mr-1"
+          class="w-[86px] 2xl:w-[115px] self-end mr-1"
         />
         <span
-          class="inline-block font-garage-gothic text-5xl text-black hover:text-green-olive leading-[0.8] font-medium mt-5 text-shadow"
+          class="inline-block text-36px 2xl:text-48px font-garage-gothic text-5xl text-black hover:text-green-olive leading-[0.8] font-medium mt-5 text-shadow"
           :class="[{ 'translate-y-4': isMacWebkit }]"
           >HOME SWEET HOME</span
         >
@@ -126,7 +126,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
         <div
           v-for="(item, index) in navItems"
           :key="item.label"
-          class="min-w-[280px]"
+          class="min-w-[210px] 2xl:min-w-[280px]"
           :class="{
             'z-50': index === 0,
             'z-30': index === 1,
@@ -136,7 +136,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
         >
           <button
             v-if="item.subNavItems"
-            class="flex items-center justify-center absolute -bottom-1 min-w-[280px] min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl px-8"
+            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl px-8"
             :class="[
               item.bgColor,
               { 'border-b-green-olive': index === activeLvl1NavItemIndex },
@@ -149,7 +149,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
             "
           >
             <span
-              class="text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
+              class="text-36px 2xl:text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
               :class="[
                 { 'text-cream hover:text-gold': item.slug !== currentRoute },
                 {
@@ -165,14 +165,14 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
           <a
             v-else
             :href="`/${item.slug}`"
-            class="flex items-center justify-center absolute -bottom-1 min-w-[280px] min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl px-8"
+            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl px-8"
             :class="[
               item.bgColor,
               { 'border-b-green-olive': index === activeLvl1NavItemIndex },
             ]"
           >
             <span
-              class="text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
+              class="text-36px 2xl:text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
               :class="[
                 { 'text-cream hover:text-gold': item.slug !== currentRoute },
                 { 'text-gold': item.slug === currentRouteLvl1 },
@@ -194,7 +194,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
       <button
         v-for="(item, index) in activeLvl1NavItem?.subNavItems"
         :key="item.label"
-        class="font-garage-gothic text-[52px] leading-none font-medium tracking-wider uppercase transition-colors"
+        class="font-garage-gothic text-39px 2xl:text-52px leading-none font-medium tracking-wider uppercase transition-colors"
         :class="[
           {
             'text-green-gray hover:text-gold': activeLvl2NavItemIndex !== index,

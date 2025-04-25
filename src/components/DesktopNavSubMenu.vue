@@ -37,7 +37,7 @@ const currentRouteItemIndex = computed(() =>
     >
       <a
         v-if="!item.subNavItems"
-        class="min-w-1/7 text-center font-francois-one text-[22px] leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
+        class="min-w-1/7 text-center font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
         :class="{
           'text-black hover:text-gold':
             index !== currentRouteItemIndex && index !== activeItemIndex,
@@ -51,7 +51,7 @@ const currentRouteItemIndex = computed(() =>
 
       <button
         v-else
-        class="font-francois-one text-[22px] leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
+        class="font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow"
         @click="onButtonClick(index)"
         :class="{
           'text-black hover:text-gold':
