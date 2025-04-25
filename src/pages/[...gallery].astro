@@ -59,7 +59,8 @@ const getImagesFromCloudinary = async (gallery: string, size: number) => {
     `https://res.cloudinary.com/all-about-erik/image/list/${listName}.json`
   );
   if (!imagesJson.ok) {
-    throw new Error('Failed to fetch images from Cloudinary');
+    console.error('Failed to fetch images from Cloudinary', gallery, size);
+    return { resources: [] };
   }
   const images = (await imagesJson.json()) as CloudinaryListResponse;
   return images;
@@ -77,9 +78,13 @@ const sortedImagesHighDef = imagesHighDef.resources.sort((a, b) =>
 ---
 
 <Layout>
-  <Gallery
-    client:only='vue'
-    imagesLowDef={sortedImagesLowDef}
-    imagesHighDef={sortedImagesHighDef}
-  />
+  {
+    sortedImagesLowDef.length > 0 && (
+      <Gallery
+        client:only='vue'
+        imagesLowDef={sortedImagesLowDef}
+        imagesHighDef={sortedImagesHighDef}
+      />
+    )
+  }
 </Layout>
