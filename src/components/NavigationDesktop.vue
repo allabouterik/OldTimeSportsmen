@@ -129,9 +129,8 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
           class="min-w-[210px] 2xl:min-w-[280px]"
           :class="{
             'z-50': index === 0,
-            'z-30': index === 1,
-            'z-20': index === 2,
-            '-ml-4': index > 0,
+            'z-30 -ml-1 2xl:-ml-3': index === 1,
+            'z-20 -ml-3 2xl:-ml-4': index === 2,
           }"
         >
           <button
