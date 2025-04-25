@@ -1,7 +1,8 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { Icon } from '@iconify/vue';
-import Flipbook from './flipbook-vue/FlipBook.vue';
+import Flipbook from '@/components/flipbook-vue/FlipBook.vue';
+import Tooltip from '@/components/radix/Tooltip.vue';
 
 const props = defineProps({
   pages: {

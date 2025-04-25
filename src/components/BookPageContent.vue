@@ -145,12 +145,12 @@ watch(windowWidth, () => {
         >
           <BookViewer
             v-if="bookImagesUrlsStdRes && bookImagesUrlsHiRes"
+            :key="'bookViewer' + bookKey"
             :pages="bookImagesUrlsStdRes"
             :pagesHiRes="bookImagesUrlsHiRes"
             :isFullscreen="isBookFullscreen"
             :viewportHeight="bookVpHeight"
             :showSinglePage="bookShowSinglePage"
-            :key="'bookViewer' + bookKey"
             @toggleFullscreen="toggleFullscreen()"
             @reload="reloadBook()"
           />
