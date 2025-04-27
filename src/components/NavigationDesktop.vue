@@ -129,13 +129,13 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
           class="min-w-[210px] 2xl:min-w-[280px]"
           :class="{
             'z-50': index === 0,
-            'z-30 -ml-1 2xl:-ml-3': index === 1,
-            'z-20 -ml-3 2xl:-ml-4': index === 2,
+            'z-30 -ml-4': index === 1,
+            'z-20 -ml-4': index === 2,
           }"
         >
           <button
             v-if="item.subNavItems"
-            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl px-8"
+            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl"
             :class="[
               item.bgColor,
               { 'border-b-green-olive': index === activeLvl1NavItemIndex },
@@ -148,7 +148,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
             "
           >
             <span
-              class="text-36px 2xl:text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
+              class="text-36px 2xl:text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2 px-4"
               :class="[
                 { 'text-cream hover:text-gold': item.slug !== currentRoute },
                 {
@@ -164,14 +164,14 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
           <a
             v-else
             :href="`/${item.slug}`"
-            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl px-8"
+            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl pl-3"
             :class="[
               item.bgColor,
               { 'border-b-green-olive': index === activeLvl1NavItemIndex },
             ]"
           >
             <span
-              class="text-36px 2xl:text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2"
+              class="text-36px 2xl:text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2 px-4"
               :class="[
                 { 'text-cream hover:text-gold': item.slug !== currentRoute },
                 { 'text-gold': item.slug === currentRouteLvl1 },
