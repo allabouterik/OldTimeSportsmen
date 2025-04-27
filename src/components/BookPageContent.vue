@@ -3,7 +3,6 @@ import { ref, computed, onMounted, useTemplateRef, watch } from 'vue';
 import BookViewer from '@/components/BookViewer.vue';
 import ShootToTop from '@/components/ShootToTop.vue';
 import { useResponsive } from '@/composables/useResponsive';
-import bookSideTextImage from '@/assets/images/book-side-text.png';
 
 const videoUrl = 'https://player.vimeo.com/video/283168900';
 
@@ -55,40 +54,27 @@ const bookShowSinglePage = ref(false);
 const bookKey = ref(0);
 const mainColWidth = ref(900);
 
-const bookContainerRef = useTemplateRef('bookContainer');
-
 const windowWidth = useResponsive().width;
-
-const bookContainerWidth = computed(() => {
-  return (
-    bookContainerRef.value?.clientWidth ??
-    Math.min(bookImages.width, mainColWidth.value)
-  );
-});
+const isDesktop = useResponsive().isDesktop;
 
 const bookVpHeight = computed(() => {
   if (bookImages === undefined) return;
   const pageWidth = bookImages.width;
   const pageHeight = bookImages.height;
 
-  // let actualHeight;
-  // if (windowWidth.value > 1200) {
-  //   // show double pages
-  //   const twoPagesWidth = 2 * pageWidth;
-  //   let actualWidth = Math.min(twoPagesWidth, mainColWidth.value);
-  //   actualHeight = (actualWidth / twoPagesWidth) * pageHeight;
-  //   bookShowSinglePage.value = false;
-  // } else {
-  //   // show single pages
-  //   let actualWidth = Math.min(pageWidth, mainColWidth.value);
-  //   actualHeight = (actualWidth / pageWidth) * pageHeight;
-  //   bookShowSinglePage.value = true;
-  // }
-
-  // Just show single pages
-  const actualWidth = bookContainerWidth.value;
-  const actualHeight = (actualWidth / pageWidth) * pageHeight;
-  bookShowSinglePage.value = true;
+  let actualHeight;
+  if (isDesktop.value) {
+    // show double pages
+    const twoPagesWidth = 2 * pageWidth;
+    let actualWidth = Math.min(twoPagesWidth, mainColWidth.value);
+    actualHeight = (actualWidth / twoPagesWidth) * pageHeight;
+    bookShowSinglePage.value = false;
+  } else {
+    // show single pages
+    let actualWidth = Math.min(pageWidth, mainColWidth.value);
+    actualHeight = (actualWidth / pageWidth) * pageHeight;
+    bookShowSinglePage.value = true;
+  }
 
   return actualHeight + 'px';
 });
@@ -136,18 +122,15 @@ watch(windowWidth, () => {
 <template>
   <div id="mainCol">
     <section
-      class="flex flex-col items-center justify-center md:mt-8 p-7 md:pl-12 md:pt-10 md:pb-12 lg:pb-6 lg:pl-16 2xl:pl-24 2xl:pb-12 bg-cover bg-center bg-[url(../assets/images/book-reader-bg_mbl.png)] md:bg-[url(../assets/images/book-reader-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-reader-bg_desktop.png)]"
+      class="flex flex-col items-center justify-center md:mt-8 p-7 md:pl-12 md:pt-14 md:pb-12 lg:pb-6 lg:pl-16 2xl:pl-24 2xl:pb-12 bg-cover bg-center bg-[url(../assets/images/book-reader-bg_mbl.png)] md:bg-[url(../assets/images/book-reader-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-reader-bg_desktop.png)]"
     >
       <h2
-        class="order-1 md:order-2 font-francois-one text-22px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide py-2 lg:pt-0 lg:pb-6 xl:py-6 2xl:py-8"
+        class="order-1 md:order-2 font-francois-one text-22px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide py-2 lg:pt-0 lg:pb-6 xl:pt-0 xl:pb-8 2xl:pt-6 2xl:pb-0"
       >
         Leaf through the pages!
       </h2>
       <div class="order-2 md:order-1 flex flex-row w-full h-full">
-        <div
-          ref="bookContainer"
-          class="w-full md:w-3/5 lg:w-1/2"
-        >
+        <div class="w-full">
           <BookViewer
             v-if="bookImagesUrlsStdRes && bookImagesUrlsHiRes"
             :key="'bookViewer' + bookKey"
@@ -160,18 +143,11 @@ watch(windowWidth, () => {
             @reload="reloadBook()"
           />
         </div>
-        <div class="hidden md:flex w-2/5 lg:w-1/2 pl-10 lg:p-16">
-          <img
-            :src="bookSideTextImage.src"
-            class="object-contain w-full lg:max-w-[350px] xl:max-w-[400px] 2xl:max-w-[550px] m-auto"
-            alt="These authentic and charming images are enjoyable for general audiences and especially appealing to the 80 MILLION licenced hunters and fishermen in the United States."
-          />
-        </div>
       </div>
     </section>
 
     <section
-      class="flex flex-col items-center justify-center p-5 md:pt-0 lg:p-6 xl:p-8 2xl:p-12"
+      class="flex flex-col items-center justify-center p-5 md:pt-0 lg:p-6 lg:pt-0 xl:p-8 xl:pt-0 2xl:p-12"
     >
       <p
         class="font-bembo text-16px lg:text-20px xl:text-24px 2xl:text-32px text-justify"
