@@ -1,13 +1,56 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import menWithFishImage from '@/assets/images/credits-pg-men-with-fish.png';
+import womanWithRifleImage from '@/assets/images/credits-pg-woman-with-rifle.png';
 
-export const prerender = false; // disable prerendering for now
+export const prerender = true;
 ---
 
 <Layout>
   <div class='container mx-auto px-4 py-8'>
-    <h1 class='text-4xl font-garage-gothic text-brown-dark mb-4'>
-      Contact page
-    </h1>
+    <div class='flex flex-row justify-center flex-wrap lg:flex-nowrap gap-4'>
+      <div class='order-2 lg:order-1 w-3/5 sm:w-2/5 lg:w-1/4'>
+        <img
+          src={womanWithRifleImage.src}
+          alt='Woman with rifle'
+          class='w-full'
+        />
+      </div>
+      <div
+        class='flex flex-col order-1 lg:order-2 w-full lg:w-1/2 text-lg text-center md:text-2xl font-bembo text-black gap-4'
+      >
+        <p>Thanks to my son and collecting partner Jakob Dulisse.</p>
+        <p>
+          Thanks to Lala for her love and patience with my passion for
+          collecting and my father for passing on the collecting bug.
+        </p>
+        <p>
+          Thanks to Lindsey Brady for the cataloging and restoration of the
+          photos for this digital archive and the design of this website.
+        </p>
+        <p>
+          Thanks to Eoin O’Malley for translating our ideas and this archive
+          into this postal collection website.
+        </p>
+        <p>
+          I hope you enjoyed looking through the gallery of this website. If you
+          have any questions regarding purchasing the book, images or postcards
+          email
+          <a
+            href='mailto:transtonemusic@aol.com'
+            class='text-brown-dark text-nowrap underline sm:no-underline sm:hover:underline'
+            >Erik Jacobsen</a
+          >
+          to get in touch.
+        </p>
+      </div>
+      <div class='order-3 w-3/5 sm:w-2/5 lg:w-1/4'>
+        <img
+          src={menWithFishImage.src}
+          alt='Men with fish'
+          class='w-full'
+        />
+      </div>
+    </div>
   </div>
 </Layout>
