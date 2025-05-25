@@ -20,13 +20,13 @@ export const prerender = true;
     >
       <SlideshowZoom
         client:only='vue'
-        slides={content.people}
+        slides={content['character-slideshow-1']}
         maxHeightInPx={270}
         class='2xl:hidden'
       />
       <SlideshowZoom
         client:only='vue'
-        slides={content.people}
+        slides={content['character-slideshow-1']}
         maxHeightInPx={370}
         class='hidden 2xl:block'
       />
@@ -173,6 +173,18 @@ export const prerender = true;
     <div
       class='hidden lg:block w-[195px] max-w-[195px] 2xl:w-[520px] 2xl:max-w-[520px] shrink-0'
     >
+      <SlideshowZoom
+        client:only='vue'
+        slides={content['character-slideshow-2']}
+        maxHeightInPx={270}
+        class='2xl:hidden'
+      />
+      <SlideshowZoom
+        client:only='vue'
+        slides={content['character-slideshow-2']}
+        maxHeightInPx={370}
+        class='hidden 2xl:block'
+      />
       <div class='hidden 2xl:flex flex-col gap-12 mt-12'>
         {
           content.postcardHistory.postcards.slice(1).map((postcard: any) => (
