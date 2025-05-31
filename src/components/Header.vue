@@ -240,6 +240,10 @@ const navItems: NavItem[] = [
   },
 ];
 
+const props = defineProps<{
+  sticky?: boolean;
+}>();
+
 const isMenuOpen = ref(false);
 
 const toggleMenu = () => {
@@ -250,6 +254,7 @@ const toggleMenu = () => {
 <template>
   <header
     class="bg-[url(../assets/images/header-background.png)] bg-[size:100%_280px] bg-no-repeat py-4 xl:pt-10 2xl:pt-14 xl:pb-0"
+    :class="{ 'sticky top-0': sticky }"
   >
     <!-- Mobile -->
     <button
