@@ -10,25 +10,296 @@ export const prerender = true;
   >
   </div>
   <div
-    class='flex flex-col container lg:w-1/2 bg-[rgba(255,255,255,0.83)] text-lg text-center md:text-2xl font-bembo text-black mt-[144px] md:mt-0 mx-auto px-4 py-8 gap-4'
+    class='flex flex-col container lg:w-1/2 bg-[rgba(255,255,255,0.83)] md:mt-0 mx-auto px-4 py-8'
   >
-    <p>Thanks to my son and collecting partner Jakob Dulisse.</p>
-    <p>
-      Thanks to Lala for her love and patience with my passion for collecting
-      and my father for passing on the collecting bug.
-    </p>
-    <p>
-      Thanks to Lindsey Brady for the cataloging and restoration of the photos
-      for this digital archive and the design of this website.
-    </p>
-    <p>
-      Thanks to Eoin O’Malley for translating our ideas and this archive into
-      this postal collection website.
-    </p>
-    <p class='font-bold'>
-      I hope you enjoyed looking through the gallery of this website. If you
-      have any questions regarding purchasing the book, images or postcards, use
-      the message form below.
-    </p>
+    <div
+      class='text-lg text-center md:text-2xl font-bembo text-black mt-[144px] gap-4'
+    >
+      <p>Thanks to my son and collecting partner Jakob Dulisse.</p>
+      <p>
+        Thanks to Lala for her love and patience with my passion for collecting
+        and my father for passing on the collecting bug.
+      </p>
+      <p>
+        Thanks to Lindsey Brady for the cataloging and restoration of the photos
+        for this digital archive and the design of this website.
+      </p>
+      <p>
+        Thanks to Eoin O’Malley for translating our ideas and this archive into
+        this postal collection website.
+      </p>
+      <p class='font-bold'>
+        I hope you enjoyed looking through the gallery of this website. If you
+        have any questions regarding purchasing the book, images or postcards,
+        use the message form below.
+      </p>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class='form-container mb-6 mb-md-12'>
+      <h2
+        class='text-2xl md:text-34px font-francois-one text-black text-center md:text-left uppercase pb-4'
+      >
+        Get in touch
+      </h2>
+      <form
+        name='contact'
+        method='POST'
+        netlify
+        data-netlify-honeypot='bot-field'
+      >
+        <input
+          type='hidden'
+          name='form-name'
+          value='contact'
+        />
+        <!-- Hidden honeypot field to prevent against bot spam -->
+
+        <label
+          for='name'
+          class='font-francois-one text-black text-lg'
+          >Name (field required)</label
+        >
+        <input
+          type='text'
+          id='name'
+          name='name'
+          placeholder='John Doe'
+        />
+
+        <label
+          for='email'
+          class='font-francois-one text-black text-lg'
+          >Email</label
+        >
+        <input
+          type='email'
+          id='email'
+          name='email'
+          placeholder='JohnDoe@email.com'
+        />
+
+        <label
+          for='phone'
+          class='font-francois-one text-black text-lg'
+          >Phone number (field required)</label
+        >
+        <input
+          type='tel'
+          id='phone'
+          name='phone'
+          placeholder='(---) --- ----'
+        />
+
+        <label
+          for='message'
+          class='font-francois-one text-black text-lg'
+          >Message (field required)</label
+        >
+        <textarea
+          id='message'
+          name='message'
+          placeholder='Type message here.'
+          style='height: 200px'
+        ></textarea>
+
+        <!-- <input
+          type='submit'
+          value='Submit'
+        /> -->
+        <button
+          type='submit'
+          class='w-full rounded-md bg-brown-dark font-francois-one text-cream-button text-2xl text-center cursor-pointer py-4'
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
   </div>
 </Layout>
+
+<style>
+  /* Form adapted from https://www.w3schools.com/howto/howto_css_contact_form.asp */
+
+  /* Add a background color and some padding around the form */
+  .form-container {
+    background-color: transparent;
+    padding: 20px 0;
+  }
+
+  /* Style inputs with type="text", select elements and textareas */
+  input[type='text'],
+  input[type='email'],
+  input[type='tel'],
+  textarea#message {
+    width: 100%; /* Full width */
+    padding: 12px; /* Some padding */
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 6px; /* Add a top margin */
+    margin-bottom: 16px; /* Bottom margin */
+    resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+    color: #91465a;
+    background-color: #ddd;
+    font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+  }
+  input[type='text']:hover,
+  input[type='email']:hover,
+  input[type='tel']:hover,
+  textarea:hover,
+  input[type='text']:focus,
+  input[type='email']:focus,
+  input[type='tel']:focus,
+  textarea:focus {
+    background-color: #fff;
+  }
+
+  /* Style the submit button with a specific background color etc */
+  input[type='submit'] {
+    background-color: #406689;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'NeueHaasGroteskText Pro55', sans-serif;
+    font-weight: 400;
+    font-size: 1.125em;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+  }
+  input[type='submit']:focus {
+    outline: none; /* remove blue border in iOS Chrome */
+  }
+
+  /* When moving the mouse over the submit button, add a darker green color */
+  input[type='submit']:hover {
+    color: #eecf49;
+  }
+
+  /* label, */
+  .text-titles,
+  .text-main {
+    font-family: 'NeueHaasGroteskText Pro55', sans-serif;
+    font-feature-settings: 'liga';
+    font-weight: 400;
+    text-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+  }
+  /* label {
+    display: inline-block;
+    color: #406689;
+    font-size: 1.3125rem;
+    line-height: 1.3125rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  } */
+  .text-titles,
+  .text-main {
+    color: #f2f2f2;
+    margin: 0px;
+    padding: 0px;
+    text-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+  }
+  .text-titles {
+    font-size: 1.3125rem;
+    letter-spacing: 5px;
+    line-height: 25px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .text-main {
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    line-height: 24px;
+
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+  li.text-main {
+    padding: 4.5px 0;
+  }
+
+  /* Responsive breakpoints ref: https://getbootstrap.com/docs/4.3/layout/overview/ */
+
+  /* Extra small devices (portrait phones, < 576px) */
+  @media only screen and (max-width: 575.98px) {
+    /* label, */
+    input[type='submit'],
+    .text-titles {
+      font-size: 1.0625rem;
+      letter-spacing: 4px;
+    }
+    input[type='submit'],
+    .text-titles {
+      margin-bottom: 1rem;
+    }
+    input[type='submit'] {
+      line-height: 23px;
+    }
+    .text-main {
+      font-size: 1rem;
+      text-align: justify;
+    }
+    li.text-main {
+      text-align: initial;
+    }
+    .contact_renderedContent {
+      text-align: initial;
+
+      p {
+        margin-bottom: 0.5rem;
+      }
+    }
+    .titleImg1Line {
+      display: none;
+    }
+    .titleImg2Lines {
+      display: block;
+    }
+  }
+
+  /* Small devices (landscape phones, 576 - 768px) */
+  @media only screen and (min-width: 576px) and (max-width: 767.98px) {
+    /* label, */
+    input[type='submit'],
+    .text-titles {
+      font-size: 1.0625rem;
+      letter-spacing: 4px;
+    }
+    input[type='submit'] {
+      line-height: 23px;
+    }
+    .text-main {
+      font-size: 1rem;
+      text-align: justify;
+    }
+    li.text-main {
+      text-align: initial;
+    }
+  }
+
+  /* Medium devices (tablets, 768 - 992px) */
+  @media only screen and (min-width: 768px) and (max-width: 991.98px) {
+    /* label, */
+    input[type='submit'],
+    .text-titles {
+      font-size: 1.0625rem;
+      letter-spacing: 4px;
+    }
+    input[type='submit'] {
+      line-height: 23px;
+    }
+    .text-main {
+      font-size: 1rem;
+      text-align: justify;
+    }
+    li.text-main {
+      text-align: initial;
+    }
+  }
+</style>
