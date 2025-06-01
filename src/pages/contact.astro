@@ -88,6 +88,7 @@ export const prerender = true;
           type='tel'
           id='phone'
           name='phone'
+          inputmode='numeric'
           placeholder='(---) --- ----'
         />
 
@@ -109,9 +110,22 @@ export const prerender = true;
         /> -->
         <button
           type='submit'
-          class='w-full rounded-md bg-brown-dark font-francois-one text-cream-button text-2xl text-center cursor-pointer py-4'
+          class='w-full rounded-md bg-brown-dark font-francois-one text-cream-button text-2xl text-center uppercase cursor-pointer py-4'
         >
           Send Message
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='19'
+            height='19'
+            viewBox='0 0 19 19'
+            fill='none'
+            class='inline-block align-baseline ml-2'
+          >
+            <path
+              d='M10.2027 9.68884L2.93106 10.8916C2.84746 10.9054 2.76901 10.9409 2.70359 10.9944C2.63817 11.0479 2.5881 11.1175 2.5584 11.1963L0.0511771 17.8644C-0.18825 18.4777 0.457624 19.0623 1.0504 18.7671L18.4282 10.1421C18.5483 10.0824 18.6493 9.99063 18.7199 9.87715C18.7904 9.76367 18.8278 9.63294 18.8278 9.49957C18.8278 9.36621 18.7904 9.23548 18.7199 9.122C18.6493 9.00852 18.5483 8.91677 18.4282 8.85701L1.0504 0.232012C0.457624 -0.0621965 -0.18825 0.522387 0.0511771 1.13476L2.55937 7.80285C2.58906 7.88165 2.63914 7.9513 2.70456 8.00479C2.76997 8.05829 2.84843 8.09375 2.93203 8.10759L10.2037 9.3103C10.249 9.31749 10.2903 9.34049 10.3201 9.37518C10.3499 9.40987 10.3663 9.45398 10.3663 9.49957C10.3663 9.54517 10.3499 9.58927 10.3201 9.62396C10.2903 9.65865 10.249 9.68166 10.2037 9.68884H10.2027Z'
+              fill='#E4E5D6'
+            ></path>
+          </svg>
         </button>
       </form>
     </div>
@@ -119,9 +133,6 @@ export const prerender = true;
 </Layout>
 
 <style>
-  /* Form adapted from https://www.w3schools.com/howto/howto_css_contact_form.asp */
-
-  /* Add a background color and some padding around the form */
   .form-container {
     background-color: transparent;
     padding: 20px 0;
@@ -132,174 +143,37 @@ export const prerender = true;
   input[type='email'],
   input[type='tel'],
   textarea#message {
-    width: 100%; /* Full width */
-    padding: 12px; /* Some padding */
-    border: 1px solid #ccc; /* Gray border */
-    border-radius: 4px; /* Rounded borders */
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    margin-top: 6px; /* Add a top margin */
-    margin-bottom: 16px; /* Bottom margin */
-    resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+    width: 100%;
     color: #91465a;
     background-color: #ddd;
     font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
     font-size: 1rem;
-    font-style: italic;
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border: 2px solid var(--color-brown-dark);
+    border-radius: 4px;
+    resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
   }
   input[type='text']:hover,
   input[type='email']:hover,
   input[type='tel']:hover,
-  textarea:hover,
+  textarea#message:hover,
   input[type='text']:focus,
   input[type='email']:focus,
   input[type='tel']:focus,
-  textarea:focus {
+  textarea#message:focus {
     background-color: #fff;
   }
-
-  /* Style the submit button with a specific background color etc */
-  input[type='submit'] {
-    background-color: #406689;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'NeueHaasGroteskText Pro55', sans-serif;
-    font-weight: 400;
-    font-size: 1.125em;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-  }
-  input[type='submit']:focus {
+  button[type='submit']:focus {
     outline: none; /* remove blue border in iOS Chrome */
   }
 
-  /* When moving the mouse over the submit button, add a darker green color */
-  input[type='submit']:hover {
-    color: #eecf49;
-  }
-
-  /* label, */
-  .text-titles,
-  .text-main {
-    font-family: 'NeueHaasGroteskText Pro55', sans-serif;
-    font-feature-settings: 'liga';
-    font-weight: 400;
-    text-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
-  }
-  /* label {
-    display: inline-block;
-    color: #406689;
-    font-size: 1.3125rem;
-    line-height: 1.3125rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  } */
-  .text-titles,
-  .text-main {
-    color: #f2f2f2;
-    margin: 0px;
-    padding: 0px;
-    text-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
-  }
-  .text-titles {
-    font-size: 1.3125rem;
-    letter-spacing: 5px;
-    line-height: 25px;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-  .text-main {
-    font-size: 1.25rem;
-    letter-spacing: 1px;
-    line-height: 24px;
-
-    p {
-      margin-bottom: 1rem;
-    }
-  }
-  li.text-main {
-    padding: 4.5px 0;
-  }
-
-  /* Responsive breakpoints ref: https://getbootstrap.com/docs/4.3/layout/overview/ */
-
-  /* Extra small devices (portrait phones, < 576px) */
-  @media only screen and (max-width: 575.98px) {
-    /* label, */
-    input[type='submit'],
-    .text-titles {
-      font-size: 1.0625rem;
-      letter-spacing: 4px;
-    }
-    input[type='submit'],
-    .text-titles {
-      margin-bottom: 1rem;
-    }
-    input[type='submit'] {
-      line-height: 23px;
-    }
-    .text-main {
-      font-size: 1rem;
-      text-align: justify;
-    }
-    li.text-main {
-      text-align: initial;
-    }
-    .contact_renderedContent {
-      text-align: initial;
-
-      p {
-        margin-bottom: 0.5rem;
-      }
-    }
-    .titleImg1Line {
-      display: none;
-    }
-    .titleImg2Lines {
-      display: block;
-    }
-  }
-
-  /* Small devices (landscape phones, 576 - 768px) */
-  @media only screen and (min-width: 576px) and (max-width: 767.98px) {
-    /* label, */
-    input[type='submit'],
-    .text-titles {
-      font-size: 1.0625rem;
-      letter-spacing: 4px;
-    }
-    input[type='submit'] {
-      line-height: 23px;
-    }
-    .text-main {
-      font-size: 1rem;
-      text-align: justify;
-    }
-    li.text-main {
-      text-align: initial;
-    }
-  }
-
-  /* Medium devices (tablets, 768 - 992px) */
-  @media only screen and (min-width: 768px) and (max-width: 991.98px) {
-    /* label, */
-    input[type='submit'],
-    .text-titles {
-      font-size: 1.0625rem;
-      letter-spacing: 4px;
-    }
-    input[type='submit'] {
-      line-height: 23px;
-    }
-    .text-main {
-      font-size: 1rem;
-      text-align: justify;
-    }
-    li.text-main {
-      text-align: initial;
-    }
+  button[type='submit'] {
+    box-shadow:
+      0px 16px 32px -8px rgba(35, 36, 29, 0.3),
+      -4px -4px 8px 0px #2b2d25 inset,
+      4px 4px 8px 0px rgba(255, 255, 255, 0.15) inset;
   }
 </style>
