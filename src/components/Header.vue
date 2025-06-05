@@ -35,12 +35,12 @@ const navItems: NavItem[] = [
                 slug: 'deer',
               },
               {
-                label: 'Bear',
-                slug: 'bear',
+                label: 'Bears',
+                slug: 'bears',
               },
               {
                 label: 'Moose, Sheep, etc.',
-                slug: 'sheep-goats-etc',
+                slug: 'moose-sheep-etc',
               },
               {
                 label: 'Cats',

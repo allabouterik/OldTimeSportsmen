@@ -7,25 +7,10 @@ export const prerender = true;
 
 export const getStaticPaths = async () => {
   return [
-    { params: { gallery: 'gallery/hunting/big-game/deer' } },
-    { params: { gallery: 'gallery/hunting/big-game/bear' } },
-    { params: { gallery: 'gallery/hunting/big-game/sheep-goats-etc' } },
-    { params: { gallery: 'gallery/hunting/big-game/cats' } },
-    { params: { gallery: 'gallery/hunting/big-game/wolves-coyotes' } },
-    { params: { gallery: 'gallery/hunting/big-game/alligators' } },
-    { params: { gallery: 'gallery/hunting/small-game/rabbits' } },
-    { params: { gallery: 'gallery/hunting/small-game/rabbit-round-ups' } },
-    { params: { gallery: 'gallery/hunting/small-game/squirrels-skunks-etc' } },
-    { params: { gallery: 'gallery/hunting/small-game/frogs-snakes-etc' } },
-    { params: { gallery: 'gallery/hunting/small-game/foxes' } },
-    { params: { gallery: 'gallery/hunting/birds/ducks' } },
-    { params: { gallery: 'gallery/hunting/birds/geese' } },
-    { params: { gallery: 'gallery/hunting/birds/upland-game-birds' } },
-    { params: { gallery: 'gallery/hunting/birds/other-birds' } },
-    { params: { gallery: 'gallery/hunting/huntin-gals' } },
-    { params: { gallery: 'gallery/hunting/portraits' } },
-    { params: { gallery: 'gallery/hunting/young-hunters' } },
-    { params: { gallery: 'gallery/hunting/huntin-dogs' } },
+    { params: { gallery: 'gallery/camp-cabin/camp-cabin' } },
+    { params: { gallery: 'gallery/camp-cabin/hunting-groups' } },
+    { params: { gallery: 'gallery/camp-cabin/fishing-groups' } },
+    { params: { gallery: 'gallery/camp-cabin/scenic' } },
     { params: { gallery: 'gallery/fishing/bass' } },
     { params: { gallery: 'gallery/fishing/carp' } },
     { params: { gallery: 'gallery/fishing/catfish' } },
@@ -40,13 +25,28 @@ export const getStaticPaths = async () => {
     { params: { gallery: 'gallery/fishing/trout-salmon' } },
     { params: { gallery: 'gallery/fishing/women-fishing' } },
     { params: { gallery: 'gallery/fishing/young-fishermen' } },
-    { params: { gallery: 'gallery/camp-cabin/camp-cabin' } },
-    { params: { gallery: 'gallery/camp-cabin/hunting-groups' } },
-    { params: { gallery: 'gallery/camp-cabin/fishing-groups' } },
-    { params: { gallery: 'gallery/camp-cabin/scenic' } },
-    { params: { gallery: 'gallery/tall-tales/hunting' } },
-    { params: { gallery: 'gallery/tall-tales/fishing' } },
+    { params: { gallery: 'gallery/hunting/big-game/alligators' } },
+    { params: { gallery: 'gallery/hunting/big-game/bears' } },
+    { params: { gallery: 'gallery/hunting/big-game/cats' } },
+    { params: { gallery: 'gallery/hunting/big-game/deer' } },
+    { params: { gallery: 'gallery/hunting/big-game/moose-sheep-etc' } },
+    { params: { gallery: 'gallery/hunting/big-game/wolves-coyotes' } },
+    { params: { gallery: 'gallery/hunting/birds/ducks' } },
+    { params: { gallery: 'gallery/hunting/birds/geese' } },
+    { params: { gallery: 'gallery/hunting/birds/upland-game-birds' } },
+    { params: { gallery: 'gallery/hunting/birds/other-birds' } },
+    { params: { gallery: 'gallery/hunting/huntin-gals' } },
+    { params: { gallery: 'gallery/hunting/portraits' } },
+    { params: { gallery: 'gallery/hunting/small-game/rabbits' } },
+    { params: { gallery: 'gallery/hunting/small-game/rabbit-round-ups' } },
+    { params: { gallery: 'gallery/hunting/small-game/squirrels-skunks-etc' } },
+    { params: { gallery: 'gallery/hunting/small-game/frogs-snakes-etc' } },
+    { params: { gallery: 'gallery/hunting/small-game/foxes' } },
+    { params: { gallery: 'gallery/hunting/young-hunters' } },
+    { params: { gallery: 'gallery/hunting/huntin-dogs' } },
     { params: { gallery: 'gallery/tall-tales/fakes' } },
+    { params: { gallery: 'gallery/tall-tales/fishing' } },
+    { params: { gallery: 'gallery/tall-tales/hunting' } },
   ];
 };
 
@@ -55,6 +55,7 @@ const { gallery } = Astro.params;
 const getImagesFromCloudinary = async (gallery: string, size: number) => {
   const listName =
     gallery.replace('gallery/', '').replaceAll('/', '_') + '_' + size;
+  // console.log('listName', listName);
   const imagesJson = await fetch(
     `https://res.cloudinary.com/all-about-erik/image/list/${listName}.json`
   );
