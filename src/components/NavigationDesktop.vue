@@ -115,7 +115,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
           class="w-[86px] 2xl:w-[115px] self-end mr-1"
         />
         <span
-          class="inline-block text-36px 2xl:text-48px font-garage-gothic text-5xl text-black hover:text-green-olive leading-[0.8] font-medium mt-5 text-shadow"
+          class="inline-block text-36px 2xl:text-48px font-garage-gothic text-5xl text-black hover:text-green-olive leading-[0.8] font-medium mt-5 text-shadow-regular"
           :class="[{ 'translate-y-4': isMacWebkit }]"
           >HOME SWEET HOME</span
         >

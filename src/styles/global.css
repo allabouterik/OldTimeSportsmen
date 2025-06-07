@@ -86,7 +86,8 @@
   --shadow-text-box: 0px 4px 4px 0px rgba(0, 0, 0, 0.12);
 
   /* Text Shadow */
-  --shadow-text: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  --text-shadow-regular: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  --text-shadow-strong: 1px 2px 3px rgba(0, 0, 0, 0.25);
 
 
   /* Transition */
