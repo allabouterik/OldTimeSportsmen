@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, type PropType } from 'vue';
-import FlipPostcard from '@/components/FlipPostcard.vue';
 import ImageLightBox from '@/components/ImageLightBox.vue';
 import { useResponsive } from '@/composables/useResponsive';
 import type { CloudinaryImage } from '@/types/CloudinaryTypes';
@@ -47,6 +46,13 @@ const openLightBox = (index: number) => {
 const closeLightBox = () => {
   lightboxImageIndex.value = undefined;
 };
+
+const isPostcardFront = (imageIndex: number) => {
+  return props.imagesLowDef[imageIndex + 1]?.public_id?.endsWith('a');
+};
+const isPostcardBack = (imageIndex: number) => {
+  return props.imagesLowDef[imageIndex]?.public_id?.endsWith('a');
+};
 </script>
 
 <template>
@@ -59,42 +65,8 @@ const closeLightBox = () => {
         :key="image.public_id"
       >
         <div
-          v-if="imagesLowDef[imageIndex + 1]?.public_id?.endsWith('a')"
-          class="w-full bg-black"
-        >
-          <FlipPostcard
-            :imgFront="
-              encodeURI(
-                `https://res.cloudinary.com/all-about-erik/image/upload/v${image.version}/${image.public_id}.${image.format}`
-              )
-            "
-            :imgBack="
-              encodeURI(
-                `https://res.cloudinary.com/all-about-erik/image/upload/v${
-                  imagesLowDef[imageIndex + 1]?.version
-                }/${imagesLowDef[imageIndex + 1]?.public_id}.${
-                  imagesLowDef[imageIndex + 1]?.format
-                }`
-              )
-            "
-            :caption="
-              image.public_id.split('/').pop()?.split('_').slice(-2).join(' ')
-            "
-            captionAlign="left"
-            :captionContainWithinCard="true"
-            :seeTheBack="true"
-            :aspectRatio="`${image.width}/${image.height}`"
-            :reverseBackDims="
-              image.width === imagesLowDef[imageIndex + 1].height
-            "
-            :disableFlip="true"
-            @click="openLightBox(imageIndex + 1)"
-          />
-        </div>
-
-        <div
-          v-else-if="!image.public_id.endsWith('a')"
-          class="w-full bg-black"
+          v-if="!isPostcardBack(imageIndex)"
+          class="w-full aspect-square"
           @click="openLightBox(imageIndex)"
         >
           <img
@@ -104,13 +76,23 @@ const closeLightBox = () => {
               )
             "
             alt="Image"
-            class="h-full object-cover m-auto"
+            class="w-full h-full object-contain bg-gray"
           />
-          <p class="font-bembo font-normal italic text-14px lg:text-16px pt-2">
-            {{
-              image.public_id.split('/').pop()?.split('_').slice(-2).join(' ')
-            }}
-          </p>
+          <div class="relative">
+            <p
+              class="inline-block font-bembo font-normal italic text-14px lg:text-16px pt-2"
+            >
+              {{
+                image.public_id.split('/').pop()?.split('_').slice(-2).join(' ')
+              }}
+            </p>
+            <p
+              v-if="isPostcardFront(imageIndex)"
+              class="inline-block absolute left-1/2 -translate-x-1/2 text-center font-francois-one font-normal text-14px lg:text-16px text-shadow-strong pt-2"
+            >
+              SEE THE BACK
+            </p>
+          </div>
         </div>
       </template>
     </div>
