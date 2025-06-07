@@ -68,12 +68,16 @@ const getImagesFromCloudinary = async (gallery: string, size: number) => {
 };
 
 const imagesLowDef = await getImagesFromCloudinary(gallery, 200);
-const imagesHighDef = await getImagesFromCloudinary(gallery, 750);
+const imagesHighDefTablet = await getImagesFromCloudinary(gallery, 1065);
+const imagesHighDefDesktop = await getImagesFromCloudinary(gallery, 1200);
 
 const sortedImagesLowDef = imagesLowDef.resources.sort((a, b) =>
   a.public_id.localeCompare(b.public_id)
 );
-const sortedImagesHighDef = imagesHighDef.resources.sort((a, b) =>
+const sortedImagesHighDefTablet = imagesHighDefTablet.resources.sort((a, b) =>
+  a.public_id.localeCompare(b.public_id)
+);
+const sortedImagesHighDefDesktop = imagesHighDefDesktop.resources.sort((a, b) =>
   a.public_id.localeCompare(b.public_id)
 );
 ---
@@ -84,7 +88,8 @@ const sortedImagesHighDef = imagesHighDef.resources.sort((a, b) =>
       <Gallery
         client:only='vue'
         imagesLowDef={sortedImagesLowDef}
-        imagesHighDef={sortedImagesHighDef}
+        imagesHighDefTablet={sortedImagesHighDefTablet}
+        imagesHighDefDesktop={sortedImagesHighDefDesktop}
       />
     )
   }

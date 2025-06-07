@@ -2,6 +2,7 @@
 import { ref, computed, type PropType } from 'vue';
 import FlipPostcard from '@/components/FlipPostcard.vue';
 import ImageLightBox from '@/components/ImageLightBox.vue';
+import { useResponsive } from '@/composables/useResponsive';
 import type { CloudinaryImage } from '@/types/CloudinaryTypes';
 
 const props = defineProps({
@@ -9,14 +10,26 @@ const props = defineProps({
     type: Array as PropType<CloudinaryImage[]>,
     default: () => [],
   },
-  imagesHighDef: {
+  imagesHighDefTablet: {
+    type: Array as PropType<CloudinaryImage[]>,
+    default: () => [],
+  },
+  imagesHighDefDesktop: {
     type: Array as PropType<CloudinaryImage[]>,
     default: () => [],
   },
 });
 
+const isDesktop = useResponsive().isDesktop;
+
+const imagesHightDef = computed(() => {
+  return isDesktop.value
+    ? props.imagesHighDefDesktop
+    : props.imagesHighDefTablet;
+});
+
 const imagesForLightBox = computed(() =>
-  props.imagesHighDef.map((image) => ({
+  imagesHightDef.value.map((image) => ({
     ...image,
     img: encodeURI(
       `https://res.cloudinary.com/all-about-erik/image/upload/v${image.version}/${image.public_id}.${image.format}`
