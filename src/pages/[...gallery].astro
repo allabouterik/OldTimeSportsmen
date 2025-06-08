@@ -1,7 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Gallery from '@/components/Gallery.vue';
-import type { CloudinaryListResponse } from '@/types/CloudinaryTypes';
+import type {
+  CloudinaryImage,
+  CloudinaryListResponse,
+} from '@/types/CloudinaryTypes';
 
 export const prerender = true;
 
@@ -55,7 +58,6 @@ const { gallery } = Astro.params;
 const getImagesFromCloudinary = async (gallery: string, size: number) => {
   const listName =
     gallery.replace('gallery/', '').replaceAll('/', '_') + '_' + size;
-  // console.log('listName', listName);
   const imagesJson = await fetch(
     `https://res.cloudinary.com/all-about-erik/image/list/${listName}.json`
   );
@@ -71,14 +73,31 @@ const imagesLowDef = await getImagesFromCloudinary(gallery, 200);
 const imagesHighDefTablet = await getImagesFromCloudinary(gallery, 1065);
 const imagesHighDefDesktop = await getImagesFromCloudinary(gallery, 1200);
 
+const sortingAlgorithm = (a: CloudinaryImage, b: CloudinaryImage) => {
+  function imageNumber(image: CloudinaryImage): number {
+    const parts = image.public_id.split('_');
+    const lastPart = parts.pop();
+    if (!lastPart) return 0; // or handle the error as needed
+    const numberPart = lastPart.replace(/[a-zA-Z]+$/, ''); // Remove any trailing letters
+    const number = parseInt(numberPart, 10);
+    return isNaN(number) ? 0 : number; // Return 0 if parsing fails
+  }
+  const aImgNum = imageNumber(a);
+  const bImgNum = imageNumber(b);
+  if (aImgNum === bImgNum) {
+    return a.public_id.localeCompare(b.public_id); // i.e. for postcards, sort by the full key
+  }
+  return aImgNum - bImgNum;
+};
+
 const sortedImagesLowDef = imagesLowDef.resources.sort((a, b) =>
-  a.public_id.localeCompare(b.public_id)
+  sortingAlgorithm(a, b)
 );
 const sortedImagesHighDefTablet = imagesHighDefTablet.resources.sort((a, b) =>
-  a.public_id.localeCompare(b.public_id)
+  sortingAlgorithm(a, b)
 );
 const sortedImagesHighDefDesktop = imagesHighDefDesktop.resources.sort((a, b) =>
-  a.public_id.localeCompare(b.public_id)
+  sortingAlgorithm(a, b)
 );
 ---
 
