@@ -37,7 +37,7 @@ const currentRouteItemIndex = computed(() =>
     >
       <a
         v-if="!item.subNavItems"
-        class="min-w-1/7 text-center font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular"
+        class="min-w-1/7 text-center font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular rounded-md outline-gold outline-sold outline-0 focus-visible:outline-2"
         :class="{
           'text-black hover:text-gold':
             index !== currentRouteItemIndex && index !== activeItemIndex,

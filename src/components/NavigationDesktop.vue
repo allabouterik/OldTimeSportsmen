@@ -101,7 +101,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
       <!-- Home Menu Item -->
       <a
         href="/"
-        class="flex h-[64px] 2xl:h-[85px] items-center ml-8 px-8 2xl:py-1 hover:cursor-pointer"
+        class="flex h-[64px] 2xl:h-[85px] items-center ml-12 mr-4 px-4 2xl:py-1 hover:cursor-pointer rounded-md outline-green-olive outline-sold outline-0 focus-visible:outline-2"
         @mouseenter="isHouseWithSmoke = true"
         @mouseleave="isHouseWithSmoke = false"
       >
@@ -135,7 +135,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
         >
           <button
             v-if="item.subNavItems"
-            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl"
+            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl outline-green-olive outline-sold outline-0 focus-visible:outline-2"
             :class="[
               item.bgColor,
               { 'border-b-green-olive': index === activeLvl1NavItemIndex },
@@ -164,7 +164,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
           <a
             v-else
             :href="`/${item.slug}`"
-            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl pl-3"
+            class="flex items-center justify-center absolute -bottom-1 min-w-[210px] 2xl:min-w-[280px] min-h-[56px] 2xl:min-h-[74px] border-t-4 border-x-4 border-gold rounded-t-xl pl-3 outline-green-olive outline-sold outline-0 focus-visible:outline-2"
             :class="[
               item.bgColor,
               { 'border-b-green-olive': index === activeLvl1NavItemIndex },
@@ -188,12 +188,12 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
     <!-- Level 2 Navigation Bar with Categories -->
     <div
       v-if="activeLvl1NavItemIndex !== null && activeLvl1NavItem?.subNavItems"
-      class="flex items-center justify-center gap-36 relative min-h-[74px] bg-green-olive border-t-4 border-gold z-40 shadow-menu py-4 px-[20px]"
+      class="flex items-center justify-center gap-36 relative min-h-[74px] bg-green-olive border-t-4 border-gold z-40 shadow-menu py-3 px-[20px]"
     >
       <button
         v-for="(item, index) in activeLvl1NavItem?.subNavItems"
         :key="item.label"
-        class="font-garage-gothic text-39px 2xl:text-52px leading-none font-medium tracking-wider uppercase transition-colors"
+        class="font-garage-gothic text-39px 2xl:text-52px leading-none font-medium tracking-wider uppercase transition-colors rounded-md outline-gold outline-sold outline-0 focus-visible:outline-2 px-3 py-1"
         :class="[
           {
             'text-green-gray hover:text-gold': activeLvl2NavItemIndex !== index,
