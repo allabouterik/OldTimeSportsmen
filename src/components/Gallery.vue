@@ -86,12 +86,13 @@ const isPostcardBack = (imageIndex: number) => {
                 image.public_id.split('/').pop()?.split('_').slice(-2).join(' ')
               }}
             </p>
-            <p
+            <button
               v-if="isPostcardFront(imageIndex)"
-              class="inline-block absolute left-1/2 -translate-x-1/2 text-center font-francois-one font-normal text-14px lg:text-16px text-shadow-strong pt-2"
+              class="inline-block absolute left-1/2 -translate-x-1/2 text-center font-francois-one font-normal text-14px lg:text-16px text-shadow-strong rounded-md outline-gold outline-sold outline-0 focus-visible:outline-2 p-1 my-1"
+              @click.stop="openLightBox(imageIndex + 1)"
             >
               SEE THE BACK
-            </p>
+            </button>
           </div>
         </div>
       </template>
