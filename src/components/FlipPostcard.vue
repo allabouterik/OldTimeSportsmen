@@ -6,7 +6,7 @@ import seeTheBackImg from '@/assets/images/see-the-back.png';
 type PostcardImageItem = {
   img: string;
   caption?: string;
-  HTMLcaption?: string;
+  htmlCaption?: string;
 };
 
 const props = defineProps({
@@ -126,7 +126,7 @@ const lightBoxOpen = () => {
     postcardImage.value = [
       {
         img: props.imgBackLarge || '',
-        HTMLcaption: props.backText,
+        htmlCaption: props.backText,
       },
     ];
   } else {

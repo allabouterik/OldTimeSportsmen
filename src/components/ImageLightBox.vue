@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {
   reactive,
   ref,
@@ -8,6 +8,7 @@ import {
   useTemplateRef,
   watch,
 } from 'vue';
+import snarkdown from 'snarkdown';
 import {
   IconBase,
   IconChevronLeft,
@@ -203,6 +204,11 @@ const updateImageWidth = () => {
   }
 };
 
+const renderMarkdown = (text: string) => {
+  if (!text) return '';
+  return snarkdown(text);
+};
+
 // Touch handlers
 const touchstartHandler = (event) => {
   touch.count += 1;
@@ -341,21 +347,51 @@ onBeforeUnmount(() => {
                   class="m-auto"
                 />
 
-                <div
+                <!-- <div
                   v-show="(image.caption || image.title) && isImageLoaded"
-                  class="image-lightbox__text"
+                  class="image-lightbox__text font-bembo text-white text-wrap italic pb-4 z-10"
                   :class="{ 'text-left': !props.centreTitle }"
                 >
                   {{ image.caption || image.title }}
                 </div>
 
                 <div
-                  v-show="image.HTMLcaption && isImageLoaded"
-                  class="image-lightbox__HTMLtext"
-                  :class="{ 'text-left': !props.centreTitle }"
-                  :style="htmlCaptionCss"
-                  v-html="image.HTMLcaption"
-                />
+                  v-show="isImageLoaded && (image.postmark || image.mainText)"
+                  class="grid grid-cols-[1fr_2fr_1fr] font-bembo text-white text-left text-wrap z-10"
+                >
+                  <div
+                    class="col-span-1 text-15px"
+                    v-html="renderMarkdown(image.postmark)"
+                  />
+                  <div
+                    class="col-span-1 text-20px"
+                    v-html="renderMarkdown(image.mainText)"
+                  />
+                  <div class="col-span-1" />
+                </div> -->
+
+                <div
+                  class="image-lightbox__textContainer grid grid-rows-[auto_1fr] grid-cols-[1fr_auto] md:grid-cols-[1fr_2fr_1fr] gap-3 font-bembo text-white text-left text-wrap z-10"
+                >
+                  <div
+                    v-show="(image.caption || image.title) && isImageLoaded"
+                    class="image-lightbox__text col-start-1 col-span-1 font-bembo text-white text-wrap italic z-10"
+                    :class="{ 'text-left': !props.centreTitle }"
+                  >
+                    {{ image.caption || image.title }}
+                  </div>
+
+                  <div
+                    v-show="isImageLoaded && image.postmark"
+                    class="col-start-2 col-span-1 row-span-2 md:col-start-1 md:row-span-auto text-12px md:text-15px italic  "
+                    v-html="renderMarkdown(image.postmark)"
+                  />
+                  <div
+                    v-show="isImageLoaded && image.mainText"
+                    class="col-start-1 col-span-1 row-span-1 md:col-start-2 md:row-span-auto text-13px md:text-20px"
+                    v-html="renderMarkdown(image.mainText)"
+                  />
+                </div>
               </div>
             </li>
           </ul>
@@ -424,21 +460,6 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css?family=Crimson+Text:600,600i&display=swap');
-
-@font-face {
-  font-family: NeueHaasGroteskText Pro55;
-  src: url('../assets/fonts/nhaasgrotesktxpro-55rg.eot'); /* IE9 Compat Modes */
-  src: url('../assets/fonts/nhaasgrotesktxpro-55rg.eot?#iefix')
-      format('embedded-opentype'),
-    /* IE6-IE8 */ url('../assets/fonts/nhaasgrotesktxpro-55rg.woff')
-      format('woff'),
-    /* Pretty Modern Browsers */
-      url('../assets/fonts/nhaasgrotesktxpro-55rg.svg#NHaasGroteskTXPro-55Rg')
-      format('svg'); /* Legacy iOS */
-  font-weight: normal;
-}
-
 .image-lightbox {
   --title-padding-top: 1rem;
 
@@ -501,44 +522,11 @@ onBeforeUnmount(() => {
       }
     }
   }
-  &__text {
-    // position: absolute;
-    z-index: 1000;
-    display: block;
-    margin: 0 auto;
-    box-sizing: border-box;
-
-    color: #ffffff;
-    font-family: 'NeueHaasGroteskText Pro55', sans-serif;
-    font-feature-settings: 'liga';
-    font-size: 1.3125rem; /* 21px with 16px default size */
-    font-weight: 400;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    text-rendering: auto;
-    // transition: all  .5s ease .0s;
-    line-height: 1.3125rem; /* 21px with 16px default size */
-    white-space: normal;
+  &__textContainer {
     padding-top: var(--title-padding-top);
+    white-space: normal;
   }
-  &__HTMLtext {
-    z-index: 1000;
-    display: block;
-    // margin: 0 auto;
-    box-sizing: border-box;
-
-    color: #ffffff;
-    font-family: 'Crimson Text', serif;
-    font-feature-settings: 'liga';
-    font-size: 1.125rem; /* 18px with 16px default size */
-    font-weight: 600;
-    // font-style: italic;
-    letter-spacing: 1px;
-    text-align: left;
-    text-rendering: auto;
-    line-height: 1.375rem; /* 22px with 16px default size */
-    white-space: normal;
-    padding-top: var(--title-padding-top);
+  &__text {
   }
 
   &__next,

@@ -2,19 +2,23 @@
 import { ref, computed, type PropType } from 'vue';
 import ImageLightBox from '@/components/ImageLightBox.vue';
 import { useResponsive } from '@/composables/useResponsive';
-import type { CloudinaryImage } from '@/types/CloudinaryTypes';
+import {
+  getImageTitle,
+  isPostcardBackImg,
+  type CloudinaryImageWithCaption,
+} from '@/utils/cloudinaryUtils';
 
 const props = defineProps({
   imagesLowDef: {
-    type: Array as PropType<CloudinaryImage[]>,
+    type: Array as PropType<CloudinaryImageWithCaption[]>,
     default: () => [],
   },
   imagesHighDefTablet: {
-    type: Array as PropType<CloudinaryImage[]>,
+    type: Array as PropType<CloudinaryImageWithCaption[]>,
     default: () => [],
   },
   imagesHighDefDesktop: {
-    type: Array as PropType<CloudinaryImage[]>,
+    type: Array as PropType<CloudinaryImageWithCaption[]>,
     default: () => [],
   },
 });
@@ -33,7 +37,8 @@ const imagesForLightBox = computed(() =>
     img: encodeURI(
       `https://res.cloudinary.com/all-about-erik/image/upload/v${image.version}/${image.public_id}.${image.format}`
     ),
-    caption: image.public_id.split('/').pop()?.split('_').slice(-2).join(' '),
+    caption: getImageTitle(image),
+    // htmlCaption: `<p>${getImageTitle(image)}</p>`,
   }))
 );
 
@@ -47,12 +52,10 @@ const closeLightBox = () => {
   lightboxImageIndex.value = undefined;
 };
 
-const isPostcardFront = (imageIndex: number) => {
-  return props.imagesLowDef[imageIndex + 1]?.public_id?.endsWith('a');
-};
-const isPostcardBack = (imageIndex: number) => {
-  return props.imagesLowDef[imageIndex]?.public_id?.endsWith('a');
-};
+const isPostcardFront = (imageIndex: number) => isPostcardBack(imageIndex + 1);
+
+const isPostcardBack = (imageIndex: number) =>
+  isPostcardBackImg(props.imagesLowDef[imageIndex]?.public_id || '');
 </script>
 
 <template>
@@ -82,9 +85,7 @@ const isPostcardBack = (imageIndex: number) => {
             <p
               class="inline-block font-bembo font-normal italic text-14px lg:text-16px pt-2"
             >
-              {{
-                image.public_id.split('/').pop()?.split('_').slice(-2).join(' ')
-              }}
+              {{ getImageTitle(image) }}
             </p>
             <button
               v-if="isPostcardFront(imageIndex)"

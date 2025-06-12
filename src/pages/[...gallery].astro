@@ -1,6 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Gallery from '@/components/Gallery.vue';
+import * as galleryPostcardsContent from '@/content/gallery-postcards.md';
+import {
+  getImageId,
+  getImageNumber,
+  getImageTitle,
+  isPostcardBackImg,
+  type CloudinaryImageWithCaption,
+} from '@/utils/cloudinaryUtils';
 import type {
   CloudinaryImage,
   CloudinaryListResponse,
@@ -55,6 +63,8 @@ export const getStaticPaths = async () => {
 
 const { gallery } = Astro.params;
 
+const galleryParent = gallery.split('/')[1];
+
 const getImagesFromCloudinary = async (gallery: string, size: number) => {
   const listName =
     gallery.replace('gallery/', '').replaceAll('/', '_') + '_' + size;
@@ -74,31 +84,62 @@ const imagesHighDefTablet = await getImagesFromCloudinary(gallery, 1065);
 const imagesHighDefDesktop = await getImagesFromCloudinary(gallery, 1200);
 
 const sortingAlgorithm = (a: CloudinaryImage, b: CloudinaryImage) => {
-  function imageNumber(image: CloudinaryImage): number {
-    const parts = image.public_id.split('_');
-    const lastPart = parts.pop();
-    if (!lastPart) return 0; // or handle the error as needed
-    const numberPart = lastPart.replace(/[a-zA-Z]+$/, ''); // Remove any trailing letters
-    const number = parseInt(numberPart, 10);
-    return isNaN(number) ? 0 : number; // Return 0 if parsing fails
-  }
-  const aImgNum = imageNumber(a);
-  const bImgNum = imageNumber(b);
+  const aImgNum = getImageNumber(a);
+  const bImgNum = getImageNumber(b);
   if (aImgNum === bImgNum) {
     return a.public_id.localeCompare(b.public_id); // i.e. for postcards, sort by the full key
   }
   return aImgNum - bImgNum;
 };
 
-const sortedImagesLowDef = imagesLowDef.resources.sort((a, b) =>
+let sortedImagesLowDef = imagesLowDef.resources.sort((a, b) =>
   sortingAlgorithm(a, b)
-);
-const sortedImagesHighDefTablet = imagesHighDefTablet.resources.sort((a, b) =>
+) as CloudinaryImageWithCaption[];
+let sortedImagesHighDefTablet = imagesHighDefTablet.resources.sort((a, b) =>
   sortingAlgorithm(a, b)
-);
-const sortedImagesHighDefDesktop = imagesHighDefDesktop.resources.sort((a, b) =>
+) as CloudinaryImageWithCaption[];
+let sortedImagesHighDefDesktop = imagesHighDefDesktop.resources.sort((a, b) =>
   sortingAlgorithm(a, b)
-);
+) as CloudinaryImageWithCaption[];
+
+const { frontmatter: postcardsContent } = galleryPostcardsContent;
+
+export type PostcardContent = {
+  id: string;
+  postmark?: string;
+  mainText?: string;
+};
+
+const getPostcardContent = (image: CloudinaryImageWithCaption) => {
+  const imageId = getImageId(image);
+  return postcardsContent.postcards[galleryParent]?.find(
+    (postcard: PostcardContent) => postcard.id === imageId
+  );
+};
+
+const processImages = (images: CloudinaryImageWithCaption[]) => {
+  return images.map((image) => {
+    if (isPostcardBackImg(image.public_id)) {
+      const postcardData = getPostcardContent(image);
+      if (postcardData) {
+        return {
+          ...image,
+          postmark: postcardData.postmark,
+          mainText: postcardData.mainText,
+        };
+      } else {
+        console.warn(
+          `Postcard data not found for public_id: ${image.public_id}`
+        );
+      }
+    }
+    return image;
+  });
+};
+
+sortedImagesLowDef = processImages(sortedImagesLowDef);
+sortedImagesHighDefTablet = processImages(sortedImagesHighDefTablet);
+sortedImagesHighDefDesktop = processImages(sortedImagesHighDefDesktop);
 ---
 
 <Layout>
