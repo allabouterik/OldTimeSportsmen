@@ -3,11 +3,11 @@ postcards:
   hunting:
     - id: 844a
       postmark: |-
-        _Mrs. Lena Gruber._
+        Mrs. Lena Gruber.
 
-        _2007 S. Washington St._
+        2007 S. Washington St.
 
-        _Peoria, Ill._
+        Peoria, Ill.
       mainText: |-
         Plaquemine La.
 
@@ -28,6 +28,17 @@ postcards:
         1911
       mainText: |-
         Come out and help catch a bar. You would imagine you were back in the war, provided you could not climb a tree. Regards Dole.
+    - id: 511a
+      postmark: |-
+        Mr. Carl Taylor
+        
+        Vancouver
+        
+        Wash.
+        
+        1918
+      mainText: |-
+        Dear Pal, Well, I will write soon. There were killed at Neelyeys place in the valley. The man at the left is Ben York. Don't forget me. From Ideline
     - id: 526a
       postmark: |-
         Miss L. A. Warren.
@@ -62,11 +73,12 @@ postcards:
         From
 
         Effie and Nettie.
-    - id: 933a
+    - id: 993a
       postmark: |-
-        Dear Friend Mabelle
       mainText: |-
-        Well it is some time since I wrote to you. You see I am married now and am quite busy so you will have to excuse me ha ha. What do you think of our game and our big rug ain’t it fine 10 ft only and more. Wish you good luck as ever, Emit
+        Dear Friend Mabelle
+        
+        Well it is some time since I wrote to you. You see I am married now and am quite busy so you will have to excuse me ha ha. What do you think of our game and our big rug ain't it fine 10th long and more. Wish you good luck as ever, Emit.
     - id: 1070a
       postmark: |-
         Mr Frank Partdridge
@@ -1097,29 +1109,19 @@ postcards:
         Big time.
 
         Hastily, Leo
-    - id: 933b
+    - id: 993a
       postmark: |-
       mainText: |-
-        Well it is some time since I wrote to you.
-
-        You see I am married now and am quite busy so you will have to excuse me ha ha.
-
-        What do you think of our game and our big rug ain't it fine 10th long and more.
-
-        Wish you good luck as ever.
+        Dear Friend Mabelle
+        
+        Well it is some time since I wrote to you. You see I am married now and am quite busy so you will have to excuse me ha ha. What do you think of our game and our big rug ain't it fine 10th long and more. Wish you good luck as ever, Emit.
     - id: 1361a
       postmark: |-
         Mrs Neal Redman
 
         Whittier, California
       mainText: |-
-        Well I thought would let you know.
-
-        You owed me a letter.
-
-        We are well hope you the same.
-
-        hope you a merry Xmas, & go hunting with them & guess you know the crowd we have had lots of fun & lots to eat.
+        Well I thought would let you know. You owed me a letter. We are well hope you the same. hope you a merry Xmas, & go hunting with them & guess you know the crowd we have had lots of fun & lots to eat.
 
         By By, Mrs. J. H. Daugherty
     - id: 1413a
@@ -1159,36 +1161,12 @@ postcards:
     - id: 1802a
       postmark: |-
       mainText: |-
-        This is a picture of Big Charlie the guide when he is dressed up for company.
+        This is a picture of Big Charlie the guide when he is dressed up for company. He generally goes about barefoot with no hat and in a black silicia shirt & rough woolen knee pants. He can skip over rocks & not hurt his bare feet. He will put 100 pounds on his back & walk away with it. Climbs a tree like a squirrel gets his living mostly from hunting & fishing. He cooks fine bread.
 
-        He generally goes about barefoot with no hat and in a black silicia shirt & rough woolen knee pants.
-
-        He can skip over rocks & not hurt his bare feet.
-
-        He will put 100 pounds on his back & walk away with it.
-
-        Climbs a tree like a squirrel gets his living mostly from hunting & fishing.
-
-        He cooks fine bread.
-
-        I will have to close the letter on this card & try to get it off to another cross country P.O. by a man who is going in tomorrow.
-
-        I'll get another letter off about the middle of the week so you ought to get it by Sun. the 24.
-
-        Goodbye I'll be home soon & then will continue the line till you get back.
-
-        If you could see me eat you would think I was getting filled up.
-
-        I'm glad Herman is getting better.
-
-        See the photograph of the waterfall.
-
-        Kiss the children for me I'd be glad to see them.
-
-        But dare to think of it lest I get homesick.
+        I will have to close the letter on this card & try to get it off to another cross country P.O. by a man who is going in tomorrow. I'll get another letter off about the middle of the week so you ought to get it by Sun. the 24. Goodbye I'll be home soon & then will continue the line till you get back. If you could see me eat you would think I was getting filled up. I'm glad Herman is getting better. See the photograph of the waterfall. Kiss the children for me I'd be glad to see them. But dare to think of it lest I get homesick.
 
         Yours J.
-    - id: 27a
+    - id: 027a
       postmark: |-
         Edward Fraser
 
@@ -2208,7 +2186,7 @@ postcards:
         Mammy darling,
 
         These dandies were caught on March 10, 09, not on Feby 10th as the card says. The guide George Roberts stands in the doorway. The old gentleman on the right with bartamir is the Hon. H. G. M. Pike of Alton, Ill. aged 84 yrs.
-    - id: 99a
+    - id: 099a
       postmark: |-
         MW Marion Mulford
 
@@ -2246,7 +2224,7 @@ postcards:
         Good by
 
         Geo Dunn
-    - id: 1021b
+    - id: 1021a
       postmark: |-
       mainText: |-
         Can you make out who this is? I catch now and then one. We are having a splendid time. I trust you are still improving and will continue to do so. Love to all.

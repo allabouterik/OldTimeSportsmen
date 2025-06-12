@@ -3,6 +3,7 @@ import { ref, computed, type PropType } from 'vue';
 import ImageLightBox from '@/components/ImageLightBox.vue';
 import { useResponsive } from '@/composables/useResponsive';
 import {
+  getImageNumber,
   getImageTitle,
   isPostcardBackImg,
   type CloudinaryImageWithCaption,
@@ -52,7 +53,13 @@ const closeLightBox = () => {
   lightboxImageIndex.value = undefined;
 };
 
-const isPostcardFront = (imageIndex: number) => isPostcardBack(imageIndex + 1);
+const isPostcardFront = (imageIndex: number) => {
+  const thisImageNumber = getImageNumber(props.imagesLowDef[imageIndex]);
+  const nextImage = props.imagesLowDef[imageIndex + 1];
+  if (!nextImage) return false; // No next image to compare with
+  const nextImageNumber = getImageNumber(nextImage);
+  return nextImage && (thisImageNumber === nextImageNumber) && isPostcardBack(imageIndex + 1);
+};
 
 const isPostcardBack = (imageIndex: number) =>
   isPostcardBackImg(props.imagesLowDef[imageIndex]?.public_id || '');

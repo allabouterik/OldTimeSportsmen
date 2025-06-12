@@ -113,7 +113,10 @@ export type PostcardContent = {
 const getPostcardContent = (image: CloudinaryImageWithCaption) => {
   const imageId = getImageId(image);
   return postcardsContent.postcards[galleryParent]?.find(
-    (postcard: PostcardContent) => postcard.id === imageId
+    // Find the postcard content by matching the image ID
+    // Checks also if the postcard id does not contain a leading zero
+    // as some postcards have IDs like "01", "02", etc.
+    (postcard: PostcardContent) => postcard.id === imageId || postcard.id === imageId.replace(/^0+/, '')
   );
 };
 
