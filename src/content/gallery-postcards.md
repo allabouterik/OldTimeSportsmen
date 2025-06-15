@@ -73,12 +73,6 @@ postcards:
         From
 
         Effie and Nettie.
-    - id: 993a
-      postmark: |-
-      mainText: |-
-        Dear Friend Mabelle
-        
-        Well it is some time since I wrote to you. You see I am married now and am quite busy so you will have to excuse me ha ha. What do you think of our game and our big rug ain't it fine 10th long and more. Wish you good luck as ever, Emit.
     - id: 1070a
       postmark: |-
         Mr Frank Partdridge
@@ -178,7 +172,7 @@ postcards:
         Dear Irma, we are all back from hunting. this is the game we kill. what do you know about that. don't you think that fine. we are all well. hope you all the same.
 
         we sent a box it will be their Wednesday 26th write soon Noah
-    - id: 876a
+    - id: 867a
       postmark: |-
         Mr Clark Hornstein
 
@@ -384,7 +378,8 @@ postcards:
         Dr F. E. Smith
 
         Fowlerville Mich.
-
+    - id: 1755a2
+      postmark: |-
         Ithaca M 10/20
       mainText: |-
         Friend Dr.
@@ -446,12 +441,6 @@ postcards:
         Wishing you A Happy New Year
       mainText: |-
         Sometime Since we herd from Each other, why Dont you write once in a while I may run Down to see you in the near future, hoping you are still in good Health, let me hear from you as always Ed.
-
-    - id: 533a
-      postmark: |-
-        This is Mr. Dr Lane - after a happy hunting trip.
-      mainText: |-
-        Mattie and Lutt helped us eat the chicken pie. He carried these photos in his pocket two or three days and they show it.
     - id: 536a
       postmark: |-
         Chas Koch
@@ -598,7 +587,7 @@ postcards:
         1908
       mainText: |-
         Hello Mother wish you were here. I bet you do to. Lizzie
-    - id: 533b
+    - id: 533a
       postmark: |-
         This is Mr. Dr Lane - after a happy hunting trip.
       mainText: |-
@@ -629,7 +618,8 @@ postcards:
         1912
       mainText: |-
         Dear Papa, I am sending the papers today. Am glad you are so well this winter. We have been well with the exception of colds. This is a picture of the game Mr. W. and two of his friends killed the first day of quail season. Suppose you will soon be making the garden. Write me a letter when you can. Lovingly, M.
-
+    - id: 1757a2
+      mainText: |-
         Tell May we received her nice letter and will try to write soon.  Give my love to Evelyn, Ruth and all, M.
     - id: 375a
       postmark: |-
@@ -968,7 +958,8 @@ postcards:
         When are you coming?
 
         E. La T.
-
+    - id: 983a2
+      mainText: |-
         Here I am with my little gun, I bet I can beat you shooting.
 
         Emery
@@ -1100,7 +1091,7 @@ postcards:
 
         1909
       mainText: |-
-        Dear coz,
+        Dear Coz!
 
         Bunch of us are coming down to see the game Sunday.
 
@@ -1219,50 +1210,19 @@ postcards:
         Will write first chance.
 
         C.B.K.
-    - id: 927b
-      postmark: |-
-        Mr Carl Sills,
-
-        c/o J R. Peebles Bros Grocers
-
-        Cincinnati, Ohio
-
-        1909
-      mainText: |-
-        Dear Coz!
-
-        Bunch of us are coming down to see the game Sunday.
-
-        Do you want to join us?
-
-        Big Time.
-
-        Hastily, Leo
     - id: 980a
       postmark: |-
-        Mrs. R. A. Hoppe
+        Mrs. R. A. Hopke
 
-        Prairie du Sac Wis.
+        Prairie du Sac
+
+        Wis
 
         1912
       mainText: |-
-        Dear Emma, I guess u know most of us.
+        Dear Emma:
 
-        We were fishing at Witwell.
-
-        2 of those girls are Lizzie Schoephonster’s sisters.
-
-        The one near Rose Litscher is Ramona Enge.
-
-        The rest u know.
-
-        We wanted to go to Madison tomorrow but now we can’t go.
-
-        Will go to county fair + to Madison later.
-
-        I forgot to tell you the one near Kate is Lizzie Charudatscher from Zeitzerland.
-
-        With love, Loma
+        I guess u know most of us. We were fishing at Witwen. 2 of those girls are Lizzie Schrofpfontain's sisters The one near here Litachue is Ramona Enge The rest u know. We wanted to go to Madison tomorrow but now we cant go. Will go to county fair & to Madison later. I forgot to tell you the one near Kate is Lizzie Chavudatchu from Switzerland. With love, Loma.
     - id: 1021a
       postmark: |-
       mainText: |-
@@ -1281,21 +1241,11 @@ postcards:
 
         Phoenixville PA Route 1
 
-        1911
+        9-5-1911
       mainText: |-
-        Dear Mrs D,
+        Dear Mrs D.
 
-        Thought I would send you a picture of the fish they catch up here in Maine.
-
-        This is on the lawn of the hotel and hotel is situated right on N.H Harbor.
-
-        It is beautiful here.
-
-        We leave tomorrow for Newport R.I. for month or so.
-
-        Hope you are all well.
-
-        Sincerely, May V. MaCarthy
+        Thought I would send you a picture of the fish they catch up here in Maine. This is on the lawn of the hotel and hotel is situated right on N.H. harbor, it is beautiful here. We leave tomorrow for Newport R.I. for month or so. Hope you are all well. Sincerely May V. McCully
     - id: 1162a
       postmark: |-
         Mr Elmer Athearn
@@ -1668,21 +1618,6 @@ postcards:
         Feb 3 24
       mainText: |-
         Hello Bill. We are fine here. Enjoying ourselves every minute. Wonderful sights. Me thinking very much of leaving for Cuba Monday. Weather is too hot, suit me. Give me the math fare. Regards to all.
-    - id: 1073b
-      postmark: |-
-        Mrs Oscar Dreibbeiss
-
-        Phoenixville
-
-        Pa.
-
-        Route 1
-
-        9-5-1911
-      mainText: |-
-        Dear Mrs D.
-
-        Thought I would send you a picture of the fish they catch up here in Maine. This is on the lawn of the hotel and hotel is situated right on N.H. harbor, it is beautiful here. We leave tomorrow for Newport R.I. for month of Sept. Hope you are all well. Sincerely May V. McCully
     - id: 1258a
       postmark: |-
         Mrs. E. G. Miller 33. Ann
@@ -1841,23 +1776,13 @@ postcards:
 
         Oregon
       mainText: |-
-        Dear Cassie:
+        Bro Ellis:
 
-        How are these
+        How are these for fish. Note the fealour hook on the one next the Big one.
 
-        for fish. Note the
-
-        big one on the
-
-        box.
-
-        Yours,
-
-        Bro Ivan
-    - id: 1685b
-      postmark: |-
-      mainText: |-
-        An Elbert County Minnow, caught with a hook fin, in Broad River, on September, 22nd 1915. Official weight - 2 1/2 pounds - Jonah + his whale - B.
+        Your Bro.
+        
+        Ivan.
     - id: 1745a
       postmark: |-
         Mr. Robert E. Graham
@@ -2276,7 +2201,7 @@ postcards:
         I may come over with a string in a few days
 
         Mother
-    - id: 385b
+    - id: 385a
       postmark: |-
         Mr Theo Robinson
 
@@ -2298,11 +2223,12 @@ postcards:
         Cal.
 
         1906
+    - id: 788a2
       mainText: |-
         Hello Lawrence. What do you think of your cousin's pose? That is my catch. We were down at the Sac. river, about 6 or 7 miles from Chico. With love B
 
         Drop a line to me sometime
-    - id: 980b
+    - id: 980a
       postmark: |-
         Mrs. R. A. Hopke
 
@@ -2314,7 +2240,7 @@ postcards:
       mainText: |-
         Dear Emma:
 
-        I guess we know most of us. We were fishing at Witwen. 2 of those girls are Lizzie Schrofpfontain's sisters The one near here Litachue is Ramona Enge The rest we know. We wanted to go to Madison tomorrow but now we cant go. Will go to county fair & to Madison later. I forgot to tell you the one near Kate is Lizzie Chavudatchu from Switzerland. With love, Loma.
+        I guess u know most of us. We were fishing at Witwen. 2 of those girls are Lizzie Schrofpfontain's sisters The one near here Litachue is Ramona Enge The rest u know. We wanted to go to Madison tomorrow but now we cant go. Will go to county fair & to Madison later. I forgot to tell you the one near Kate is Lizzie Chavudatchu from Switzerland. With love, Loma.
     - id: 1170a
       postmark: |-
         Miss Nora Taylor
