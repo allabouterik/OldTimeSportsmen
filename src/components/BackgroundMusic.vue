@@ -48,6 +48,8 @@ const leavingPage = ref(false);
 const pageFadeOutDuration = 1.4; // secs
 const audioTimeAtStartPageLeave = ref(0); // secs
 
+const LOCAL_STORAGE_MUTED_KEY = 'backgroundMusicMuted';
+
 const tooltipText = computed(() => {
   if (audioPlaying.value && !audioMuted.value) {
     return 'Mute background music';
@@ -177,7 +179,7 @@ function eventBusListener() {
 }
 
 watch(audio, (val) => {
-  if (val && props.playMusic && !audioPlaying.value) {
+  if (val && props.playMusic && !audioPlaying.value && !!!audioMuted.value) {
     playAndFadeAudio();
   }
 });
@@ -189,6 +191,9 @@ watch(audioFinished, (val) => {
 watch(audioMuted, (val) => {
   if (!val && audioPlaying.value) {
     EventBus.$emit('backgroundMusicPlaying');
+    localStorage.setItem(LOCAL_STORAGE_MUTED_KEY, 'false');
+  } else {
+    localStorage.setItem(LOCAL_STORAGE_MUTED_KEY, 'true');
   }
 });
 watch(audioPlaying, (val) => {
@@ -201,6 +206,14 @@ onMounted(() => {
   getAudioElement();
   EventBus.$on('audioPlaying', eventBusListener);
   EventBus.$on('lightboxMediaLoaded', eventBusListener);
+
+  // Restore mute state from localStorage
+  const storedMuted = localStorage.getItem(LOCAL_STORAGE_MUTED_KEY);
+  if (storedMuted === 'true') {
+    audioMuted.value = true;
+  } else {
+    audioMuted.value = false;
+  }
 });
 
 onUpdated(() => {
