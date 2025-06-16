@@ -14,6 +14,10 @@ const props = defineProps({
     type: Array as PropType<CloudinaryImageWithCaption[]>,
     default: () => [],
   },
+  imagesMblDef: {
+    type: Array as PropType<CloudinaryImageWithCaption[]>,
+    default: () => [],
+  },
   imagesHighDefTablet: {
     type: Array as PropType<CloudinaryImageWithCaption[]>,
     default: () => [],
@@ -24,12 +28,15 @@ const props = defineProps({
   },
 });
 
+const isTablet = useResponsive().isTablet;
 const isDesktop = useResponsive().isDesktop;
 
 const imagesHightDef = computed(() => {
   return isDesktop.value
     ? props.imagesHighDefDesktop
-    : props.imagesHighDefTablet;
+    : isTablet.value
+    ? props.imagesHighDefTablet
+    : props.imagesMblDef;
 });
 
 const imagesForLightBox = computed(() =>

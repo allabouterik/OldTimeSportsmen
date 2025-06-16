@@ -80,6 +80,7 @@ const getImagesFromCloudinary = async (gallery: string, size: number) => {
 };
 
 const imagesLowDef = await getImagesFromCloudinary(gallery, 200);
+const imagesMblDef = await getImagesFromCloudinary(gallery, 350);
 const imagesHighDefTablet = await getImagesFromCloudinary(gallery, 1065);
 const imagesHighDefDesktop = await getImagesFromCloudinary(gallery, 1200);
 
@@ -93,6 +94,9 @@ const sortingAlgorithm = (a: CloudinaryImage, b: CloudinaryImage) => {
 };
 
 let sortedImagesLowDef = imagesLowDef.resources.sort((a, b) =>
+  sortingAlgorithm(a, b)
+) as CloudinaryImageWithCaption[];
+let sortedImagesMblDef = imagesMblDef.resources.sort((a, b) =>
   sortingAlgorithm(a, b)
 ) as CloudinaryImageWithCaption[];
 let sortedImagesHighDefTablet = imagesHighDefTablet.resources.sort((a, b) =>
@@ -110,20 +114,22 @@ export type PostcardContent = {
   mainText?: string;
 };
 
-const getPostcardContent = (image: CloudinaryImageWithCaption) => {
+const getPostcardContent = (image: CloudinaryImageWithCaption, galleryParent: string) => {
   const imageId = getImageId(image);
   return postcardsContent.postcards[galleryParent]?.find(
     // Find the postcard content by matching the image ID
     // Checks also if the postcard id does not contain a leading zero
     // as some postcards have IDs like "01", "02", etc.
-    (postcard: PostcardContent) => postcard.id === imageId || postcard.id === imageId.replace(/^0+/, '')
+    (postcard: PostcardContent) =>
+      postcard.id === imageId || postcard.id === imageId.replace(/^0+/, '')
   );
 };
 
-const processImages = (images: CloudinaryImageWithCaption[]) => {
+const processImages = (images: CloudinaryImageWithCaption[], galleryParent: string) => {
   return images.map((image) => {
     if (isPostcardBackImg(image.public_id)) {
-      const postcardData = getPostcardContent(image);
+      const postcardData = getPostcardContent(image, galleryParent);
+      const imageId = getImageId(image);
       if (postcardData) {
         return {
           ...image,
@@ -140,9 +146,10 @@ const processImages = (images: CloudinaryImageWithCaption[]) => {
   });
 };
 
-sortedImagesLowDef = processImages(sortedImagesLowDef);
-sortedImagesHighDefTablet = processImages(sortedImagesHighDefTablet);
-sortedImagesHighDefDesktop = processImages(sortedImagesHighDefDesktop);
+sortedImagesLowDef = processImages(sortedImagesLowDef, galleryParent);
+sortedImagesMblDef = processImages(sortedImagesMblDef, galleryParent);
+sortedImagesHighDefTablet = processImages(sortedImagesHighDefTablet, galleryParent);
+sortedImagesHighDefDesktop = processImages(sortedImagesHighDefDesktop, galleryParent);
 ---
 
 <Layout>
@@ -151,6 +158,7 @@ sortedImagesHighDefDesktop = processImages(sortedImagesHighDefDesktop);
       <Gallery
         client:only='vue'
         imagesLowDef={sortedImagesLowDef}
+        imagesMblDef={sortedImagesMblDef}
         imagesHighDefTablet={sortedImagesHighDefTablet}
         imagesHighDefDesktop={sortedImagesHighDefDesktop}
       />
