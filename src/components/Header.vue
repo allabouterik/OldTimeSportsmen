@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import NavigationDesktop from '@/components/NavigationDesktop.vue';
-import NavigationMobile from '@/components/NavigationMobile.vue';
+import { ref } from 'vue';
 import headerImageDesktop from '@/assets/images/old-time-logo-desktop.png';
 import headerImageMobilePt1 from '@/assets/images/old-time-logo-mobile-pt1.png';
 import headerImageMobilePt2 from '@/assets/images/old-time-logo-mobile-pt2.png';
 import menuBurgerIcon from '@/assets/icons/menu-burger.svg';
-import { ref } from 'vue';
+import BackgroundMusic from '@/components/BackgroundMusic.vue';
+import NavigationDesktop from '@/components/NavigationDesktop.vue';
+import NavigationMobile from '@/components/NavigationMobile.vue';
+import { useResponsive } from '@/composables/useResponsive';
 
 export type NavItem = {
   label: string;
@@ -249,6 +251,8 @@ const isMenuOpen = ref(false);
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
+
+const isLessThanXl = useResponsive().isLessThanXl;
 </script>
 
 <template>
@@ -280,6 +284,14 @@ const toggleMenu = () => {
     <NavigationMobile
       :navItems="navItems"
       v-model="isMenuOpen"
+    />
+
+    <!-- Background Music (Mobile) -->
+    <BackgroundMusic
+      v-if="isLessThanXl"
+      class="xl:hidden absolute right-4 top-3 sm:top-4 sm:right-6 z-[60]"
+      audioFile="https://res.cloudinary.com/all-about-erik/video/upload/v1750090347/OldTimeSportsmen%20Site/Jawbone.mp3"
+      :audioDuration="77"
     />
 
     <!-- Desktop -->

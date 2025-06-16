@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import houseWithSmokeImage from '@/assets/images/house-with-smoke.png';
 import houseWithoutSmokeImage from '@/assets/images/house-without-smoke.png';
+import BackgroundMusic from '@/components/BackgroundMusic.vue';
 import DesktopNavSubMenu from '@/components/DesktopNavSubMenu.vue';
 import type { NavItem } from './Header.vue';
 
@@ -96,6 +97,13 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
 
 <template>
   <nav class="relative">
+    <!-- Background Music -->
+    <BackgroundMusic
+      class="absolute right-11 -top-11 z-[60]"
+      audioFile="https://res.cloudinary.com/all-about-erik/video/upload/v1750090347/OldTimeSportsmen%20Site/Jawbone.mp3"
+      :audioDuration="77"
+    />
+
     <!-- Top Navigation Bar -->
     <div class="relative flex items-center">
       <!-- Home Menu Item -->
