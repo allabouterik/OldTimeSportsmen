@@ -8,6 +8,7 @@ import {
   useTemplateRef,
   watch,
 } from 'vue';
+import { useElementSize } from '@vueuse/core';
 import snarkdown from 'snarkdown';
 import {
   IconBase,
@@ -80,10 +81,45 @@ const formattedImages = computed(() =>
   )
 );
 
+// Refs for each text container
+const textContainerRefs = ref<(HTMLDivElement | null)[]>([]);
+
+// Helper to set refs in v-for
+function setTextContainerRef(
+  index: number
+): (el: HTMLDivElement | null) => void {
+  return (el) => {
+    textContainerRefs.value[index] = el;
+  };
+}
+
+// Get reactive heights for each text container
+const textContainerHeights = formattedImages.value.map(
+  (_, index: number) =>
+    useElementSize(computed(() => textContainerRefs.value[index])).height
+);
+
+// Compute max image heights for each image
+const maxImageHeights = computed(() =>
+  textContainerHeights.map(
+    (height: any) => windowHeight.value - (2 * height.value || 0)
+  )
+);
+
+const maxImageHeight = computed(() => {
+  if (
+    currentIndex.value >= 0 &&
+    currentIndex.value < maxImageHeights.value.length
+  ) {
+    return maxImageHeights.value[currentIndex.value];
+  }
+  return windowHeight.value;
+});
+
 const imageContainerCss = computed(() => ({
   width: props.windowPercentage * windowWidth.value + 'px',
   height: actualImgHeight.value + 'px',
-  maxHeight: props.windowPercentage * windowHeight.value + 'px',
+  maxHeight: maxImageHeight.value + 'px',
 }));
 
 const containerWidth = computed(
@@ -95,7 +131,7 @@ const containerHeight = computed(
 );
 
 const containerAspectRatio = computed(
-  () => props.containerWidth / containerHeight.value
+  () => containerWidth.value / containerHeight.value
 );
 
 const imageAspectRatio = computed(() => {
@@ -371,6 +407,7 @@ onBeforeUnmount(() => {
                 </div> -->
 
                 <div
+                  :ref="setTextContainerRef(imageIndex)"
                   class="image-lightbox__textContainer grid grid-rows-[auto_1fr] grid-cols-[1fr_auto] md:grid-cols-[1fr_2fr_1fr] gap-3 font-bembo text-white text-left text-wrap z-10"
                 >
                   <div
@@ -383,7 +420,7 @@ onBeforeUnmount(() => {
 
                   <div
                     v-show="isImageLoaded && image.postmark"
-                    class="col-start-2 col-span-1 row-span-2 md:col-start-1 md:row-span-auto text-12px md:text-15px italic  "
+                    class="col-start-2 col-span-1 row-span-2 md:col-start-1 md:row-span-auto text-12px md:text-15px italic"
                     v-html="renderMarkdown(image.postmark)"
                   />
                   <div
