@@ -225,8 +225,6 @@ postcards:
 
         Do you still study music? I'm so inquisitive, excuse me, Alaise
     - id: 1310a
-      postmark: |-
-        Very happy after a successful hunt
       mainText: |-
         Very happy after a successful hunt
     - id: 1450a
@@ -236,22 +234,6 @@ postcards:
         Springfield,
 
         Vt.
-
-        Nov 19-1918 Geo got his Deer
-
-        Nov 20-1918 Earl Snow Deer
-
-        Mrs Earl Snow.
-
-        Mrs Geo Robinson
-
-        Miss Irene Robinson
-
-        Georgie Robinson, Jr.
-
-        Tyler Snow
-
-        Dec 25-1918.
       mainText: |-
         Nov 19-1918 Geo got his Deer
 
