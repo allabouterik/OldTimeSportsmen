@@ -17,25 +17,25 @@ postcards:
         March 29-1910
       mainText: |-
         Dear Bro & Sister
-        
+
         well I leave for home tomorrow we are all well hope to see you soon
-        
+
         Art
     - id: 498a
       postmark: |-
         F. M. Clark, Germania, Iowa.
-        
+
         1911
       mainText: |-
         Come out and help catch a bar. You would imagine you were back in the war, provided you could not climb a tree. Regards Dole.
     - id: 511a
       postmark: |-
         Mr. Carl Taylor
-        
+
         Vancouver
-        
+
         Wash.
-        
+
         1918
       mainText: |-
         Dear Pal, Well, I will write soon. There were killed at Neelyeys place in the valley. The man at the left is Ben York. Don't forget me. From Ideline
@@ -832,7 +832,7 @@ postcards:
 
         Dear Beryl. We got here at noon today have had a good trip only cold and some snow in the air. How are you and old Town. You would like to see the real Rabbits. lots of love, Papa
 
-        You tell Ma I saw Bob Bodernett at Silver Lake and got what he owed me. 
+        You tell Ma I saw Bob Bodernett at Silver Lake and got what he owed me.
     - id: 1119a
       postmark: |-
       mainText: |-
@@ -1086,7 +1086,7 @@ postcards:
       postmark: |-
       mainText: |-
         Dear Friend Mabelle
-        
+
         Well it is some time since I wrote to you. You see I am married now and am quite busy so you will have to excuse me ha ha. What do you think of our game and our big rug ain't it fine 10th long and more. Wish you good luck as ever, Emit.
     - id: 1361a
       postmark: |-
@@ -1364,7 +1364,7 @@ postcards:
     - id: 1754a
       postmark: |-
       mainText: |-
-       some of the folks said I looked like A. Lincoln and some like a foolish fellow down home but it dont make so much difference how you look as long as you feel good
+        some of the folks said I looked like A. Lincoln and some like a foolish fellow down home but it dont make so much difference how you look as long as you feel good
     - id: 744a
       postmark: |-
         Miss Edith Nesbit
@@ -1493,7 +1493,7 @@ postcards:
 
         1913
       mainText: |-
-       Ed Some catch Ned caught 75 last Tuesday. see you about Mon or Tues, John
+        Ed Some catch Ned caught 75 last Tuesday. see you about Mon or Tues, John
     - id: 62a
       postmark: |-
         Mr. Karl Anderson
@@ -1539,7 +1539,7 @@ postcards:
 
         Florida.
       mainText: |-
-       Going out fishing today. This is a picture of how they are running. Every day. "Some place fishing in the Gulf of Mexico." Barney
+        Going out fishing today. This is a picture of how they are running. Every day. "Some place fishing in the Gulf of Mexico." Barney
     - id: 868a
       postmark: |-
         Mrs L E Burton
@@ -1558,6 +1558,9 @@ postcards:
         1908
       mainText: |-
         Dear Brother John I will send you a picture of the big fish that didn't get away that Jim and Tom Abercrombie caught they weighed six and nine and 26 pounds tell you they were just fine the large one was a catfish we received your letter and will answer soon from Ella
+    - id: 934a2
+      mainText: |-
+        Will tell you that Pearl is at Grace’s. We for letter from Grace and she told us that the Jesses and the Frosses went to the picnic was sorry I could not come but it was not possible for me to come. You can cut off the picture from the card if you want to tell Herbert to write and all come to the fair the 14 September.
     - id: 940a
       postmark: |-
         Mrs W. H. Peacock
@@ -1590,7 +1593,7 @@ postcards:
     - id: 241a
       postmark: |-
       mainText: |-
-       Guess Who sent you This!
+        Guess Who sent you This!
     - id: 558a
       postmark: |-
       mainText: |-
@@ -1656,12 +1659,12 @@ postcards:
 
         France.
       mainText: |-
-       How would you like to get this on your line - if I catch one, will send it to you and if you are good boy have Paul Post you one.
+        How would you like to get this on your line - if I catch one, will send it to you and if you are good boy have Paul Post you one.
     - id: 1534a
       postmark: |-
         Jew Fish
       mainText: |-
-       Length 7ft 4 in, weight about 500#, caught July 4th, 1914
+        Length 7ft 4 in, weight about 500#, caught July 4th, 1914
     - id: 1673a
       postmark: |-
         "Mr" W. Munger.
@@ -1698,7 +1701,7 @@ postcards:
 
         Coronado New Smyrna Florida Jan 30/09
       mainText: |-
-       I was there in time to see Him flopping, but to late to help land Him. He was caught with 1/2 inch line 100 ft long & 4 ft Chane on Hook, So He could not bite line off. The line was Hatched to a pile the Bridge Stands on & He was unable to pull that out but made the water fly. Telling it Eph & Bill Brown xo
+        I was there in time to see Him flopping, but to late to help land Him. He was caught with 1/2 inch line 100 ft long & 4 ft Chane on Hook, So He could not bite line off. The line was Hatched to a pile the Bridge Stands on & He was unable to pull that out but made the water fly. Telling it Eph & Bill Brown xo
     - id: 754a
       postmark: |-
         Maud Adams
@@ -1711,7 +1714,7 @@ postcards:
 
         Los Angeles 8/19/09
       mainText: |-
-       Friend Maud I went Ocean fishing yesterday between Long Beach and Catalina Island I caught the three you see in this photo great sport. Start for Indiana to night. Bro Thomas
+        Friend Maud I went Ocean fishing yesterday between Long Beach and Catalina Island I caught the three you see in this photo great sport. Start for Indiana to night. Bro Thomas
     - id: 1102a
       postmark: |-
         Mel H Hinkley
@@ -1763,7 +1766,7 @@ postcards:
         How are these for fish. Note the fealour hook on the one next the Big one.
 
         Your Bro.
-        
+
         Ivan.
     - id: 1745a
       postmark: |-
@@ -1777,7 +1780,7 @@ postcards:
 
         Miami Fla. - 26 - 09
       mainText: |-
-       Dear Robert - I do not think I have sent you this fish before. I just received your card. I got souvenirs and will be glad when we can all show to each other again. I think it will be all right for you to go to your brother's as I am sure they would be glad to have you do so. They will not think its a bother. How is Mrs Barclay. Am so sorry she has not felt well. Mrs Morgan has just come. I will try to invite often. Momma
+        Dear Robert - I do not think I have sent you this fish before. I just received your card. I got souvenirs and will be glad when we can all show to each other again. I think it will be all right for you to go to your brother's as I am sure they would be glad to have you do so. They will not think its a bother. How is Mrs Barclay. Am so sorry she has not felt well. Mrs Morgan has just come. I will try to invite often. Momma
     - id: 1812a
       postmark: |-
         M Robert E Graham
@@ -1862,7 +1865,7 @@ postcards:
 
         Ind.
       mainText: |-
-       This is some fish caught here last Sat! they caught 72 in all last wk. From Brot
+        This is some fish caught here last Sat! they caught 72 in all last wk. From Brot
     - id: 1800a
       postmark: |-
         Mr Earnest Flori
@@ -1874,7 +1877,7 @@ postcards:
         My address is still New Auburn. Wis. R.I. 48. If you aren't the limit. Yours truly Mr Earnest Yours Truly
     - id: 4a
       postmark: |-
-       Louise Tex. July 10/10
+        Louise Tex. July 10/10
       mainText: |-
         Well I have plenty fish. got back from Palacious yesterday. are you about to start down here,
 
@@ -1889,7 +1892,7 @@ postcards:
 
         1914
       mainText: |-
-       Just got back from the beach. This is a string of 75 sea perch I caught in surf one morning. Will write in a few days. Love to all, Cla.
+        Just got back from the beach. This is a string of 75 sea perch I caught in surf one morning. Will write in a few days. Love to all, Cla.
     - id: 191a
       postmark: |-
         Sister
@@ -1907,6 +1910,9 @@ postcards:
       mainText: |-
         A days catch near Fort Myers Fla.
     - id: 839a
+      mainText: |-
+        Dear George! As this is the only May I can send you a mess of fish, accept them. Hope you will enjoy eating them as we did catching them. How was Labor Day? Hope you did not get in
+    - id: 839a2
       postmark: |-
         Mrs Geo Stunting 801, 5th Cherry St San Antonio Texas
       mainText: |-
@@ -1914,7 +1920,7 @@ postcards:
     - id: 944a
       postmark: |-
       mainText: |-
-       The man on the left is not T.R. but Dr. Scroggs of Arizona. We did not photo, all the fish for we did not want to hold them. 785 lbs from 8:30 a.m. to 11:30 a.m. on rod and reel 3 strand line. How is that Sincerely Bill. Remember Jack Hanna on the right.
+        The man on the left is not T.R. but Dr. Scroggs of Arizona. We did not photo, all the fish for we did not want to hold them. 785 lbs from 8:30 a.m. to 11:30 a.m. on rod and reel 3 strand line. How is that Sincerely Bill. Remember Jack Hanna on the right.
     - id: 969a
       postmark: |-
       mainText: |-
@@ -1994,7 +2000,7 @@ postcards:
 
         Iowa
       mainText: |-
-       Trouts here is some fish for you. Your — catch there in 2 ours, from Liffie
+        Trouts here is some fish for you. Your — catch there in 2 ours, from Liffie
     - id: 1506a
       postmark: |-
         Miss Edna Greenbank
@@ -2005,7 +2011,20 @@ postcards:
 
         1911
       mainText: |-
-       Dear Edna hello how are you are you all well I am at the depot answer soon. Jim
+        Dear Edna hello how are you are you all well I am at the depot answer soon. Jim
+    - id: 1515a
+      postmark: |-
+        Mr A E Fritt
+
+        Knightstown, Indiana
+
+        1912
+      mainText: |-
+        Dresden Ohio 12/10/12
+
+        Mr F E Fritt,
+
+        Dear Friend, This is from one week camping fishing and hunting. The fish are one pike 14 lbs, one salmon 14, one 12 one 4 one 6 and 5#. We ate 2 of the fish at camp. You will see heads on the tent hole with my fish. What do you think of them. Yours, R Lugenheal
     - id: 1516a
       postmark: |-
       mainText: |-
@@ -2138,7 +2157,7 @@ postcards:
     - id: 1241a
       postmark: |-
       mainText: |-
-       23 1/2 inches - 6 lbs. Rainbow trout taken in Bear Lake on a special shoon gear by Edwin K. Ardderly (Being mounted for R.A. Rowan)
+        23 1/2 inches - 6 lbs. Rainbow trout taken in Bear Lake on a special shoon gear by Edwin K. Ardderly (Being mounted for R.A. Rowan)
     - id: 1265a
       postmark: |-
         1913
@@ -2325,7 +2344,7 @@ postcards:
 
         1908
       mainText: |-
-       This is a picture of the fish we caught the first day. Louis.
+        This is a picture of the fish we caught the first day. Louis.
     - id: 705a
       postmark: |-
         Mrs F. Zollar
@@ -2336,7 +2355,7 @@ postcards:
 
         1910
       mainText: |-
-       I am having a nice time. I wish you were here. Louis
+        I am having a nice time. I wish you were here. Louis
     - id: 761a
       postmark: |-
         R.J. Turner
@@ -2368,7 +2387,7 @@ postcards:
 
         8/6/1912
       mainText: |-
-       Dear Mother: We rec'd Beulah's card yesterday. I suppose her and Julia are having a large time. I worked on the house yesterday afternoon & it will take me two more half days to finish the first coat. Isabel picked 3 1/2 qts of berries yesterday while I was painting. To be continued. Ned
+        Dear Mother: We rec'd Beulah's card yesterday. I suppose her and Julia are having a large time. I worked on the house yesterday afternoon & it will take me two more half days to finish the first coat. Isabel picked 3 1/2 qts of berries yesterday while I was painting. To be continued. Ned
     - id: 1681a
       postmark: |-
         Aunt Addie
@@ -2480,7 +2499,7 @@ postcards:
 
         1915
       mainText: |-
-       Fishing fine and weather perfect. Caught 2-Tarpon yesterday afternoon. Largest 104 lbs. Am having fine sport. Regards to all.
+        Fishing fine and weather perfect. Caught 2-Tarpon yesterday afternoon. Largest 104 lbs. Am having fine sport. Regards to all.
     - id: 234a
       postmark: |-
         Miss Florence Herndon
@@ -2682,7 +2701,7 @@ postcards:
 
         1908
       mainText: |-
-       Dear Sue Arrived safely and was met by the three E. & Aunt A. Maybe I won't be surprised to see them all at the train. Oh! Minnie, wish you were here. We are going to the park this afternoon. I am going to write you a letter soon.
+        Dear Sue Arrived safely and was met by the three E. & Aunt A. Maybe I won't be surprised to see them all at the train. Oh! Minnie, wish you were here. We are going to the park this afternoon. I am going to write you a letter soon.
     - id: 1765a
       postmark: |-
         Wilson Williams 
@@ -2691,7 +2710,7 @@ postcards:
 
         1915
       mainText: |-
-       Social at Lawton's Hall Friday Night - July - 9 - 15
+        Social at Lawton's Hall Friday Night - July - 9 - 15
     - id: 1767a
       postmark: |-
         Miss Mary L. Kams
@@ -2755,7 +2774,7 @@ postcards:
 
         1910
       mainText: |-
-       Hello J. J. I have got so far. It is a fine country so far. Will leave for further West on next train. Wish you and Roy was along. It would just suit Roy. Lots of .45 & other Bisley models for sale in the junk shops from $8 to $10. 5 + 5 1/2 inch barrels. Will write later. L Carpenter.
+        Hello J. J. I have got so far. It is a fine country so far. Will leave for further West on next train. Wish you and Roy was along. It would just suit Roy. Lots of .45 & other Bisley models for sale in the junk shops from $8 to $10. 5 + 5 1/2 inch barrels. Will write later. L Carpenter.
     - id: 635a
       postmark: |-
         Richard Madison
@@ -2780,7 +2799,7 @@ postcards:
 
         Minn
       mainText: |-
-       I am going to send you a card every day now so you will know I am thinking of you. I am expecting you home any day now. I started my music lessons today and am getting along fine. Don't forget to send me your address…Yours, Sam
+        I am going to send you a card every day now so you will know I am thinking of you. I am expecting you home any day now. I started my music lessons today and am getting along fine. Don't forget to send me your address…Yours, Sam
     - id: 638a
       postmark: |-
         Mr. H. Heisen
