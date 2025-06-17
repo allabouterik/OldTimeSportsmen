@@ -1,26 +1,6 @@
 ---
 postcards:
   hunting:
-    - id: 844a
-      postmark: |-
-        Mrs. Lena Gruber.
-
-        2007 S. Washington St.
-
-        Peoria, Ill.
-      mainText: |-
-        Plaquemine La.
-
-        Dear Mother I wish you would show this picture to Skinny Tibbets and Joe Shinkey and ask them how they would like to hunt in the swamp. Good Bye Paul.
-    - id: 890a
-      postmark: |-
-        March 29-1910
-      mainText: |-
-        Dear Bro & Sister
-
-        well I leave for home tomorrow we are all well hope to see you soon
-
-        Art
     - id: 498a
       postmark: |-
         F. M. Clark, Germania, Iowa.
@@ -58,39 +38,17 @@ postcards:
         .J. Fleischer
 
         P.R. Minn.
-    - id: 877a
+    - id: 596a
       postmark: |-
-        Mrs. L. L. Dickerman,
+        Mr Ed Kimmel
 
-        Vancouver,
+        Falls City, Nebr.
 
-        B.C.
+        1913
 
-        Sept. 20, 1907
+        Edenburg Nov 21-13
       mainText: |-
-        Up to the store
-
-        From
-
-        Effie and Nettie.
-    - id: 1070a
-      postmark: |-
-        Mr Frank Partdridge
-
-        Practir, Vermont
-
-        1907
-
-        Stockbridge Friday.
-      mainText: |-
-        Shall reach E. NB Saturday night. Auntie OK. Flo real well. Come up noonday. Mourine
-    - id: 1334a
-      postmark: |-
-        Oshkosh Wis,
-
-        May 23/06
-      mainText: |-
-        Elvira, received your letter/ Mama is better at least up and around but weak and has Rhumatitis in her knee. Oscar went to Montello on the Thistle yesterday and Green boy to … I am shooting grey squirrels around the house that know to hide though the roof. Regards from. Your father.
+        Bro, Ed. We landed here this morning with 175 people mostly from Nebr. Huettney says is the grandest country in the world. We leave tomorrow for Brownville and Mexico to see a bull fight. I saw W Sailors, Scott Stuny this trip is worth 100% to any one. Bro Al.
     - id: 643a
       postmark: |-
         Miss Maine
@@ -111,6 +69,17 @@ postcards:
         1908
       mainText: |-
         My dear mama - dont you think he is a big mountain lion. From Amelia
+    - id: 653a
+      postmark: |-
+        Miss Irma Ross
+
+        7156 Kedron Ave
+
+        Pittsburg, Penn 1913
+      mainText: |-
+        Dear Irma, we are all back from hunting. this is the game we kill. what do you know about that. don't you think that fine. we are all well. hope you all the same.
+
+        we sent a box it will be their Wednesday 26th write soon Noah
     - id: 658a
       postmark: |-
         S. Kinskern
@@ -126,6 +95,17 @@ postcards:
         I am sending you a card which was taken not long ago the three animals are Cougars. and killed not over 5 miles from here last summer I know all three of the fellows better come out and hunt.
 
         Ms Cornell. Menlo Wa
+    - id: 844a
+      postmark: |-
+        Mrs. Lena Gruber.
+
+        2007 S. Washington St.
+
+        Peoria, Ill.
+      mainText: |-
+        Plaquemine La.
+
+        Dear Mother I wish you would show this picture to Skinny Tibbets and Joe Shinkey and ask them how they would like to hunt in the swamp. Good Bye Paul.
     - id: 872a
       postmark: |-
         Mr William Hall Esq
@@ -139,6 +119,52 @@ postcards:
         Eng
       mainText: |-
         Dear Bill just a snap shot of my friend and his lucky shot a Mountain Lion these things destroy lots of cattle in our country but we get even on them rascals give my love to all at home Yours E Ricker
+    - id: 877a
+      postmark: |-
+        Mrs. L. L. Dickerman,
+
+        Vancouver,
+
+        B.C.
+
+        Sept. 20, 1907
+      mainText: |-
+        Up to the store
+
+        From
+
+        Effie and Nettie.
+    - id: 890a
+      postmark: |-
+        March 29-1910
+      mainText: |-
+        Dear Bro & Sister
+
+        well I leave for home tomorrow we are all well hope to see you soon
+
+        Art
+    - id: 932a
+      postmark: |-
+        Miss Pauline Nelson
+
+        Morley
+
+        Michigan
+
+        1905
+      mainText: |-
+        Hello Pauline, Tis is myself and helper when we killed the alligator. Don’t you think we were brave. Ray
+    - id: 1070a
+      postmark: |-
+        Mr Frank Partdridge
+
+        Practir, Vermont
+
+        1907
+
+        Stockbridge Friday.
+      mainText: |-
+        Shall reach E. NB Saturday night. Auntie OK. Flo real well. Come up noonday. Mourine
     - id: 1100a
       postmark: |-
         Mrs. G. H. Rowe, Elgin, R.R. 2, Ill.
@@ -150,28 +176,6 @@ postcards:
         James received the letter from his brother and was surprised to know that he is at-home again. Hope this will find all well, as it leaves us at present. Will write later. Love to all, Ethel.
 
         This animal was shot near Camas by the driver of the machine a short time ago.
-    - id: 596a
-      postmark: |-
-        Mr Ed Kimmel
-
-        Falls City, Nebr.
-
-        1913
-
-        Edenburg Nov 21-13
-      mainText: |-
-        Bro, Ed. We landed here this morning with 175 people mostly from Nebr. Huettney says is the grandest country in the world. We leave tomorrow for Brownville and Mexico to see a bull fight. I saw W Sailors, Scott Stuny this trip is worth 100% to any one. Bro Al.
-    - id: 653a
-      postmark: |-
-        Miss Irma Ross
-
-        7156 Kedron Ave
-
-        Pittsburg, Penn 1913
-      mainText: |-
-        Dear Irma, we are all back from hunting. this is the game we kill. what do you know about that. don't you think that fine. we are all well. hope you all the same.
-
-        we sent a box it will be their Wednesday 26th write soon Noah
     - id: 867a
       postmark: |-
         Mr Clark Hornstein
@@ -250,6 +254,13 @@ postcards:
         Tyler Snow
 
         Dec 25-1918.
+    - id: 1334a
+      postmark: |-
+        Oshkosh Wis,
+
+        May 23/06
+      mainText: |-
+        Elvira, received your letter/ Mama is better at least up and around but weak and has Rhumatitis in her knee. Oscar went to Montello on the Thistle yesterday and Green boy to … I am shooting grey squirrels around the house that know to hide though the roof. Regards from. Your father.
     - id: 1465a
       postmark: |-
         Fred Brewer
@@ -2403,6 +2414,13 @@ postcards:
         Alvin Landon
 
         son of Ray Landon and Jessie Lake
+    - id: 1695a
+      postmark: |-
+        St Lewis, Mo
+
+        Jul 29/07
+      mainText: |-
+        Beings we got all the photos all O.K. would like to know whether you and all your folks got the photos. It not be the known. With best regards and a sweet kiss forever your friend Little Ewein
     - id: 1771a
       postmark: |-
         Mrs Louise Briggs
