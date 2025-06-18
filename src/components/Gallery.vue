@@ -81,7 +81,7 @@ const galleryThumbnails = computed(() =>
 </script>
 
 <template>
-  <div class="mx-auto px-4 md:px-8 lg:px-14 py-8">
+  <div class="mx-auto px-4 md:px-8 lg:px-14 pt-8">
     <div
       class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-8 lg:gap-14 justify-items-center-safe"
     >

@@ -1,6 +1,5 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Gallery from '@/components/Gallery.vue';
 import * as galleryPostcardsContent from '@/content/gallery-postcards.md';
 import {
   getImageId,
@@ -13,6 +12,8 @@ import type {
   CloudinaryImage,
   CloudinaryListResponse,
 } from '@/types/CloudinaryTypes';
+import Gallery from '@/components/Gallery.vue';
+import ShootToTop from '@/components/ShootToTop.vue';
 
 export const prerender = true;
 
@@ -170,4 +171,11 @@ sortedImagesHighDefDesktop = processImages(sortedImagesHighDefDesktop, galleryPa
       />
     )
   }
+
+  <div class='my-16'>
+    <ShootToTop
+      client:only='vue'
+      staticImg={true}
+    />
+  </div>
 </Layout>
