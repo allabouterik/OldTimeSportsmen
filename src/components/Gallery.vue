@@ -65,25 +65,33 @@ const isPostcardFront = (imageIndex: number) => {
   const nextImage = props.imagesLowDef[imageIndex + 1];
   if (!nextImage) return false; // No next image to compare with
   const nextImageNumber = getImageNumber(nextImage);
-  return nextImage && (thisImageNumber === nextImageNumber) && isPostcardBack(imageIndex + 1);
+  return (
+    nextImage &&
+    thisImageNumber === nextImageNumber &&
+    isPostcardBack(imageIndex + 1)
+  );
 };
 
 const isPostcardBack = (imageIndex: number) =>
   isPostcardBackImg(props.imagesLowDef[imageIndex]?.public_id || '');
+
+const galleryThumbnails = computed(() =>
+  isTablet.value || isDesktop.value ? props.imagesMblDef : props.imagesLowDef
+);
 </script>
 
 <template>
   <div class="mx-auto px-4 md:px-8 lg:px-14 py-8">
     <div
-      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-8 lg:gap-14"
+      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-8 lg:gap-14 justify-items-center-safe"
     >
       <template
-        v-for="(image, imageIndex) in imagesLowDef"
+        v-for="(image, imageIndex) in galleryThumbnails"
         :key="image.public_id"
       >
         <div
           v-if="!isPostcardBack(imageIndex)"
-          class="w-full aspect-square"
+          class="w-full aspect-square max-w-[541px]"
           @click="openLightBox(imageIndex)"
         >
           <img
