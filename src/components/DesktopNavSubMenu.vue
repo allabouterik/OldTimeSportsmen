@@ -29,7 +29,7 @@ const currentRouteItemIndex = computed(() =>
 
 <template>
   <div
-    class="relative py-4 px-[20px] flex flex-wrap justify-around z-40 shadow-menu gap-y-4"
+    class="relative py-4 px-[20px] flex flex-wrap justify-around shadow-menu gap-y-4 bg-[url(../assets/images/page-background.jpg)] bg-repeat"
   >
     <template
       v-for="(item, index) in items"

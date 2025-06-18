@@ -258,7 +258,7 @@ const isLessThanXl = useResponsive().isLessThanXl;
 <template>
   <header
     class="bg-[url(../assets/images/header-background.png)] bg-[size:100%_280px] bg-no-repeat py-4 xl:pt-10 2xl:pt-14 xl:pb-0"
-    :class="{ 'sticky top-0': sticky }"
+    :class="{ 'sticky top-0 z-50': sticky }"
   >
     <!-- Mobile -->
     <button

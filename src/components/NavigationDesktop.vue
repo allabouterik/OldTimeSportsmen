@@ -237,6 +237,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
       :items="activeLvl2NavItem?.subNavItems"
       :parentSlug="`${activeLvl1NavItem?.slug}/${activeLvl2NavItem?.slug}`"
       @activeItemIndex="activeLvl3NavItemIndex = $event"
+      class="z-50"
     />
 
     <!-- Level 4 Navigation Items -->
@@ -245,6 +246,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
       v-if="activeLvl3NavItem?.subNavItems"
       :items="activeLvl3NavItem?.subNavItems"
       :parentSlug="`${activeLvl1NavItem?.slug}/${activeLvl2NavItem?.slug}/${activeLvl3NavItem?.slug}`"
+      class="z-40"
     />
   </nav>
 </template>
