@@ -122,28 +122,25 @@ watch(windowWidth, () => {
 <template>
   <div id="mainCol">
     <section
-      class="flex flex-col items-center justify-center md:mt-8 p-7 md:pl-12 md:pt-14 md:pb-12 lg:pb-6 lg:pl-16 2xl:pl-24 2xl:pb-12 bg-cover bg-center bg-[url(../assets/images/book-reader-bg_mbl.png)] md:bg-[url(../assets/images/book-reader-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-reader-bg_desktop.png)]"
+      class="flex flex-col items-center justify-center md:my-8 p-5 lg:p-6 xl:p-8 2xl:p-12 bg-cover bg-center bg-[url(../assets/images/book-video-bg_mbl.png)] md:bg-[url(../assets/images/book-video-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-video-bg_desktop.png)]"
     >
-      <h2
-        class="order-1 md:order-2 font-francois-one text-22px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide py-2 lg:pt-0 lg:pb-6 xl:pt-0 xl:pb-8 2xl:pt-6 2xl:pb-0"
+      <iframe
+        :src="videoUrl + '?autoplay=0&color=505050&title=0&byline=0&portrait=0'"
+        style="max-width: 100%"
+        :style="videoFrameStyles"
+        frameborder="0"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+        title="Book Promo Video"
       >
-        Leaf through the pages!
+      </iframe>
+
+      <h2
+        class="font-francois-one text-15px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide pt-2 lg:pt-4 xl:pt-6 2xl:pt-8 md:pb-6 lg:pb-0"
+      >
+        Watch our entertaining book promo video!
       </h2>
-      <div class="order-2 md:order-1 flex flex-row w-full h-full">
-        <div class="w-full">
-          <BookViewer
-            v-if="bookImagesUrlsStdRes && bookImagesUrlsHiRes"
-            :key="'bookViewer' + bookKey"
-            :pages="bookImagesUrlsStdRes"
-            :pagesHiRes="bookImagesUrlsHiRes"
-            :isFullscreen="isBookFullscreen"
-            :viewportHeight="bookVpHeight"
-            :showSinglePage="bookShowSinglePage"
-            @toggleFullscreen="toggleFullscreen()"
-            @reload="reloadBook()"
-          />
-        </div>
-      </div>
     </section>
 
     <section
@@ -165,25 +162,28 @@ watch(windowWidth, () => {
     </section>
 
     <section
-      class="flex flex-col items-center justify-center p-5 lg:p-6 xl:p-8 2xl:p-12 bg-cover bg-center bg-[url(../assets/images/book-video-bg_mbl.png)] md:bg-[url(../assets/images/book-video-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-video-bg_desktop.png)]"
+      class="flex flex-col items-center justify-center p-7 md:pl-12 md:pt-14 md:pb-12 lg:pb-6 lg:pl-16 2xl:pl-24 2xl:pb-12 bg-cover bg-center bg-[url(../assets/images/book-reader-bg_mbl.png)] md:bg-[url(../assets/images/book-reader-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-reader-bg_desktop.png)]"
     >
-      <iframe
-        :src="videoUrl + '?autoplay=0&color=505050&title=0&byline=0&portrait=0'"
-        style="max-width: 100%"
-        :style="videoFrameStyles"
-        frameborder="0"
-        webkitallowfullscreen
-        mozallowfullscreen
-        allowfullscreen
-        title="Book Promo Video"
-      >
-      </iframe>
-
       <h2
-        class="font-francois-one text-15px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide pt-2 lg:pt-4 xl:pt-6 2xl:pt-8 md:pb-6 lg:pb-0"
+        class="order-1 md:order-2 font-francois-one text-22px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide py-2 lg:pt-0 lg:pb-6 xl:pt-0 xl:pb-8 2xl:pt-6 2xl:pb-0"
       >
-        Watch our entertaining book promo video!
+        Leaf through the pages!
       </h2>
+      <div class="order-2 md:order-1 flex flex-row w-full h-full">
+        <div class="w-full">
+          <BookViewer
+            v-if="bookImagesUrlsStdRes && bookImagesUrlsHiRes"
+            :key="'bookViewer' + bookKey"
+            :pages="bookImagesUrlsStdRes"
+            :pagesHiRes="bookImagesUrlsHiRes"
+            :isFullscreen="isBookFullscreen"
+            :viewportHeight="bookVpHeight"
+            :showSinglePage="bookShowSinglePage"
+            @toggleFullscreen="toggleFullscreen()"
+            @reload="reloadBook()"
+          />
+        </div>
+      </div>
     </section>
   </div>
 
