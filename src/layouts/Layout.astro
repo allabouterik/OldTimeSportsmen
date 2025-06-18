@@ -34,3 +34,25 @@ const { stickyHeader = false } = Astro.props;
     </main>
   </body>
 </html>
+
+<style lang='scss'>
+  body {
+    &::-webkit-scrollbar {
+      width: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px var(--color-green-gray);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--color-green-olive);
+      border-radius: 10px;
+
+      &:hover {
+        background: var(--color-brown-dark);
+      }
+    }
+  }
+</style>
