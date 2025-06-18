@@ -51,7 +51,7 @@ const currentRouteItemIndex = computed(() =>
 
       <button
         v-else
-        class="font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular"
+        class="min-w-1/7 font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular"
         @click="onButtonClick(index)"
         :class="{
           'text-black hover:text-gold':
