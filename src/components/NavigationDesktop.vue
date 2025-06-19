@@ -97,7 +97,6 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
 
 <template>
   <nav class="relative">
-    <!-- Background Music -->
     <BackgroundMusic
       class="absolute right-11 -top-11 z-[60]"
       audioFile="https://res.cloudinary.com/all-about-erik/video/upload/v1750090347/OldTimeSportsmen%20Site/Jawbone.mp3"
@@ -126,7 +125,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
           class="inline-block text-36px 2xl:text-48px font-garage-gothic text-5xl leading-[0.8] font-medium mt-5"
           :class="[
             {
-              'translate-y-4': isMacWebkit,
+              'translate-y-3 2xl:translate-y-4': isMacWebkit,
             },
             isHouseWithSmoke
               ? 'text-gold text-shadow-strong'
@@ -168,7 +167,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
                 {
                   'text-gold': activeLvl1NavItemIndex === index,
                 },
-                { 'translate-y-4': isMacWebkit },
+                { 'translate-y-3 2xl:translate-y-4': isMacWebkit },
               ]"
             >
               {{ item.label }}
@@ -188,7 +187,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
               class="text-36px 2xl:text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2 px-4"
               :class="[
                 { 'text-gold': item.slug === currentRouteLvl1 },
-                { 'translate-y-4': isMacWebkit },
+                { 'translate-y-3 2xl:translate-y-4': isMacWebkit },
               ]"
             >
               {{ item.label }}
@@ -206,12 +205,11 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
       <button
         v-for="(item, index) in activeLvl1NavItem?.subNavItems"
         :key="item.label"
-        class="font-garage-gothic text-39px 2xl:text-52px leading-none font-medium tracking-wider uppercase transition-colors rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 px-3 py-1"
+        class="font-garage-gothic text-39px 2xl:text-52px leading-none font-medium tracking-wider uppercase transition-colors rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 px-3"
         :class="[
           {
             'text-green-gray hover:text-gold': activeLvl2NavItemIndex !== index,
             'text-gold': activeLvl2NavItemIndex === index,
-            'translate-y-4': isMacWebkit,
           },
         ]"
         @click="
@@ -220,7 +218,15 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
           activeLvl4NavItemIndex = -1;
         "
       >
-        {{ item.label }}
+        <span
+          class="block w-full text-center leading-[47px] 2xl:leading-[60px]"
+          :class="[
+            {
+              'translate-y-[14px] 2xl:translate-y-[18px]': isMacWebkit,
+            },
+          ]"
+          >{{ item.label }}</span
+        >
       </button>
     </div>
     <div

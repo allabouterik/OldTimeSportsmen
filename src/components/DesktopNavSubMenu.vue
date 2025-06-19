@@ -29,7 +29,7 @@ const currentRouteItemIndex = computed(() =>
 
 <template>
   <div
-    class="relative py-4 px-[20px] flex flex-wrap justify-around shadow-menu gap-y-4 bg-[url(../assets/images/page-background.jpg)] bg-repeat"
+    class="relative py-3 px-[20px] flex flex-wrap justify-around shadow-menu gap-y-2 bg-[url(../assets/images/page-background.jpg)] bg-repeat"
   >
     <template
       v-for="(item, index) in items"
@@ -37,7 +37,7 @@ const currentRouteItemIndex = computed(() =>
     >
       <a
         v-if="!item.subNavItems"
-        class="min-w-1/7 text-center font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2"
+        class="min-w-1/7 text-center font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 py-1"
         :class="{
           'text-black hover:text-gold':
             index !== currentRouteItemIndex && index !== activeItemIndex,
@@ -51,7 +51,7 @@ const currentRouteItemIndex = computed(() =>
 
       <button
         v-else
-        class="min-w-1/7 font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular"
+        class="min-w-1/7 font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 py-1"
         @click="onButtonClick(index)"
         :class="{
           'text-black hover:text-gold':
