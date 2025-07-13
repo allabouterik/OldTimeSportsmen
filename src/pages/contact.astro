@@ -1,182 +1,234 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import SlideshowZoom from '@/components/SlideshowZoom.vue';
+import * as homeContent from '@/content/home.md';
+
+const { frontmatter: content } = homeContent;
 
 export const prerender = true;
 ---
 
 <Layout stickyHeader={true}>
-  <div
-    class='fixed h-full w-full -z-10 -mt-[144px] md:mt-0 bg-repeat bg-auto bg-[url(../assets/images/sportsmen-crowd-tradeshow-bg_mbl.png)] md:bg-[url(../assets/images/sportsmen-crowd-tradeshow-bg_tablet.png)] lg:bg-[url(../assets/images/sportsmen-crowd-tradeshow-bg_desktop.png)]'
-  >
-  </div>
-  <div
-    class='flex flex-col container lg:w-1/2 bg-[rgba(255,255,255,0.83)] gap-4 mt-[144px] md:mt-0 mx-auto px-4 py-8'
-  >
+  <div class='container mx-auto flex flex-row justify-center gap-4 p-4 pb-8'>
+    <!-- Left Column -->
     <div
-      class='flex flex-col text-lg text-center md:text-2xl font-bembo text-black gap-4'
+      class='hidden lg:block w-[195px] max-w-[195px] 2xl:w-[520px] 2xl:max-w-[520px] shrink-0 lg:mt-8'
     >
-      <p>Thanks to my son and collecting partner Jakob Dulisse.</p>
-      <p>
-        Thanks to Lala for her love and patience with my passion for collecting
-        and my father for passing on the collecting bug.
-      </p>
-      <p>
-        Thanks to Lindsey Brady for the cataloging and restoration of the photos
-        for this digital archive and the design of this website.
-      </p>
-      <p>
-        Thanks to Eoin O’Malley for translating our ideas and this archive into
-        this postal collection website.
-      </p>
-      <p class='font-bold'>
-        I hope you enjoyed looking through the gallery of this website. If you
-        have any questions regarding purchasing the book, images or postcards,
-        use the message form below.
-      </p>
+      <SlideshowZoom
+        client:only='vue'
+        slides={content['character-slideshow-1']}
+        maxHeightInPx={270}
+        class='2xl:hidden'
+      />
+      <SlideshowZoom
+        client:only='vue'
+        slides={content['character-slideshow-1']}
+        maxHeightInPx={370}
+        class='hidden 2xl:block'
+      />
+
+      <div class='hidden 2xl:flex flex-col items-end gap-12 mt-[700px] mr-12'>
+        <img
+          src={content.postcardHistory.images[0].img}
+          alt={content.postcardHistory.images[0].altText}
+          width={149}
+          class='lg:w-[210px]'
+        />
+        <img
+          src={content.postcardHistory.images[1].img}
+          alt={content.postcardHistory.images[1].altText}
+          width={156}
+          class='lg:w-[220px]'
+        />
+      </div>
     </div>
 
-    <!-- CONTACT FORM -->
-    <div class='form-container'>
-      <h2
-        class='text-2xl md:text-34px font-francois-one text-black text-center md:text-left uppercase pb-4'
+    <!-- Centre Column -->
+    <div class='w-full lg:w-[626px] 2xl:max-w-[720px] shrink-0'>
+      <div
+        class='flex flex-col text-lg text-center md:text-2xl font-bembo text-black gap-4'
       >
-        Get in touch
-      </h2>
-      <form
-        name='contact'
-        method='POST'
-        netlify
-        data-netlify-honeypot='bot-field'
-      >
-        <input
-          type='hidden'
-          name='form-name'
-          value='contact'
-        />
-        <!-- Hidden honeypot field to prevent against bot spam -->
+        <p>Thanks to my son and collecting partner Jakob Dulisse.</p>
+        <p>
+          Thanks to Lala for her love and patience with my passion for
+          collecting and my father for passing on the collecting bug.
+        </p>
+        <p>
+          Thanks to Lindsey Brady for the cataloging and restoration of the
+          photos for this digital archive and the design of this website.
+        </p>
+        <p>
+          Thanks to Eoin O’Malley for translating our ideas and this archive
+          into this postal collection website.
+        </p>
+        <p class='font-bold'>
+          I hope you enjoyed looking through the gallery of this website.
+          <br />If you have any questions regarding the book, images or
+          postcards, use the message form below.
+        </p>
+      </div>
 
-        <label
-          for='name'
-          class='font-francois-one text-black text-lg'
-          >Name (field required)</label
+      <!-- CONTACT FORM -->
+      <div class='form-container'>
+        <h2
+          class='text-2xl md:text-34px font-francois-one text-black text-center md:text-left uppercase pb-4'
         >
-        <input
-          type='text'
-          id='name'
-          name='name'
-          placeholder='John Doe'
-          required
-        />
-
-        <label
-          for='email'
-          class='font-francois-one text-black text-lg'
-          >Email</label
+          Get in touch
+        </h2>
+        <form
+          name='contact'
+          method='POST'
+          netlify
+          data-netlify-honeypot='bot-field'
         >
-        <input
-          type='email'
-          id='email'
-          name='email'
-          placeholder='JohnDoe@email.com'
-        />
+          <input
+            type='hidden'
+            name='form-name'
+            value='contact'
+          />
+          <!-- Hidden honeypot field to prevent against bot spam -->
 
-        <label
-          for='phone'
-          class='font-francois-one text-black text-lg'
-          >Phone number (field required)</label
-        >
-        <input
-          type='tel'
-          id='phone'
-          name='phone'
-          inputmode='numeric'
-          placeholder='(---) --- ----'
-          required
-        />
+          <label
+            for='name'
+            class='font-francois-one text-black text-lg'
+            >Name (field required)</label
+          >
+          <input
+            type='text'
+            id='name'
+            name='name'
+            placeholder='John Doe'
+            required
+          />
 
-        <label
-          for='message'
-          class='font-francois-one text-black text-lg'
-          >Message (field required)</label
-        >
-        <textarea
-          id='message'
-          name='message'
-          placeholder='Type message here.'
-          style='height: 200px'
-          required
-        ></textarea>
+          <label
+            for='email'
+            class='font-francois-one text-black text-lg'
+            >Email</label
+          >
+          <input
+            type='email'
+            id='email'
+            name='email'
+            placeholder='JohnDoe@email.com'
+          />
 
-        <!-- <input
+          <label
+            for='phone'
+            class='font-francois-one text-black text-lg'
+            >Phone number (field required)</label
+          >
+          <input
+            type='tel'
+            id='phone'
+            name='phone'
+            inputmode='numeric'
+            placeholder='(---) --- ----'
+            required
+          />
+
+          <label
+            for='message'
+            class='font-francois-one text-black text-lg'
+            >Message (field required)</label
+          >
+          <textarea
+            id='message'
+            name='message'
+            placeholder='Type message here.'
+            style='height: 200px'
+            required
+          ></textarea>
+
+          <!-- <input
           type='submit'
           value='Submit'
         /> -->
-        <button
-          type='submit'
-          class='w-full rounded-md bg-brown-dark font-francois-one text-cream-button text-2xl text-center uppercase cursor-pointer py-4'
-        >
-          Send Message
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='19'
-            height='19'
-            viewBox='0 0 19 19'
-            fill='none'
-            class='inline-block align-baseline ml-2'
+          <button
+            type='submit'
+            class='w-full rounded-md bg-brown-dark font-francois-one text-cream-button text-2xl text-center uppercase cursor-pointer py-4'
           >
-            <path
-              d='M10.2027 9.68884L2.93106 10.8916C2.84746 10.9054 2.76901 10.9409 2.70359 10.9944C2.63817 11.0479 2.5881 11.1175 2.5584 11.1963L0.0511771 17.8644C-0.18825 18.4777 0.457624 19.0623 1.0504 18.7671L18.4282 10.1421C18.5483 10.0824 18.6493 9.99063 18.7199 9.87715C18.7904 9.76367 18.8278 9.63294 18.8278 9.49957C18.8278 9.36621 18.7904 9.23548 18.7199 9.122C18.6493 9.00852 18.5483 8.91677 18.4282 8.85701L1.0504 0.232012C0.457624 -0.0621965 -0.18825 0.522387 0.0511771 1.13476L2.55937 7.80285C2.58906 7.88165 2.63914 7.9513 2.70456 8.00479C2.76997 8.05829 2.84843 8.09375 2.93203 8.10759L10.2037 9.3103C10.249 9.31749 10.2903 9.34049 10.3201 9.37518C10.3499 9.40987 10.3663 9.45398 10.3663 9.49957C10.3663 9.54517 10.3499 9.58927 10.3201 9.62396C10.2903 9.65865 10.249 9.68166 10.2037 9.68884H10.2027Z'
-              fill='#E4E5D6'
-            ></path>
-          </svg>
-        </button>
-      </form>
+            Send Message
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='19'
+              height='19'
+              viewBox='0 0 19 19'
+              fill='none'
+              class='inline-block align-baseline ml-2'
+            >
+              <path
+                d='M10.2027 9.68884L2.93106 10.8916C2.84746 10.9054 2.76901 10.9409 2.70359 10.9944C2.63817 11.0479 2.5881 11.1175 2.5584 11.1963L0.0511771 17.8644C-0.18825 18.4777 0.457624 19.0623 1.0504 18.7671L18.4282 10.1421C18.5483 10.0824 18.6493 9.99063 18.7199 9.87715C18.7904 9.76367 18.8278 9.63294 18.8278 9.49957C18.8278 9.36621 18.7904 9.23548 18.7199 9.122C18.6493 9.00852 18.5483 8.91677 18.4282 8.85701L1.0504 0.232012C0.457624 -0.0621965 -0.18825 0.522387 0.0511771 1.13476L2.55937 7.80285C2.58906 7.88165 2.63914 7.9513 2.70456 8.00479C2.76997 8.05829 2.84843 8.09375 2.93203 8.10759L10.2037 9.3103C10.249 9.31749 10.2903 9.34049 10.3201 9.37518C10.3499 9.40987 10.3663 9.45398 10.3663 9.49957C10.3663 9.54517 10.3499 9.58927 10.3201 9.62396C10.2903 9.65865 10.249 9.68166 10.2037 9.68884H10.2027Z'
+                fill='#E4E5D6'
+              ></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div
+      class='hidden lg:block w-[195px] max-w-[195px] 2xl:w-[520px] 2xl:max-w-[520px] shrink-0'
+    >
+      <SlideshowZoom
+        client:only='vue'
+        slides={content['character-slideshow-2']}
+        maxHeightInPx={270}
+        class='2xl:hidden'
+      />
+      <SlideshowZoom
+        client:only='vue'
+        slides={content['character-slideshow-2']}
+        maxHeightInPx={370}
+        class='hidden 2xl:block'
+      />
     </div>
   </div>
+
+  <style>
+    .form-container {
+      background-color: transparent;
+      padding: 20px 0;
+    }
+
+    /* Style inputs with type="text", select elements and textareas */
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'],
+    textarea#message {
+      width: 100%;
+      color: #91465a;
+      background-color: #ddd;
+      font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1rem;
+      box-sizing: border-box; /* Make sure that padding and width stays in place */
+      padding: 12px;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      border: 2px solid var(--color-brown-dark);
+      border-radius: 4px;
+      resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+    }
+    input[type='text']:hover,
+    input[type='email']:hover,
+    input[type='tel']:hover,
+    textarea#message:hover,
+    input[type='text']:focus,
+    input[type='email']:focus,
+    input[type='tel']:focus,
+    textarea#message:focus {
+      background-color: #fff;
+    }
+    button[type='submit']:focus {
+      outline: none; /* remove blue border in iOS Chrome */
+    }
+
+    button[type='submit'] {
+      box-shadow:
+        0px 16px 32px -8px rgba(35, 36, 29, 0.3),
+        -4px -4px 8px 0px #2b2d25 inset,
+        4px 4px 8px 0px rgba(255, 255, 255, 0.15) inset;
+    }
+  </style>
 </Layout>
-
-<style>
-  .form-container {
-    background-color: transparent;
-    padding: 20px 0;
-  }
-
-  /* Style inputs with type="text", select elements and textareas */
-  input[type='text'],
-  input[type='email'],
-  input[type='tel'],
-  textarea#message {
-    width: 100%;
-    color: #91465a;
-    background-color: #ddd;
-    font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 1rem;
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    padding: 12px;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    border: 2px solid var(--color-brown-dark);
-    border-radius: 4px;
-    resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
-  }
-  input[type='text']:hover,
-  input[type='email']:hover,
-  input[type='tel']:hover,
-  textarea#message:hover,
-  input[type='text']:focus,
-  input[type='email']:focus,
-  input[type='tel']:focus,
-  textarea#message:focus {
-    background-color: #fff;
-  }
-  button[type='submit']:focus {
-    outline: none; /* remove blue border in iOS Chrome */
-  }
-
-  button[type='submit'] {
-    box-shadow:
-      0px 16px 32px -8px rgba(35, 36, 29, 0.3),
-      -4px -4px 8px 0px #2b2d25 inset,
-      4px 4px 8px 0px rgba(255, 255, 255, 0.15) inset;
-  }
-</style>
