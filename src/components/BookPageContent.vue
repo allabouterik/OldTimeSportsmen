@@ -124,6 +124,11 @@ watch(windowWidth, () => {
     <section
       class="flex flex-col items-center justify-center md:my-8 p-5 lg:p-6 xl:p-8 2xl:p-12 bg-cover bg-center bg-[url(../assets/images/book-video-bg_mbl.png)] md:bg-[url(../assets/images/book-video-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-video-bg_desktop.png)]"
     >
+      <h2
+        class="font-francois-one text-15px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide uppercase md:pt-6 lg:pt-0 pb-2 lg:pb-4 xl:pb-6 2xl:pb-8"
+      >
+        Watch our entertaining video about the book
+      </h2>
       <iframe
         :src="videoUrl + '?autoplay=0&color=505050&title=0&byline=0&portrait=0'"
         style="max-width: 100%"
@@ -135,12 +140,6 @@ watch(windowWidth, () => {
         title="Book Promo Video"
       >
       </iframe>
-
-      <h2
-        class="font-francois-one text-15px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide pt-2 lg:pt-4 xl:pt-6 2xl:pt-8 md:pb-6 lg:pb-0"
-      >
-        Watch our entertaining book promo video!
-      </h2>
     </section>
 
     <section
@@ -162,14 +161,14 @@ watch(windowWidth, () => {
     </section>
 
     <section
-      class="flex flex-col items-center justify-center p-7 md:pl-12 md:pt-14 md:pb-12 lg:pb-6 lg:pl-16 2xl:pl-24 2xl:pb-12 bg-cover bg-center bg-[url(../assets/images/book-reader-bg_mbl.png)] md:bg-[url(../assets/images/book-reader-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-reader-bg_desktop.png)]"
+      class="flex flex-col items-center justify-center p-7 md:pl-12 md:py-14 lg:pl-16 2xl:pl-24 2xl:pb-12 bg-cover bg-center bg-[url(../assets/images/book-reader-bg_mbl.png)] md:bg-[url(../assets/images/book-reader-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-reader-bg_desktop.png)]"
     >
       <h2
-        class="order-1 md:order-2 font-francois-one text-22px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide py-2 lg:pt-0 lg:pb-6 xl:pt-0 xl:pb-8 2xl:pt-6 2xl:pb-0"
+        class="font-francois-one text-22px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide uppercase pt-2 pb-3 xl:pt-0"
       >
         Leaf through the pages!
       </h2>
-      <div class="order-2 md:order-1 flex flex-row w-full h-full">
+      <div class="flex flex-row w-full h-full">
         <div class="w-full">
           <BookViewer
             v-if="bookImagesUrlsStdRes && bookImagesUrlsHiRes"
@@ -186,19 +185,6 @@ watch(windowWidth, () => {
       </div>
     </section>
   </div>
-
-  <section class="flex flex-col items-center justify-center p-7">
-    <p
-      class="font-francois-one text-xl md:text-24px lg:text-26px 2xl:text-32px text-center text-black tracking-wide"
-    >
-      To order copies of this remarkable book email
-      <a
-        href="mailto:transtonemusic@aol.com"
-        class="text-brown-dark text-nowrap underline sm:no-underline sm:hover:underline"
-        >Erik Jacobsen</a
-      >
-    </p>
-  </section>
 
   <div class="mt-4">
     <ShootToTop :staticImg="true" />
