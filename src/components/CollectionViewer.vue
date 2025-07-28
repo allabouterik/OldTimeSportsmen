@@ -334,7 +334,7 @@ watch(
   &__modal {
     position: relative;
     display: block;
-    z-index: 51;
+    z-index: 41;
     left: 0;
     width: 100%;
     height: calc(100vh - var(--headerHeight));
@@ -349,7 +349,7 @@ watch(
   }
   &__container {
     position: absolute;
-    z-index: 52;
+    z-index: 42;
     display: block;
     width: 100%;
     left: 50%;
@@ -406,7 +406,7 @@ watch(
   &__spinner {
     & {
       position: absolute;
-      z-index: 53;
+      z-index: 43;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
