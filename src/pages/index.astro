@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import CollectionViewer from '@/components/CollectionViewer.vue';
 import FlipPostcard from '@/components/FlipPostcard.vue';
 import ShootToTop from '@/components/ShootToTop.vue';
 import SlideshowZoom from '@/components/SlideshowZoom.vue';
@@ -13,6 +14,14 @@ export const prerender = true;
 ---
 
 <Layout>
+  <CollectionViewer
+    client:only='vue'
+    images={content.images}
+    disable-scroll={true}
+    background='rgba(0, 0, 0, 1)'
+    isOldTime={true}
+  />
+
   <div class='container mx-auto flex flex-row justify-center gap-4 p-4 pb-8'>
     <!-- Left Column -->
     <div
