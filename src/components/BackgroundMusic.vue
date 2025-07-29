@@ -86,10 +86,9 @@ function playAndFadeAudio() {
         getSoundAndFadeAudio();
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error playing background audio: ', error);
         audioPlaying.value = false;
         audioMuted.value = false;
-        console.log('Error playing background audio');
       });
   } else {
     audioPlaying.value = false;

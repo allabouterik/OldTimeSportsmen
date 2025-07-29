@@ -112,18 +112,6 @@ function handleMove(e) {
     zoomY.value * (zoomImgHeight.value / imgRect.value.height) +
     props.zoomDiameter / 2;
 
-  console.log({
-    mouseX: e.clientX,
-    imgRectLeft: imgRect.value.left,
-    imgRectWidth: imgRect.value.width,
-    zoomDiameter: props.zoomDiameter,
-    zoomDiameter50: props.zoomDiameter / 2,
-    zoomImgWidth: zoomImgWidth.value,
-    zoomXValue: zoomX.value,
-    zoomPositionX: zoomPosition.x,
-    // imgContainerRect: imgContainerRect.value,
-  });
-
   // Note: Firfox & Safari have a different size for the "imgContainer" compared to Chrome
   // Therefore, we need to add on the offset between it and the img:
   zoomX.value += imgRect.value.left - imgContainerRect.value.left;
