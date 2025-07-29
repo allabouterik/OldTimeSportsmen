@@ -256,7 +256,7 @@ const lightBoxOpen = () => {
 
 /* Style the back side */
 .flip-card-back {
-  background-color: #000;
+  background-color: transparent;
   color: white;
   transform: rotateY(180deg);
 }
