@@ -4,6 +4,7 @@ import CollectionViewer from '@/components/CollectionViewer.vue';
 import FlipPostcard from '@/components/FlipPostcard.vue';
 import ShootToTop from '@/components/ShootToTop.vue';
 import SlideshowZoom from '@/components/SlideshowZoom.vue';
+import homePgTextboxImg from '@/assets/images/homepage-textbox.png';
 import * as homeContent from '@/content/home.md';
 
 const { frontmatter: content } = homeContent;
@@ -59,7 +60,7 @@ export const prerender = true;
     <!-- Centre Column -->
     <div class='w-full lg:w-[626px] 2xl:max-w-[720px] shrink-0'>
       <div
-        class='bg-cream-light rounded-lg shadow-text-box mb-4 p-4 lg:py-8 lg:px-12'
+        class='block md:hidden bg-cream-light rounded-lg shadow-text-box mb-4 p-4 lg:py-8 lg:px-12'
       >
         <p
           class='font-francois-one font-normal text-center leading-5 text-15px lg:text-3xl lg:leading-9'
@@ -70,6 +71,12 @@ export const prerender = true;
           these early 20th century American outdoorsmen and women.
         </p>
       </div>
+      <img
+        alt=''
+        src={homePgTextboxImg.src}
+        class='hidden md:flex place-self-center-safe mb-4'
+        width='624'
+      />
 
       <SlideshowZoom
         client:only='vue'
