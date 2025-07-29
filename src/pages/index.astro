@@ -32,12 +32,14 @@ export const prerender = true;
         client:only='vue'
         slides={content['character-slideshow-1']}
         maxHeightInPx={270}
+        intervalTime={5000}
         class='2xl:hidden'
       />
       <SlideshowZoom
         client:only='vue'
         slides={content['character-slideshow-1']}
         maxHeightInPx={370}
+        intervalTime={5000}
         class='hidden 2xl:block'
       />
 
@@ -193,12 +195,16 @@ export const prerender = true;
         client:only='vue'
         slides={content['character-slideshow-2']}
         maxHeightInPx={270}
+        intervalTime={5000}
+        delayStartTime={2500}
         class='2xl:hidden'
       />
       <SlideshowZoom
         client:only='vue'
         slides={content['character-slideshow-2']}
         maxHeightInPx={370}
+        intervalTime={5000}
+        delayStartTime={2500}
         class='hidden 2xl:block'
       />
       <div class='hidden 2xl:flex flex-col gap-12 mt-12'>

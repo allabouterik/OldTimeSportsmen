@@ -16,12 +16,21 @@ const props = defineProps({
     default: undefined,
     type: Number,
   },
+  intervalTime: {
+    default: 5000,
+    type: Number,
+  },
+  delayStartTime: {
+    default: 0,
+    type: Number,
+  },
 });
 
 const activeIndex = ref(0);
 const time = ref(0);
 const translateFactor = ref(1.5);
 const intervalClock = ref<number | null>(null);
+const firstCycle = ref(true);
 
 const images = computed(() =>
   props.slides.map((a: Slide) => {
@@ -47,14 +56,24 @@ onUnmounted(() => {
 
 const goToIndex = (index: number) => {
   activeIndex.value = index;
-  time.value = interval(index);
+  time.value = props.intervalTime;
 };
 
 const imgStyle = (index: number) => {
-  return {
+  const style: Record<string, string> = {
     animationName: 'keyframe-' + (index + 1),
     transformOrigin: 'center',
   };
+  // Only apply animationDelay for index 0 and only on the first cycle
+  if (index === 0 && firstCycle.value) {
+    style.animationDelay = `${props.delayStartTime}ms`;
+    // Set initial transform to scaleFrom so it starts at the correct scale during the delay
+    const scale = scaleFrom(index);
+    style.transform = `scale3d(${scale}, ${scale}, 1)`;
+  } else {
+    style.animationDelay = '0ms';
+  }
+  return style;
 };
 
 const scaleFrom = (index: number) => {
@@ -69,8 +88,11 @@ const scaleTo = (index: number) => {
     : 1.0;
 };
 
-const startInterval = () => {
-  const precision = 100;
+const startClock = (precision: number) => {
+  time.value = props.intervalTime;
+  if (intervalClock.value) {
+    clearInterval(intervalClock.value);
+  }
   intervalClock.value = setInterval(() => {
     time.value -= precision;
     if (time.value <= 0) {
@@ -79,16 +101,26 @@ const startInterval = () => {
   }, precision);
 };
 
-const interval = (index: number) => {
-  // return 1000*this.slides[index].duration
-  return 5000;
+const startInterval = () => {
+  const precision = 100;
+  if (props.delayStartTime > 0) {
+    setTimeout(() => {
+      startClock(precision);
+    }, props.delayStartTime);
+  } else {
+    startClock(precision);
+  }
 };
 
 const next = () => {
   let nextIndex = activeIndex.value + 1;
-  // Go to the first image if the active image ist the last one
+  // Go to the first image if the active image is the last one
   if (!images.value[nextIndex]) {
     nextIndex = 0;
+    // After the first full cycle, set firstCycle to false
+    if (firstCycle.value) {
+      firstCycle.value = false;
+    }
   }
   goToIndex(nextIndex);
 };
@@ -102,30 +134,17 @@ const createKeyFrames = () => {
     const Tx = translateFactor.value * startPos[0];
     const Ty = translateFactor.value * startPos[1];
     let style = document.createElement('style');
-    const keyFrame =
-      '\
-        @keyframes keyframe-' +
-      num +
-      ' {\
-          0% {\
-            transform: scale3d(' +
-      scaleFromNum +
-      ', ' +
-      scaleFromNum +
-      ', 1) translate3d(' +
-      Tx +
-      '%, ' +
-      Ty +
-      '%, 0);\
-          }\
-          100% {\
-            transform: scale3d(' +
-      scaleToNum +
-      ', ' +
-      scaleToNum +
-      ', 1) translate3d(0, 0, 0);\
-          }\
-        }';
+    // Add animation-delay variable for this keyframe
+    const delay = props.delayStartTime ? `${props.delayStartTime}ms` : '0ms';
+    const keyFrame = `@keyframes keyframe-${num} {
+        0% {
+          transform: scale3d(${scaleFromNum}, ${scaleFromNum}, 1) translate3d(${Tx}%, ${Ty}%, 0);
+        }
+        100% {
+          transform: scale3d(${scaleToNum}, ${scaleToNum}, 1) translate3d(0, 0, 0);
+        }
+      }
+      `;
     style.innerHTML = keyFrame;
     document.head.appendChild(style);
   }
@@ -153,6 +172,7 @@ const createKeyFrames = () => {
         :src="image"
         class="SlideshowZoom__image"
         :style="imgStyle(index)"
+        :keyframe-index="index"
         alt=""
       />
     </transition-group>
@@ -161,7 +181,6 @@ const createKeyFrames = () => {
 
 <style lang="scss" scoped>
 .SlideshowZoom {
-  --translateFactor: 1.5%;
   background-color: transparent;
 
   &__slides {
