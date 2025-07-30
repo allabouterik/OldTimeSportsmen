@@ -31,30 +31,30 @@ export const prerender = true;
       <SlideshowZoom
         client:only='vue'
         slides={content['character-slideshow-1']}
-        maxHeightInPx={270}
+        maxHeightInPx={650}
         intervalTime={5000}
         class='2xl:hidden'
       />
       <SlideshowZoom
         client:only='vue'
         slides={content['character-slideshow-1']}
-        maxHeightInPx={370}
+        maxHeightInPx={1035}
         intervalTime={5000}
         class='hidden 2xl:block'
       />
 
-      <div class='hidden 2xl:flex flex-col items-end gap-12 mt-[700px] mr-12'>
+      <div class='hidden 2xl:flex flex-col items-end gap-20 mt-64 mr-12'>
         <img
           src={content.postcardHistory.images[0].img}
           alt={content.postcardHistory.images[0].altText}
           width={149}
-          class='lg:w-[210px]'
+          class='2xl:w-[240px]'
         />
         <img
           src={content.postcardHistory.images[1].img}
           alt={content.postcardHistory.images[1].altText}
           width={156}
-          class='lg:w-[220px]'
+          class='2xl:w-[240px]'
         />
       </div>
     </div>
@@ -194,20 +194,12 @@ export const prerender = true;
       <SlideshowZoom
         client:only='vue'
         slides={content['character-slideshow-2']}
-        maxHeightInPx={270}
+        maxHeightInPx={650}
         intervalTime={5000}
         delayStartTime={2500}
         class='2xl:hidden'
       />
-      <SlideshowZoom
-        client:only='vue'
-        slides={content['character-slideshow-2']}
-        maxHeightInPx={370}
-        intervalTime={5000}
-        delayStartTime={2500}
-        class='hidden 2xl:block'
-      />
-      <div class='hidden 2xl:flex flex-col gap-12 mt-12'>
+      <div class='hidden 2xl:flex flex-col gap-12 mt-[440px]'>
         {
           content.postcardHistory.postcards.slice(1).map((postcard: any) => (
             <FlipPostcard
