@@ -1,11 +1,12 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import SlideshowZoom from '@/components/SlideshowZoom.vue';
-import * as homeContent from '@/content/home.md';
-
-const { frontmatter: content } = homeContent;
+import { getSlideshowSlides } from '@/utils/slideshowSlideImages';
 
 export const prerender = true;
+
+const slideshowLeft = getSlideshowSlides(9);
+const slideshowRight = getSlideshowSlides(26);
 ---
 
 <Layout stickyHeader={true}>
@@ -16,16 +17,20 @@ export const prerender = true;
     >
       <SlideshowZoom
         client:only='vue'
-        slides={content['character-slideshow-1']}
+        slides={slideshowLeft}
         maxHeightInPx={650}
-        intervalTime={5000}
+        intervalTime={3000}
+        defaultScaleFrom={1.0}
+        defaultScaleTo={1.0}
         class='2xl:hidden'
       />
       <SlideshowZoom
         client:only='vue'
-        slides={content['character-slideshow-1']}
+        slides={slideshowLeft}
         maxHeightInPx={1035}
-        intervalTime={5000}
+        intervalTime={3000}
+        defaultScaleFrom={1.0}
+        defaultScaleTo={1.0}
         class='hidden 2xl:block'
       />
     </div>
@@ -160,18 +165,22 @@ export const prerender = true;
     >
       <SlideshowZoom
         client:only='vue'
-        slides={content['character-slideshow-2']}
+        slides={slideshowRight}
         maxHeightInPx={650}
-        intervalTime={5000}
-        delayStartTime={2500}
+        intervalTime={3000}
+        delayStartTime={1500}
+        defaultScaleFrom={1.0}
+        defaultScaleTo={1.0}
         class='2xl:hidden'
       />
       <SlideshowZoom
         client:only='vue'
-        slides={content['character-slideshow-2']}
+        slides={slideshowRight}
         maxHeightInPx={1035}
-        intervalTime={5000}
-        delayStartTime={2500}
+        intervalTime={3000}
+        delayStartTime={1500}
+        defaultScaleFrom={1.0}
+        defaultScaleTo={1.0}
         class='hidden 2xl:block'
       />
     </div>

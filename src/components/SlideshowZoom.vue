@@ -24,6 +24,14 @@ const props = defineProps({
     default: 0,
     type: Number,
   },
+  defaultScaleFrom: {
+    default: 0.8,
+    type: Number,
+  },
+  defaultScaleTo: {
+    default: 1.0,
+    type: Number,
+  },
 });
 
 const activeIndex = ref(0);
@@ -79,13 +87,13 @@ const imgStyle = (index: number) => {
 const scaleFrom = (index: number) => {
   return props.slides[index]?.hasOwnProperty('scaleFrom')
     ? props.slides[index].scaleFrom
-    : 0.8;
+    : props.defaultScaleFrom;
 };
 
 const scaleTo = (index: number) => {
   return props.slides[index].hasOwnProperty('scaleTo')
     ? props.slides[index].scaleTo
-    : 1.0;
+    : props.defaultScaleTo;
 };
 
 const startClock = (precision: number) => {

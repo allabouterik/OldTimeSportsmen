@@ -165,38 +165,6 @@ about:
     <br>
     <p>-Erik Jacobsen</p>
   title: About the Collection
-character-slideshow-1:
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1584468461/Collections/06%20Old-Time%20Sportsmen/people/01_172_en54qz.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1584468462/Collections/06%20Old-Time%20Sportsmen/people/02_377_ede427.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1584468461/Collections/06%20Old-Time%20Sportsmen/people/03_692_tn81ti.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1584468461/Collections/06%20Old-Time%20Sportsmen/people/04_995_lzbv24.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1584468462/Collections/06%20Old-Time%20Sportsmen/people/05_1054_xnav5t.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1584468462/Collections/06%20Old-Time%20Sportsmen/people/06_1056_iaq4ez.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1584468462/Collections/06%20Old-Time%20Sportsmen/people/07_ras768_qf7jel.png
-character-slideshow-2:
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1748207290/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/character-cutout-slideshow-2_01.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1748207290/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/character-cutout-slideshow-2_02.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1748207290/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/character-cutout-slideshow-2_03.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1748207290/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/character-cutout-slideshow-2_04.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1748207290/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/character-cutout-slideshow-2_05.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1748207290/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/character-cutout-slideshow-2_06.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1748207290/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/character-cutout-slideshow-2_07.png
-  - img: >-
-      https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1748207290/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/character-cutout-slideshow-2_08.png
 footerImg: >-
   https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1583278416/Collections/OldTimeSportsmen_collection_footer_av7yua.jpg
 ---

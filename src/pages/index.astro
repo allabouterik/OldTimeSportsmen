@@ -5,13 +5,17 @@ import FlipPostcard from '@/components/FlipPostcard.vue';
 import ShootToTop from '@/components/ShootToTop.vue';
 import SlideshowZoom from '@/components/SlideshowZoom.vue';
 import homePgTextboxImg from '@/assets/images/homepage-textbox.png';
+import { getSlideshowSlides } from '@/utils/slideshowSlideImages';
 import * as homeContent from '@/content/home.md';
+
+export const prerender = true;
 
 const { frontmatter: content } = homeContent;
 
 const footerBgImg = `url('${content.footerImg}')`;
 
-export const prerender = true;
+const slideshowLeft = getSlideshowSlides(1);
+const slideshowRight = getSlideshowSlides(18);
 ---
 
 <Layout>
@@ -31,16 +35,20 @@ export const prerender = true;
     >
       <SlideshowZoom
         client:only='vue'
-        slides={content['character-slideshow-1']}
+        slides={slideshowLeft}
         maxHeightInPx={650}
-        intervalTime={5000}
+        intervalTime={3000}
+        defaultScaleFrom={1.0}
+        defaultScaleTo={1.0}
         class='2xl:hidden'
       />
       <SlideshowZoom
         client:only='vue'
-        slides={content['character-slideshow-1']}
+        slides={slideshowLeft}
         maxHeightInPx={1035}
-        intervalTime={5000}
+        intervalTime={3000}
+        defaultScaleFrom={1.0}
+        defaultScaleTo={1.0}
         class='hidden 2xl:block'
       />
 
@@ -194,10 +202,12 @@ export const prerender = true;
     >
       <SlideshowZoom
         client:only='vue'
-        slides={content['character-slideshow-2']}
+        slides={slideshowRight}
         maxHeightInPx={650}
-        intervalTime={5000}
-        delayStartTime={2500}
+        intervalTime={3000}
+        delayStartTime={1500}
+        defaultScaleFrom={1.0}
+        defaultScaleTo={1.0}
         class='2xl:hidden'
       />
       <div class='hidden 2xl:flex flex-col gap-12 mt-[440px]'>
