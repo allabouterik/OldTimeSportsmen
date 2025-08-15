@@ -1,5 +1,5 @@
 const characterSlideshowUrlBase =
-  'https://res.cloudinary.com/all-about-erik/image/upload/f_auto/v1755035738/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/';
+  'https://res.cloudinary.com/all-about-erik/image/upload/f_auto/OldTimeSportsmen%20Site/Homepage/Character%20Slideshows/';
 const numberOfSlides = 34;
 
 export function getSlideshowSlides(startNum: number) {
