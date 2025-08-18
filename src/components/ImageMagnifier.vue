@@ -32,6 +32,10 @@ const props = defineProps({
     type: Number,
     default: 1366,
   },
+  disableZoom: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['imgloaded']);
@@ -165,12 +169,12 @@ onMounted(() => {
       :style="magnifierStyle"
     />
     <div
-      v-if="windowWidth > minWindowWidth"
+      v-if="!disableZoom && windowWidth > minWindowWidth"
+      v-show="zoomShow"
       class="image-magnifier__zoom"
       :class="zoomClass"
       :style="zoomStyle"
       ref="zoom"
-      v-show="zoomShow"
     >
       <img
         class="image-magnifier__zoomImg"

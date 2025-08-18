@@ -26,10 +26,6 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  disableScroll: {
-    type: Boolean,
-    default: false,
-  },
   background: {
     type: String,
     default: 'rgba(0, 0, 0, 0.8)',
@@ -45,6 +41,14 @@ const props = defineProps({
   minWindowWidthForZoom: {
     type: Number,
     default: 1366,
+  },
+  disableScroll: {
+    type: Boolean,
+    default: false,
+  },
+  disableZoom: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -233,7 +237,7 @@ watch(
         class="w-full text-center px-0"
       >
         <div
-          v-if="windowWidth > minWindowWidthForZoom"
+          v-if="!disableZoom && windowWidth > minWindowWidthForZoom"
           class="collection-viewer__text"
         >
           HOVER OVER IMAGE FOR CLOSE-UP
@@ -253,6 +257,7 @@ watch(
             <div
               class="collection-viewer__image"
               style="position: relative"
+              :class="{ 'lg:mt-8!': disableZoom }"
             >
               <ImageMagnifier
                 :src="image.img"
@@ -262,6 +267,7 @@ watch(
                 zoom-radius="50%"
                 :show-cursor="true"
                 :min-window-width="minWindowWidthForZoom"
+                :disable-zoom="disableZoom"
                 @imgloaded="imageLoaded($event, imageIndex)"
               />
 
