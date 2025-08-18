@@ -128,7 +128,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
               'translate-y-3 2xl:translate-y-4': isMacWebkit,
             },
             isHouseWithSmoke
-              ? 'text-gold text-shadow-strong'
+              ? 'text-cream text-shadow-strong'
               : 'text-black text-shadow-regular',
           ]"
           >HOME SWEET HOME</span
