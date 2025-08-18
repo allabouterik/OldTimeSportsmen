@@ -155,10 +155,14 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
               { 'border-b-green-olive': index === activeLvl1NavItemIndex },
             ]"
             @click="
-              activeLvl1NavItemIndex = index;
-              activeLvl2NavItemIndex = -1;
-              activeLvl3NavItemIndex = -1;
-              activeLvl4NavItemIndex = -1;
+              activeLvl1NavItemIndex =
+                activeLvl1NavItemIndex === index ? -1 : index; // closing / opening
+              activeLvl2NavItemIndex =
+                activeLvl1NavItemIndex === index ? currentLvl2NavItemIndex : -1;
+              activeLvl3NavItemIndex =
+                activeLvl1NavItemIndex === index ? currentLvl3NavItemIndex : -1;
+              activeLvl4NavItemIndex =
+                activeLvl1NavItemIndex === index ? currentLvl4NavItemIndex : -1;
             "
           >
             <span
