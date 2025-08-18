@@ -4,7 +4,7 @@ import BookViewer from '@/components/BookViewer.vue';
 import ShootToTop from '@/components/ShootToTop.vue';
 import { useResponsive } from '@/composables/useResponsive';
 
-const videoUrl = 'https://player.vimeo.com/video/283168900';
+// const videoUrl = 'https://player.vimeo.com/video/283168900';
 
 const bookImages = {
   width: 713,
@@ -79,19 +79,19 @@ const bookVpHeight = computed(() => {
   return actualHeight + 'px';
 });
 
-const videoFrameStyles = computed(() => {
-  const maxVidWidth = 954.656;
-  const maxVidHeight = 537;
+// const videoFrameStyles = computed(() => {
+//   const maxVidWidth = 954.656;
+//   const maxVidHeight = 537;
 
-  let actualWidth =
-    maxVidWidth < mainColWidth.value ? maxVidWidth : mainColWidth.value;
-  let actualHeight = (actualWidth / maxVidWidth) * maxVidHeight;
+//   let actualWidth =
+//     maxVidWidth < mainColWidth.value ? maxVidWidth : mainColWidth.value;
+//   let actualHeight = (actualWidth / maxVidWidth) * maxVidHeight;
 
-  return {
-    width: actualWidth + 'px',
-    height: actualHeight + 'px',
-  };
-});
+//   return {
+//     width: actualWidth + 'px',
+//     height: actualHeight + 'px',
+//   };
+// });
 
 const reloadBook = () => {
   bookKey.value += 1; // increment component key to force reload between toggle of fullscreen / normal-screen
@@ -121,7 +121,7 @@ watch(windowWidth, () => {
 
 <template>
   <div id="mainCol">
-    <section
+    <!-- <section
       class="flex flex-col items-center justify-center md:my-8 p-5 lg:p-6 xl:p-8 2xl:p-12 bg-cover bg-center bg-[url(../assets/images/book-video-bg_mbl.png)] md:bg-[url(../assets/images/book-video-bg_tablet.png)] 2xl:bg-[url(../assets/images/book-video-bg_desktop.png)]"
     >
       <h2
@@ -140,7 +140,7 @@ watch(windowWidth, () => {
         title="Book Promo Video"
       >
       </iframe>
-    </section>
+    </section> -->
 
     <section
       class="flex flex-col items-center justify-center p-5 md:pt-0 lg:p-6 lg:pt-0 xl:p-8 xl:pt-0 2xl:p-12"
