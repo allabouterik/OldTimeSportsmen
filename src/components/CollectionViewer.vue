@@ -58,9 +58,6 @@ const touch = reactive({
   multitouch: false,
   flag: false,
 });
-const glassElCreated = ref(false);
-const zoom = ref(6);
-const headerEl = ref(null);
 const headerHeight = ref(0);
 const windowWidth = ref(0.0);
 const interval = ref(null);
@@ -75,10 +72,6 @@ const viewerStyles = computed(() => {
   return {
     '--headerHeight': headerHeight.value + 'px',
   };
-});
-
-const isViewportForSmallLinks = computed(() => {
-  return windowWidth.value < 992;
 });
 
 function clearTheInterval() {
@@ -97,16 +90,6 @@ function imageLoaded(img_el, imageIndex) {
   if (imageIndex === currentIndex.value) {
     isImageLoaded.value = !img_el ? false : img_el.classList.contains('loaded');
   }
-}
-function shouldPreload(index) {
-  const el = getImageElByIndex(index) || {};
-  const { src } = el;
-  return (
-    !!src ||
-    index === currentIndex.value ||
-    index === currentIndex.value - 1 ||
-    index === currentIndex.value + 1
-  );
 }
 function bindEvents() {
   document.addEventListener('keydown', keyDownHandler, false);
