@@ -127,7 +127,7 @@ watch(windowWidth, () => {
       <h2
         class="font-francois-one text-15px md:text-32px lg:text-36px 2xl:text-40px text-center text-white tracking-wide uppercase md:pt-6 lg:pt-0 pb-2 lg:pb-4 xl:pb-6 2xl:pb-8"
       >
-        Watch our entertaining video about the book
+        Watch our entertaining video
       </h2>
       <iframe
         :src="videoUrl + '?autoplay=0&color=505050&title=0&byline=0&portrait=0'"
