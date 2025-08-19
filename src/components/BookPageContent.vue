@@ -143,7 +143,7 @@ watch(windowWidth, () => {
     </section>
 
     <section
-      class="flex flex-col items-center justify-center p-5 lg:p-6 xl:p-8 2xl:p-12"
+      class="flex flex-col items-center justify-center p-5 md:pt-0 lg:p-6 lg:pt-0 xl:p-8 xl:pt-0 2xl:p-12"
     >
       <p
         class="font-bembo text-16px lg:text-20px xl:text-24px 2xl:text-32px text-justify"
