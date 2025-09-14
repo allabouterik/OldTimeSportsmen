@@ -69,7 +69,10 @@ const currentLvl2NavItemIndex = computed(() => {
 const activeLvl2NavItemIndex = ref(currentLvl2NavItemIndex.value);
 
 const activeLvl2NavItem = computed(() => {
-  return activeLvl1NavItem.value?.subNavItems?.[activeLvl2NavItemIndex.value];
+  const index = activeLvl2NavItemIndex.value;
+  return index !== undefined && index >= 0
+    ? activeLvl1NavItem.value?.subNavItems?.[index]
+    : undefined;
 });
 
 // Level 3 Navigation Items
@@ -82,7 +85,10 @@ const currentLvl3NavItemIndex = computed(() => {
 const activeLvl3NavItemIndex = ref(currentLvl3NavItemIndex.value);
 
 const activeLvl3NavItem = computed(() => {
-  return activeLvl2NavItem.value?.subNavItems?.[activeLvl3NavItemIndex.value];
+  const index = activeLvl3NavItemIndex.value;
+  return index !== undefined && index >= 0
+    ? activeLvl2NavItem.value?.subNavItems?.[index]
+    : undefined;
 });
 
 // Level 4 Navigation Items
@@ -93,6 +99,124 @@ const currentLvl4NavItemIndex = computed(() => {
 });
 
 const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
+
+// Helper function to recursively find the first available page
+const getFirstAvailablePage = (
+  navItem: NavItem,
+  pathSoFar: string = ''
+): string => {
+  // If this item has no subNavItems, it's a final page
+  if (!navItem.subNavItems || navItem.subNavItems.length === 0) {
+    return `${pathSoFar}/${navItem.slug}`;
+  }
+
+  // If it has subNavItems, recursively check the first one
+  const firstSubItem = navItem.subNavItems[0];
+  return getFirstAvailablePage(firstSubItem, `${pathSoFar}/${navItem.slug}`);
+};
+
+// Helper function to get the default page for each navigation section
+const getDefaultPageUrl = (
+  lvl1Item: NavItem,
+  lvl2Item?: NavItem,
+  lvl3Item?: NavItem
+): string => {
+  if (lvl1Item.slug === 'gallery') {
+    if (!lvl2Item) {
+      // Postal Gallery main button - go to the first available page
+      const firstLvl2Item = lvl1Item.subNavItems?.[0];
+      if (firstLvl2Item) {
+        return getFirstAvailablePage(firstLvl2Item, `/${lvl1Item.slug}`);
+      }
+      return '/gallery/hunting/big-game/deer'; // fallback
+    }
+
+    if (!lvl3Item) {
+      // Level 2 sub-navigation items - go to first available page in that section
+      return getFirstAvailablePage(lvl2Item, `/${lvl1Item.slug}`);
+    }
+
+    // Level 3 sub-navigation items - go to first available page in that section
+    return getFirstAvailablePage(
+      lvl3Item,
+      `/${lvl1Item.slug}/${lvl2Item.slug}`
+    );
+  }
+
+  return `/${lvl1Item.slug}`;
+};
+
+// Handle navigation clicks with direct page navigation
+const handleNavClick = (
+  item: NavItem,
+  index: number,
+  level: 'level1' | 'level2' | 'level3' = 'level1'
+) => {
+  if (level === 'level1') {
+    // Level 1 click (main navigation items)
+    if (item.subNavItems) {
+      // If it's Postal Gallery, navigate directly to the first available page
+      if (item.slug === 'gallery') {
+        window.location.href = getDefaultPageUrl(item);
+        return;
+      }
+
+      // For other items with subNavItems, toggle the menu
+      activeLvl1NavItemIndex.value =
+        activeLvl1NavItemIndex.value === index ? -1 : index;
+      activeLvl2NavItemIndex.value =
+        activeLvl1NavItemIndex.value === index
+          ? currentLvl2NavItemIndex.value
+          : -1;
+      activeLvl3NavItemIndex.value =
+        activeLvl1NavItemIndex.value === index
+          ? currentLvl3NavItemIndex.value
+          : -1;
+      activeLvl4NavItemIndex.value =
+        activeLvl1NavItemIndex.value === index
+          ? currentLvl4NavItemIndex.value
+          : -1;
+    }
+  } else if (level === 'level2') {
+    // Level 2 click (sub-navigation items like Hunting, Fishing, etc.)
+    const lvl1Item = activeLvl1NavItem.value;
+    if (lvl1Item && item.subNavItems) {
+      // Navigate directly to the first available page for this section
+      window.location.href = getDefaultPageUrl(lvl1Item, item);
+      return;
+    }
+
+    // For items without subNavItems, navigate to that page
+    if (lvl1Item && !item.subNavItems) {
+      window.location.href = `/${lvl1Item.slug}/${item.slug}`;
+      return;
+    }
+
+    // For items with subNavItems but we want to show the submenu, use the existing behavior
+    activeLvl2NavItemIndex.value = index;
+    activeLvl3NavItemIndex.value = -1;
+    activeLvl4NavItemIndex.value = -1;
+  } else if (level === 'level3') {
+    // Level 3 click (sub-navigation items like Big Game, Small Game, etc.)
+    const lvl1Item = activeLvl1NavItem.value;
+    const lvl2Item = activeLvl2NavItem.value;
+    if (lvl1Item && lvl2Item && item.subNavItems) {
+      // Navigate directly to the first available page for this section
+      window.location.href = getDefaultPageUrl(lvl1Item, lvl2Item, item);
+      return;
+    }
+
+    // For items without subNavItems, navigate to that page
+    if (lvl1Item && lvl2Item && !item.subNavItems) {
+      window.location.href = `/${lvl1Item.slug}/${lvl2Item.slug}/${item.slug}`;
+      return;
+    }
+
+    // For items with subNavItems but we want to show the submenu, use the existing behavior
+    activeLvl3NavItemIndex.value = index;
+    activeLvl4NavItemIndex.value = -1;
+  }
+};
 </script>
 
 <template>
@@ -154,16 +278,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
               item.bgColor,
               { 'border-b-green-olive': index === activeLvl1NavItemIndex },
             ]"
-            @click="
-              activeLvl1NavItemIndex =
-                activeLvl1NavItemIndex === index ? -1 : index; // closing / opening
-              activeLvl2NavItemIndex =
-                activeLvl1NavItemIndex === index ? currentLvl2NavItemIndex : -1;
-              activeLvl3NavItemIndex =
-                activeLvl1NavItemIndex === index ? currentLvl3NavItemIndex : -1;
-              activeLvl4NavItemIndex =
-                activeLvl1NavItemIndex === index ? currentLvl4NavItemIndex : -1;
-            "
+            @click="handleNavClick(item, index, 'level1')"
           >
             <span
               class="text-36px 2xl:text-48px font-garage-gothic font-medium tracking-wider uppercase leading-none py-2 px-4"
@@ -216,11 +331,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
             'text-gold': activeLvl2NavItemIndex === index,
           },
         ]"
-        @click="
-          activeLvl2NavItemIndex = index;
-          activeLvl3NavItemIndex = -1;
-          activeLvl4NavItemIndex = -1;
-        "
+        @click="handleNavClick(item, index, 'level2')"
       >
         <span
           class="block w-full text-center leading-[47px] 2xl:leading-[60px]"
@@ -244,6 +355,7 @@ const activeLvl4NavItemIndex = ref(currentLvl4NavItemIndex.value);
       v-if="activeLvl2NavItem?.subNavItems"
       :items="activeLvl2NavItem?.subNavItems"
       :parentSlug="`${activeLvl1NavItem?.slug}/${activeLvl2NavItem?.slug}`"
+      :onNavClick="(item, index) => handleNavClick(item, index, 'level3')"
       @activeItemIndex="activeLvl3NavItemIndex = $event"
       class="z-50"
     />

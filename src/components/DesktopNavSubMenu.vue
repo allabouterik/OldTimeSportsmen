@@ -5,6 +5,7 @@ import type { NavItem } from '@/components/Header.vue';
 const props = defineProps<{
   items: NavItem[];
   parentSlug?: string;
+  onNavClick?: (item: NavItem, index: number) => void;
 }>();
 
 const activeItemIndex = ref<number | null>(null);
@@ -13,9 +14,35 @@ const emit = defineEmits<{
   (e: 'activeItemIndex', index: number): void;
 }>();
 
-const onButtonClick = (index: number) => {
-  activeItemIndex.value = index;
-  emit('activeItemIndex', index);
+// Helper function to recursively find the first available page
+const getFirstAvailablePage = (
+  navItem: NavItem,
+  pathSoFar: string = ''
+): string => {
+  // If this item has no subNavItems, it's a final page
+  if (!navItem.subNavItems || navItem.subNavItems.length === 0) {
+    return `${pathSoFar}/${navItem.slug}`;
+  }
+
+  // If it has subNavItems, recursively check the first one
+  const firstSubItem = navItem.subNavItems[0];
+  return getFirstAvailablePage(firstSubItem, `${pathSoFar}/${navItem.slug}`);
+};
+
+const onButtonClick = (item: NavItem, index: number) => {
+  if (props.onNavClick) {
+    // Use the custom navigation handler
+    props.onNavClick(item, index);
+  } else if (item.subNavItems) {
+    // If item has subNavItems, navigate to the first available page
+    const basePath = props.parentSlug ? `/${props.parentSlug}` : '';
+    const targetUrl = getFirstAvailablePage(item, basePath);
+    window.location.href = targetUrl;
+  } else {
+    // Default behavior for items without subNavItems - emit the event
+    activeItemIndex.value = index;
+    emit('activeItemIndex', index);
+  }
 };
 
 const currentRoute = ref(window.location.pathname);
@@ -52,7 +79,7 @@ const currentRouteItemIndex = computed(() =>
       <button
         v-else
         class="min-w-1/7 font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 py-1"
-        @click="onButtonClick(index)"
+        @click="onButtonClick(item, index)"
         :class="{
           'text-black hover:text-gold':
             index !== currentRouteItemIndex && index !== activeItemIndex,
