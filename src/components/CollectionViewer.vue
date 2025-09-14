@@ -65,6 +65,8 @@ const touch = reactive({
 const headerHeight = ref(0);
 const windowWidth = ref(0.0);
 const interval = ref(null);
+const currentImageWidth = ref(0);
+const resizeObserver = ref(null);
 
 const formattedImages = computed(() => {
   return props.images.map((image) =>
@@ -75,7 +77,34 @@ const formattedImages = computed(() => {
 const viewerStyles = computed(() => {
   return {
     '--headerHeight': headerHeight.value + 'px',
+    '--arrowOffset': dynamicArrowOffset.value,
   };
+});
+
+const dynamicArrowOffset = computed(() => {
+  if (currentImageWidth.value === 0 || windowWidth.value === 0) {
+    return '8.5%'; // fallback to default
+  }
+
+  // Calculate the space on each side of the image
+  const availableSpace = (windowWidth.value - currentImageWidth.value) / 2;
+
+  // Position arrows halfway between image edge and viewport edge
+  const idealOffset = availableSpace / 2;
+
+  // But no more than 100px from the image edge
+  // This means the arrow should be at most 100px away from the image edge
+  const maxDistanceFromImage = 100;
+  const maxOffset = Math.min(idealOffset, maxDistanceFromImage);
+
+  // The offset from the viewport edge is: availableSpace - maxOffset
+  const offsetFromViewportEdge = availableSpace - maxOffset;
+
+  // Convert to percentage of viewport width
+  const offsetPercentage = (offsetFromViewportEdge / windowWidth.value) * 100;
+
+  // Ensure minimum offset for usability (minimum distance from viewport edge)
+  return Math.max(offsetPercentage, 3) + '%';
 });
 
 function clearTheInterval() {
@@ -93,7 +122,58 @@ function imageLoaded(img_el, imageIndex) {
   img_el.classList.add('loaded');
   if (imageIndex === currentIndex.value) {
     isImageLoaded.value = !img_el ? false : img_el.classList.contains('loaded');
+    // Update current image width when the current image loads
+    // Add a small delay to ensure the image has settled into its final dimensions
+    setTimeout(updateCurrentImageWidth, 50);
   }
+}
+
+function updateCurrentImageWidth() {
+  // Find the current image element
+  const currentImageContainer = document.querySelector(
+    '[data-current="true"] .image-magnifier img'
+  );
+  if (currentImageContainer) {
+    // Use requestAnimationFrame to ensure we get the post-layout dimensions
+    requestAnimationFrame(() => {
+      const rect = currentImageContainer.getBoundingClientRect();
+      if (rect.width > 0) {
+        currentImageWidth.value = rect.width;
+      } else {
+        // If width is still 0, try again after a short delay
+        setTimeout(() => {
+          const retryRect = currentImageContainer.getBoundingClientRect();
+          if (retryRect.width > 0) {
+            currentImageWidth.value = retryRect.width;
+          }
+        }, 100);
+      }
+    });
+  }
+}
+
+function observeImageResize() {
+  // Set up ResizeObserver to monitor current image size changes
+  if (typeof ResizeObserver !== 'undefined') {
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const target = entry.target as HTMLImageElement;
+        const currentImage = document.querySelector(
+          '[data-current="true"] .image-magnifier img'
+        );
+        if (target === currentImage && entry.contentRect.width > 0) {
+          currentImageWidth.value = entry.contentRect.width;
+        }
+      }
+    });
+
+    // Observe all image-magnifier images
+    const images = document.querySelectorAll('.image-magnifier img');
+    images.forEach((img) => observer.observe(img));
+
+    return observer;
+  }
+  return null;
 }
 function bindEvents() {
   document.addEventListener('keydown', keyDownHandler, false);
@@ -166,11 +246,15 @@ onMounted(() => {
     windowWidth.value = window.innerWidth;
     let navLinksEl = document.getElementById('navLinksRow');
     headerHeight.value = getElementOffset(navLinksEl).top;
+    // Update image width on resize
+    setTimeout(updateCurrentImageWidth, 100);
   });
   window.addEventListener('orientationchange', () => {
     windowWidth.value = window.innerWidth;
     let navLinksEl = document.getElementById('navLinksRow');
     headerHeight.value = getElementOffset(navLinksEl).top;
+    // Update image width on orientation change
+    setTimeout(updateCurrentImageWidth, 100);
   });
   if (!document) return;
   observeNavLinksPosition();
@@ -179,6 +263,9 @@ onMounted(() => {
   }, 8000);
   bodyOverflowStyle.value = document.body.style.overflow;
   bindEvents();
+
+  // Set up ResizeObserver for better image dimension tracking
+  resizeObserver.value = observeImageResize();
 });
 
 onBeforeUnmount(() => {
@@ -188,6 +275,11 @@ onBeforeUnmount(() => {
   }
   clearTheInterval();
   unbindEvents();
+
+  // Clean up ResizeObserver
+  if (resizeObserver.value) {
+    resizeObserver.value.disconnect();
+  }
 });
 
 watch(
@@ -200,6 +292,14 @@ watch(
     } else if (props.disableScroll && !val) {
       document.body.style.overflow = bodyOverflowStyle.value;
     }
+  }
+);
+
+watch(
+  () => currentIndex.value,
+  () => {
+    // Update image width when current index changes
+    setTimeout(updateCurrentImageWidth, 100);
   }
 );
 </script>
@@ -253,6 +353,7 @@ watch(
               currentIndex * -100
             }%, 0px, 0px);`"
             class="collection-viewer__image-container"
+            :data-current="imageIndex === currentIndex"
           >
             <div
               class="collection-viewer__image"
@@ -313,10 +414,6 @@ watch(
       url('../assets/fonts/nhaasgrotesktxpro-55rg.svg#NHaasGroteskTXPro-55Rg')
       format('svg'); /* Legacy iOS */
   font-weight: normal;
-}
-
-* {
-  --arrowOffset: 8.5%;
 }
 
 .collection-viewer {
@@ -451,7 +548,6 @@ watch(
   padding: 0;
   position: absolute;
   top: 50%;
-  transform: translate(0, -50%);
   z-index: 1002;
   display: block;
   background: transparent;
@@ -462,9 +558,11 @@ watch(
 }
 .nextArrow {
   right: var(--arrowOffset);
+  transform: translate(50%, -100%);
 }
 .prevArrow {
   left: var(--arrowOffset);
+  transform: translate(-50%, -100%);
 }
 
 .collections_headerLinkText {
@@ -489,39 +587,12 @@ watch(
   bottom: 25px;
 }
 
-/* Extra small devices (portrait phones, less than 576px) */
-@media only screen and (width < 576px) {
-  * {
-    --arrowOffset: 3%;
-  }
-}
-
 /* special breakpoint */
 @media only screen and (width < 339px) {
   .collection-viewer {
     &__text {
       letter-spacing: 3px;
     }
-  }
-}
-
-/* Small devices (landscape phones, 576px and up) */
-@media only screen and (width >= 576px) and (width < 768px) {
-  * {
-    --arrowOffset: 3%;
-  }
-}
-
-/* Medium - large devices (tablets >768px, desktops >992px) */
-@media only screen and (width >= 768px) and (width < 992px) {
-  * {
-    --arrowOffset: 4.5%;
-  }
-}
-
-@media only screen and (width >= 992px) and (width < 1500px) {
-  * {
-    --arrowOffset: 6%;
   }
 }
 
