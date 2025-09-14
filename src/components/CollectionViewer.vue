@@ -7,6 +7,7 @@ import {
   onMounted,
   onBeforeUnmount,
 } from 'vue';
+import type { Ref } from 'vue';
 import LeftChevron from '@/assets/icons/LeftChevron.vue';
 import RightChevron from '@/assets/icons/RightChevron.vue';
 import ImageMagnifier from '@/components/ImageMagnifier.vue';
@@ -64,9 +65,10 @@ const touch = reactive({
 });
 const headerHeight = ref(0);
 const windowWidth = ref(0.0);
-const interval = ref(null);
-const currentImageWidth = ref(0);
-const resizeObserver = ref(null);
+const interval: Ref<number | null> = ref(null);
+const maxImageWidth = ref(0);
+const imageWidths = ref(new Map());
+const resizeObserver = ref<ResizeObserver | null>(null);
 
 const formattedImages = computed(() => {
   return props.images.map((image) =>
@@ -82,12 +84,12 @@ const viewerStyles = computed(() => {
 });
 
 const dynamicArrowOffset = computed(() => {
-  if (currentImageWidth.value === 0 || windowWidth.value === 0) {
+  if (maxImageWidth.value === 0 || windowWidth.value === 0) {
     return '8.5%'; // fallback to default
   }
 
-  // Calculate the space on each side of the image
-  const availableSpace = (windowWidth.value - currentImageWidth.value) / 2;
+  // Calculate the space on each side of the widest image
+  const availableSpace = (windowWidth.value - maxImageWidth.value) / 2;
 
   // Position arrows halfway between image edge and viewport edge
   const idealOffset = availableSpace / 2;
@@ -97,7 +99,6 @@ const dynamicArrowOffset = computed(() => {
   const maxDistanceFromImage = 100;
   const maxOffset = Math.min(idealOffset, maxDistanceFromImage);
 
-  // The offset from the viewport edge is: availableSpace - maxOffset
   const offsetFromViewportEdge = availableSpace - maxOffset;
 
   // Convert to percentage of viewport width
@@ -108,62 +109,92 @@ const dynamicArrowOffset = computed(() => {
 });
 
 function clearTheInterval() {
-  clearInterval(interval.value);
+  if (typeof interval.value === 'number') {
+    clearInterval(interval.value);
+  }
 }
+
 function prev() {
   if (currentIndex.value === 0) return;
   currentIndex.value -= 1;
 }
+
 function next() {
   if (currentIndex.value === props.images.length - 1) return;
   currentIndex.value += 1;
 }
+
 function imageLoaded(img_el, imageIndex) {
   img_el.classList.add('loaded');
   if (imageIndex === currentIndex.value) {
     isImageLoaded.value = !img_el ? false : img_el.classList.contains('loaded');
-    // Update current image width when the current image loads
-    // Add a small delay to ensure the image has settled into its final dimensions
-    setTimeout(updateCurrentImageWidth, 50);
   }
+
+  // Track this image's width for maximum calculation
+  setTimeout(() => updateImageWidth(img_el, imageIndex), 50);
 }
 
-function updateCurrentImageWidth() {
-  // Find the current image element
-  const currentImageContainer = document.querySelector(
-    '[data-current="true"] .image-magnifier img'
-  );
-  if (currentImageContainer) {
-    // Use requestAnimationFrame to ensure we get the post-layout dimensions
+function updateImageWidth(imgElement, imageIndex) {
+  // Track individual image width and update maximum
+  requestAnimationFrame(() => {
+    const rect = imgElement.getBoundingClientRect();
+    if (rect.width > 0) {
+      imageWidths.value.set(imageIndex, rect.width);
+      // Calculate new maximum width
+      const widths = Array.from(imageWidths.value.values());
+      maxImageWidth.value = Math.max(...widths);
+    } else {
+      // If width is still 0, try again after a short delay
+      setTimeout(() => {
+        const retryRect = imgElement.getBoundingClientRect();
+        if (retryRect.width > 0) {
+          imageWidths.value.set(imageIndex, retryRect.width);
+          const widths = Array.from(imageWidths.value.values());
+          maxImageWidth.value = Math.max(...widths);
+        }
+      }, 100);
+    }
+  });
+}
+
+function recalculateAllImageWidths() {
+  // Recalculate all image widths (useful after resize events)
+  const allImages = document.querySelectorAll('.image-magnifier img');
+  allImages.forEach((img, index) => {
     requestAnimationFrame(() => {
-      const rect = currentImageContainer.getBoundingClientRect();
+      const rect = img.getBoundingClientRect();
       if (rect.width > 0) {
-        currentImageWidth.value = rect.width;
-      } else {
-        // If width is still 0, try again after a short delay
-        setTimeout(() => {
-          const retryRect = currentImageContainer.getBoundingClientRect();
-          if (retryRect.width > 0) {
-            currentImageWidth.value = retryRect.width;
-          }
-        }, 100);
+        imageWidths.value.set(index, rect.width);
       }
     });
-  }
+  });
+
+  // Recalculate maximum after a short delay to ensure all measurements are done
+  setTimeout(() => {
+    const widths = Array.from(imageWidths.value.values());
+    if (widths.length > 0) {
+      maxImageWidth.value = Math.max(...widths);
+    }
+  }, 50);
 }
 
 function observeImageResize() {
-  // Set up ResizeObserver to monitor current image size changes
+  // Set up ResizeObserver to monitor image size changes
   if (typeof ResizeObserver !== 'undefined') {
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const target = entry.target as HTMLImageElement;
-        const currentImage = document.querySelector(
-          '[data-current="true"] .image-magnifier img'
-        );
-        if (target === currentImage && entry.contentRect.width > 0) {
-          currentImageWidth.value = entry.contentRect.width;
-        }
+
+        // Track all image widths for maximum calculation
+        const allImages = document.querySelectorAll('.image-magnifier img');
+        allImages.forEach((img, index) => {
+          if (img === target && entry.contentRect.width > 0) {
+            imageWidths.value.set(index, entry.contentRect.width);
+            // Recalculate maximum width
+            const widths = Array.from(imageWidths.value.values());
+            maxImageWidth.value = Math.max(...widths);
+          }
+        });
       }
     });
 
@@ -175,12 +206,15 @@ function observeImageResize() {
   }
   return null;
 }
+
 function bindEvents() {
   document.addEventListener('keydown', keyDownHandler, false);
 }
+
 function unbindEvents() {
   document.removeEventListener('keydown', keyDownHandler, false);
 }
+
 function touchstartHandler(event) {
   touch.count += 1;
   if (touch.count > 1) {
@@ -189,6 +223,7 @@ function touchstartHandler(event) {
   touch.x = event.changedTouches[0].pageX;
   touch.y = event.changedTouches[0].pageY;
 }
+
 function touchmoveHandler(event) {
   if (touch.flag || touch.multitouch) return;
   const touchEvent = event.touches[0] || event.changedTouches[0];
@@ -200,6 +235,7 @@ function touchmoveHandler(event) {
     next();
   }
 }
+
 function touchendHandler() {
   touch.count -= 1;
   if (touch.count <= 0) {
@@ -207,6 +243,7 @@ function touchendHandler() {
   }
   touch.flag = false;
 }
+
 function keyDownHandler(event) {
   switch (event.keyCode) {
     case keyMap.LEFT:
@@ -219,6 +256,7 @@ function keyDownHandler(event) {
       break;
   }
 }
+
 function getElementOffset(el) {
   let top = 0;
   let left = 0;
@@ -233,6 +271,7 @@ function getElementOffset(el) {
     left,
   };
 }
+
 function observeNavLinksPosition() {
   interval.value = setInterval(() => {
     let navLinksEl = document.getElementById('navLinksRow');
@@ -242,26 +281,33 @@ function observeNavLinksPosition() {
 
 onMounted(() => {
   windowWidth.value = window.innerWidth;
+
   window.addEventListener('resize', () => {
     windowWidth.value = window.innerWidth;
     let navLinksEl = document.getElementById('navLinksRow');
     headerHeight.value = getElementOffset(navLinksEl).top;
-    // Update image width on resize
-    setTimeout(updateCurrentImageWidth, 100);
+    // Recalculate all image widths for maximum
+    setTimeout(recalculateAllImageWidths, 100);
   });
+
   window.addEventListener('orientationchange', () => {
     windowWidth.value = window.innerWidth;
     let navLinksEl = document.getElementById('navLinksRow');
     headerHeight.value = getElementOffset(navLinksEl).top;
-    // Update image width on orientation change
-    setTimeout(updateCurrentImageWidth, 100);
+    // Recalculate all image widths for maximum
+    setTimeout(recalculateAllImageWidths, 100);
   });
+
   if (!document) return;
+
   observeNavLinksPosition();
+
   setTimeout(() => {
     clearTheInterval();
   }, 8000);
+
   bodyOverflowStyle.value = document.body.style.overflow;
+
   bindEvents();
 
   // Set up ResizeObserver for better image dimension tracking
@@ -292,14 +338,6 @@ watch(
     } else if (props.disableScroll && !val) {
       document.body.style.overflow = bodyOverflowStyle.value;
     }
-  }
-);
-
-watch(
-  () => currentIndex.value,
-  () => {
-    // Update image width when current index changes
-    setTimeout(updateCurrentImageWidth, 100);
   }
 );
 </script>
