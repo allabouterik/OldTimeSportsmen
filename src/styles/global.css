@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Breakpoints */
@@ -44,6 +44,7 @@
   --text-22px: 1.375rem;
   --text-24px: 1.5rem;
   --text-26px: 1.625rem;
+  --text-30px: 1.875rem;
   --text-32px: 2rem;
   --text-34px: 2.125rem;
   --text-36px: 2.25rem;
@@ -93,7 +94,6 @@
   --text-shadow-regular: 0px 2px 4px rgba(0, 0, 0, 0.15);
   --text-shadow-strong: 1px 2px 3px rgba(0, 0, 0, 0.25);
 
-
   /* Transition */
   --transition-duration-fast: 0.1s;
   --transition-duration-medium: 0.2s;
@@ -108,9 +108,7 @@
 /* Fonts */
 @font-face {
   font-family: 'Garage Gothic';
-  src:
-    local('Garage Gothic'),
-    local('GarageGothic'),
+  src: local('Garage Gothic'), local('GarageGothic'),
     local('GarageGothic-Regular'),
     url('/fonts/garage-gothic/garage-gothic-regular.woff2') format('woff2'),
     url('/fonts/garage-gothic/garage-gothic-regular.woff') format('woff'),
@@ -122,9 +120,7 @@
 
 @font-face {
   font-family: 'Garage Gothic';
-  src:
-    local('Garage Gothic Bold'),
-    local('GarageGothicBold'),
+  src: local('Garage Gothic Bold'), local('GarageGothicBold'),
     local('GarageGothic-Bold'),
     url('/fonts/garage-gothic/garage-gothic-bold.woff2') format('woff2'),
     url('/fonts/garage-gothic/garage-gothic-bold.woff') format('woff'),
@@ -136,10 +132,7 @@
 
 @font-face {
   font-family: 'Francois One';
-  src:
-    local('Francois One'),
-    local('FrancoisOne'),
-    local('FrancoisOne-Regular'),
+  src: local('Francois One'), local('FrancoisOne'), local('FrancoisOne-Regular'),
     url('/fonts/francois_one/FrancoisOne-Regular.ttf') format('truetype');
   font-style: normal;
   font-weight: normal;
@@ -148,9 +141,7 @@
 
 @font-face {
   font-family: 'Bembo';
-  src:
-    local('Bembo'),
-    local('BemboStd'),
+  src: local('Bembo'), local('BemboStd'),
     url('/fonts/bembo/BemboStd.otf') format('opentype');
   font-style: normal;
   font-weight: normal;

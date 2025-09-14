@@ -319,16 +319,16 @@ const handleNavClick = (
     <!-- Level 2 Navigation Bar with Categories -->
     <div
       v-if="activeLvl1NavItemIndex !== null && activeLvl1NavItem?.subNavItems"
-      class="flex items-center justify-center gap-36 relative min-h-[74px] bg-green-olive border-t-4 border-gold z-40 shadow-menu py-3 px-[20px]"
+      class="flex items-center justify-center gap-36 relative min-h-[74px] border-y-4 border-t-gold border-b-4 border-b-green-olive z-40 py-3 px-[20px] bg-[url(../assets/images/header-background.png)] bg-[size:100%_280px] bg-no-repeat"
     >
       <button
         v-for="(item, index) in activeLvl1NavItem?.subNavItems"
         :key="item.label"
-        class="font-garage-gothic text-39px 2xl:text-52px leading-none font-medium tracking-wider uppercase transition-colors rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 px-3"
+        class="lvl2Text font-francois-one text-[38px] 2xl:text-[48px] leading-none font-normal tracking-[0.03em] uppercase transition-colors rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 px-3"
         :class="[
           {
-            'text-green-gray hover:text-gold': activeLvl2NavItemIndex !== index,
-            'text-gold': activeLvl2NavItemIndex === index,
+            'text-black': activeLvl2NavItemIndex !== index,
+            active: activeLvl2NavItemIndex === index,
           },
         ]"
         @click="handleNavClick(item, index, 'level2')"
@@ -370,3 +370,18 @@ const handleNavClick = (
     />
   </nav>
 </template>
+
+<style>
+.lvl2Text {
+  &.active,
+  &:hover {
+    -webkit-text-stroke: 1.2px var(--color-gold);
+    text-shadow: 0px 3px 3px #00000040;
+
+    @media screen and (min-width: 1920px) {
+      -webkit-text-stroke: 1.5px var(--color-gold);
+      text-shadow: 0px 4px 4px #00000040;
+    }
+  }
+}
+</style>

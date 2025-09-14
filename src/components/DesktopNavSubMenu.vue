@@ -56,7 +56,7 @@ const currentRouteItemIndex = computed(() =>
 
 <template>
   <div
-    class="relative py-3 px-[20px] flex flex-wrap justify-around shadow-menu gap-y-2 bg-[url(../assets/images/page-background.jpg)] bg-repeat"
+    class="relative py-3 px-[20px] flex flex-wrap justify-around border-b-4 border-b-green-olive gap-y-2 bg-[url(../assets/images/header-background.png)] bg-[size:100%_280px] bg-no-repeat"
   >
     <template
       v-for="(item, index) in items"
@@ -64,12 +64,11 @@ const currentRouteItemIndex = computed(() =>
     >
       <a
         v-if="!item.subNavItems"
-        class="min-w-1/7 text-center font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 py-1"
+        class="labelText min-w-1/7 text-center font-francois-one text-24px tracking-[-0.02em] 2xl:text-30px leading-none font-normal uppercase transition-colors text-shadow-regular rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 py-1"
         :class="{
-          'text-black hover:text-gold':
+          'text-black':
             index !== currentRouteItemIndex && index !== activeItemIndex,
-          'text-gold':
-            index === currentRouteItemIndex || index === activeItemIndex,
+          active: index === currentRouteItemIndex || index === activeItemIndex,
         }"
         :href="parentSlug ? `/${parentSlug}/${item.slug}` : `/${item.slug}`"
       >
@@ -78,13 +77,12 @@ const currentRouteItemIndex = computed(() =>
 
       <button
         v-else
-        class="min-w-1/7 font-francois-one text-16px 2xl:text-22px leading-none font-normal tracking-wider uppercase transition-colors text-shadow-regular rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 py-1"
+        class="labelText min-w-1/7 font-francois-one text-24px tracking-[-0.02em] 2xl:text-30px leading-none font-normal uppercase transition-colors text-shadow-regular rounded-md outline-gold outline-solid outline-0 focus-visible:outline-2 py-1"
         @click="onButtonClick(item, index)"
         :class="{
-          'text-black hover:text-gold':
+          'text-black':
             index !== currentRouteItemIndex && index !== activeItemIndex,
-          'text-gold':
-            index === currentRouteItemIndex || index === activeItemIndex,
+          active: index === currentRouteItemIndex || index === activeItemIndex,
         }"
       >
         {{ item.label }}
@@ -92,3 +90,17 @@ const currentRouteItemIndex = computed(() =>
     </template>
   </div>
 </template>
+
+<style lang="scss">
+.labelText {
+  &.active,
+  &:hover {
+    -webkit-text-stroke: 0.8px var(--color-gold);
+    text-shadow: 1px 2px 2px #0000004d;
+
+    @media screen and (min-width: 1920px) {
+      -webkit-text-stroke: 1px var(--color-gold);
+    }
+  }
+}
+</style>
